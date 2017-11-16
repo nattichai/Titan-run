@@ -32,6 +32,7 @@ public class Main extends Application{
 		
 		root.getChildren().addAll(Container.getContainer().getMapPane());
 		root.getChildren().addAll(Container.getContainer().getPlayerPane());
+		root.getChildren().addAll(Container.getContainer().getObstaclePane());
 		
 		timerUpdate = new Timeline(new KeyFrame(Duration.millis(1000 / FRAME_RATE), e -> {
 			Controller.update();

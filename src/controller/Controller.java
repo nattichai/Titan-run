@@ -1,6 +1,7 @@
 package controller;
 
 import entity.map.Map;
+import entity.map.Obstacle;
 import entity.player.Player;
 import javafx.animation.Animation.Status;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,7 @@ public class Controller {
 	public static void update() {
 		gravity();
 		moveAll();
+		checkCollision();
 	}
 	
 	private static void gravity() {
@@ -29,9 +31,13 @@ public class Controller {
 			map.moveX();
 		}
 		
+		for (Obstacle obstacle : Container.getContainer().getObstacleList()) {
+			obstacle.moveX();
+		}
+		
 		for (Player player : Container.getContainer().getPlayerList()) {
 			
-			player.decreaseHp(0.01);
+			player.decreaseHp(0.05);		//Lost hp from moving
 			
 			if (Listener.keys.contains(KeyCode.UP)) {		//JUMP
 				if (player.getState() == State.RUNNING) {
@@ -59,6 +65,20 @@ public class Controller {
 		}
 	}
 	
+	public static void checkCollision() {
+		for (Player player : Container.getContainer().getPlayerList()) {
+			for (Obstacle obstacle : Container.getContainer().getObstacleList()) {
+				if (player.getPosition().first == obstacle.getPosition().first + 1100 &&
+						player.getPosition().second + Player.PLAYER_HEIGHT > Map.FLOOR_HEIGHT - obstacle.getHeight() + 50) {
+					player.decreaseHp(10);
+				} else if (player.getPosition().first == obstacle.getPosition().first + 1200 &&
+						player.getPosition().second + Player.PLAYER_HEIGHT > Map.FLOOR_HEIGHT - obstacle.getHeight() + 50) {
+					player.decreaseHp(10);
+				}
+			}
+		}
+	}
+	
 	public static void animate() {
 		animateAll();
 	}
@@ -68,4 +88,5 @@ public class Controller {
 			player.changeImage();
 		}
 	}
+	
 }

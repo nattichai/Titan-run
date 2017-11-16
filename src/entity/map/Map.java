@@ -23,7 +23,7 @@ public class Map extends Entity implements Movable{
 	
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		Image image = new Image("file:res/map2.jpg");
+		Image image = new Image(ClassLoader.getSystemResource("map2.jpg").toString());
 		gc.drawImage(image, position.first, position.second, 1333, Main.SCREEN_HEIGHT);
 		gc.drawImage(image, position.first + 1333, position.second, 1333, Main.SCREEN_HEIGHT);
 	}

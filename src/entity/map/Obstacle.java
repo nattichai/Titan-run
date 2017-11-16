@@ -11,13 +11,10 @@ import utility.Pair;
 
 public class Obstacle extends Map implements Movable{
 	
-	double height;
+	private double height;
 
 	public Obstacle(Pair pos, Pair size) {
 		super(pos, size);
-		
-		height = 100;
-		
 	}
 	
 	public void draw() {
@@ -25,17 +22,19 @@ public class Obstacle extends Map implements Movable{
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		Image obstacle = new Image(ClassLoader.getSystemResource("obstacle1.png").toString());
 		gc.drawImage(obstacle, 1100, FLOOR_HEIGHT - height, 300, height);
-//		gc.setFill(Color.BLACK);
-//		gc.fillRect(1100, FLOOR_HEIGHT - height, 100, FLOOR_HEIGHT + height);
 	}
 	
 	public void recycle() {
 		if (position.first + Main.SCREEN_WIDTH + 250 <= 0) {
 			position.first = 0;
-			int rnd = new Random().nextInt(5) + 1;
+			int rnd = new Random().nextInt(5) + 3;
 			height = rnd * 50;
 			draw();
 		}
+	}
+
+	public double getHeight() {
+		return height;
 	}
 
 }

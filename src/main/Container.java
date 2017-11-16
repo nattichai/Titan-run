@@ -40,25 +40,19 @@ public class Container {
 		Obstacle obstacle = new Obstacle(new Pair(0, 0), new Pair(Main.SCREEN_WIDTH * 2, Main.SCREEN_HEIGHT));
 		container.add(obstacle);
 		
-//		Rectangle r = new Rectangle(0, Map.FLOOR_HEIGHT, Main.SCREEN_WIDTH, Map.FLOOR_HEIGHT);
-//		r.setFill(Color.DIMGRAY);
-//		container.add(r);
-		
 		Player player = new Player(new Pair(Player.PLAYER_XPOS - Player.PLAYER_WIDTH / 2, Map.FLOOR_HEIGHT - Player.PLAYER_HEIGHT),
 				new Pair(Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT));
 		container.add(player);
 	}
 	
 	public void add(Object object) {
-		if (object instanceof Map) {
-			mapList.add((Map) object);
-			mapPane.getChildren().add(((Entity) object).getCanvas());
-		} else if (object instanceof Obstacle) {
+		if (object instanceof Obstacle) {
 			obstacleList.add((Obstacle) object);
 			obstaclePane.getChildren().add(((Entity) object).getCanvas());
-		} else if (object instanceof Rectangle) {
-			mapPane.getChildren().add((Rectangle) object);
-		} else if (object instanceof Player) {
+		} else if (object instanceof Map) {
+			mapList.add((Map) object);
+			mapPane.getChildren().add(((Entity) object).getCanvas());
+		}  else if (object instanceof Player) {
 			playerList.add((Player) object);
 			playerPane.getChildren().addAll(((Entity) object).getCanvas(), ((Player) object).getHpBar());
 		}
@@ -82,6 +76,14 @@ public class Container {
 
 	public ArrayList<Map> getMapList() {
 		return mapList;
+	}
+
+	public Pane getObstaclePane() {
+		return obstaclePane;
+	}
+
+	public ArrayList<Obstacle> getObstacleList() {
+		return obstacleList;
 	}
 	
 }

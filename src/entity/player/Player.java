@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import main.Main;
 import property.*;
 import utility.*;
+import controller.Controller;
 import entity.*;
 import entity.map.Map;
 
@@ -57,29 +58,35 @@ public class Player extends Entity implements Animatable, Jumpable, Slidable {
 	
 	public void decreaseHp(double d) {
 		hp -= d;
-		hpBar.setProgress(hp / maxHp);
+		
+		if (d >= 10) {
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
+				if (canvas.getOpacity() == 1)
+					canvas.setOpacity(0.5);
+				else
+					canvas.setOpacity(1);
+			}));
+			timeline.setCycleCount(10);
+			timeline.play();
+		}
 		
 		if (hp <= 0) {
 			die();
+			hp = 0.00001;
 		}
+		
+		hpBar.setProgress(hp / maxHp);
 	}
 	
 	public void die() {
 		
-		Timeline timeline = new Timeline (new KeyFrame(Duration.millis(1), e -> {
-			canvas.setRotate(90);
-			currentAnimation = 8;
-			position.second = Map.FLOOR_HEIGHT - PLAYER_WIDTH;
-			updatePosition();
-			draw();
-		}));
-		timeline.setCycleCount(1);
-		timeline.play();
-		timeline.setOnFinished(e -> {
-			Main.getTimerUpdate().stop();
-			Main.getTimerAnimate().stop();
-			new Alert(AlertType.NONE, "YOU DIED!!", ButtonType.OK).showAndWait();
-		});
+		canvas.setRotate(90);
+		currentAnimation = 8;
+		position.second = Map.FLOOR_HEIGHT - PLAYER_WIDTH;
+		updatePosition();
+		draw();
+		Main.getTimerUpdate().stop();
+		Main.getTimerAnimate().stop();
 	}
 
 	public void draw() {
