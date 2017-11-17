@@ -23,10 +23,10 @@ public class Player extends Entity implements Animatable, Jumpable, Slidable {
 	public static final double PLAYER_WIDTH = 120;
 	public static final double PLAYER_HEIGHT = 200;
 	public static final Image[] images = new Image[20];
-	public static final Image imageSlide = new Image(ClassLoader.getSystemResource("player1_walk9.png").toString());
+	public static final Image imageSlide = new Image(ClassLoader.getSystemResource("images/character/player1_walk9.png").toString());
 	static {
 		for (int i = 1; i <= 10; ++i) {
-			images[i - 1] = new Image(ClassLoader.getSystemResource("player1_walk" + i + ".png").toString());
+			images[i - 1] = new Image(ClassLoader.getSystemResource("images/character/player1_walk" + i + ".png").toString());
 		}
 	}
 	
@@ -36,12 +36,15 @@ public class Player extends Entity implements Animatable, Jumpable, Slidable {
 	private double ySpeed;
 	private int currentAnimation;
 	private double hp, maxHp;
+	
+	private PowerState powerState;
 
 	public Player(Pair pos, Pair size) {
 		super(pos, size);
 		
 		currentAnimation = 0;
 		state = State.RUNNING;
+		powerState = PowerState.NORMAL;
 		hp = 100;
 		maxHp = 100;
 		
@@ -58,8 +61,15 @@ public class Player extends Entity implements Animatable, Jumpable, Slidable {
 	
 	public void decreaseHp(double d) {
 		hp -= d;
+		if (hp <= 0) {
+			die();
+			hp = 0.00001;
+			d = 10;
+		}
+		hpBar.setProgress(hp / maxHp);
 		
 		if (d >= 10) {
+			powerState = PowerState.IMMORTAL;
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
 				if (canvas.getOpacity() == 1)
 					canvas.setOpacity(0.5);
@@ -68,14 +78,8 @@ public class Player extends Entity implements Animatable, Jumpable, Slidable {
 			}));
 			timeline.setCycleCount(10);
 			timeline.play();
+			timeline.setOnFinished(e -> powerState = PowerState.NORMAL);
 		}
-		
-		if (hp <= 0) {
-			die();
-			hp = 0.00001;
-		}
-		
-		hpBar.setProgress(hp / maxHp);
 	}
 	
 	public void die() {
@@ -140,5 +144,16 @@ public class Player extends Entity implements Animatable, Jumpable, Slidable {
 	public void setCurrentAnimation(int currentAnimation) {
 		this.currentAnimation = currentAnimation;
 	}
+
+	public PowerState getHitState() {
+		return powerState;
+	}
+
+	public void setHitState(PowerState hitState) {
+		this.powerState = hitState;
+	}
+	
+	
+	
 	
 }

@@ -12,7 +12,8 @@ public class Map extends Entity implements Movable{
 	public static final double FLOOR_HEIGHT = 600;
 	public static final double GRAVITY = 0.8;
 	
-	double xSpeed;
+	private double xSpeed;
+	private double width;
 	
 	public Map(Pair pos, Pair size) {
 		super(pos, size);
@@ -23,14 +24,16 @@ public class Map extends Entity implements Movable{
 	
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		Image image = new Image(ClassLoader.getSystemResource("map2.jpg").toString());
-		gc.drawImage(image, position.first, position.second, 1333, Main.SCREEN_HEIGHT);
-		gc.drawImage(image, position.first + 1333, position.second, 1333, Main.SCREEN_HEIGHT);
+		Image image = new Image(ClassLoader.getSystemResource("images/map/map2.jpg").toString());
+		width = image.getWidth();
+		
+		gc.drawImage(image, 0, 0);
+		gc.drawImage(image, width, 0);
 	}
 
 	public void moveX() {
-		position.first += xSpeed;
 		recycle();
+		position.first += xSpeed;
 		updatePosition();
 	}
 	
@@ -39,8 +42,11 @@ public class Map extends Entity implements Movable{
 	}
 	
 	public void recycle() {
-		if (position.first + 1333 <= 0) {
+		if (position.first + width <= 0) {
 			position.first = 0;
+//			Container.getContainer().remove(this);
+//			Map map = new Map(new Pair(0, 0), new Pair(Main.SCREEN_WIDTH * 3, Main.SCREEN_HEIGHT));
+//			Container.getContainer().add(map);
 		}
 	}
 
