@@ -1,14 +1,15 @@
 package main;
 
-import javafx.animation.*;
-import javafx.application.*;
-import javafx.scene.*;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 import controller.Controller;
 import controller.Listener;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main extends Application{
 	public static final double SCREEN_WIDTH = 1000;
@@ -16,7 +17,7 @@ public class Main extends Application{
 	public static final int FRAME_RATE = 50;
 	public static final int ANIMATE_RATE = 20;
 	
-	private Pane root;
+	private static Pane root;
 	private static Timeline timerUpdate;
 	private static Timeline timerAnimate;
 	
@@ -26,14 +27,9 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Container.getContainer().initialize();
-		
 		root = new Pane();
 		
-		root.getChildren().addAll(Container.getContainer().getMapPane());
-		root.getChildren().addAll(Container.getContainer().getObstaclePane());
-		root.getChildren().addAll(Container.getContainer().getFireBallPane());
-		root.getChildren().addAll(Container.getContainer().getPlayerPane());
+		Container.initialize();
 		
 		timerUpdate = new Timeline(new KeyFrame(Duration.millis(1000 / FRAME_RATE), e -> {
 			Controller.update();
@@ -59,6 +55,10 @@ public class Main extends Application{
 			timerUpdate.stop();
 			timerAnimate.stop();
 		});
+	}
+
+	public static Pane getRoot() {
+		return root;
 	}
 
 	public static Timeline getTimerUpdate() {

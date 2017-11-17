@@ -1,51 +1,62 @@
 package main;
 
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
 import java.util.ArrayList;
 
 import entity.Entity;
-import entity.map.*;
+import entity.map.Map;
 import entity.obstacle.Obstacle;
 import entity.player.Player;
 import entity.skill.Fireball;
-import utility.*;
+import entity.skill.Meteor;
+import entity.skill.Skill;
+import entity.textmodel.TextModel;
+import javafx.scene.layout.Pane;
+import utility.Pair;
 
 public class Container {
-	private static final Container container = new Container();
+	private static Container container;
 	
 	private Pane mapPane;
 	private Pane playerPane;
 	private Pane obstaclePane;
-	private Pane fireBallPane;
+	private Pane skillPane;
+	private Pane textPane;
 	
 	private ArrayList<Map> mapList;
 	private ArrayList<Player> playerList;
 	private ArrayList<Obstacle> obstacleList;
-	private ArrayList<Fireball> fireBallList;
+	private ArrayList<Skill> skillList;
+	private ArrayList<TextModel> textList;
 
 	public Container() {
 		mapPane = new Pane();
 		playerPane = new Pane();
 		obstaclePane = new Pane();
-		fireBallPane = new Pane();
+		skillPane = new Pane();
+		textPane = new Pane();
+		
+		Main.getRoot().getChildren().clear();
+		Main.getRoot().getChildren().addAll(mapPane, obstaclePane, playerPane, skillPane, textPane);
 		
 		mapList = new ArrayList<>();
 		playerList = new ArrayList<>();
 		obstacleList = new ArrayList<>();
-		fireBallList = new ArrayList<>();
+		skillList = new ArrayList<>();
+		textList = new ArrayList<>();
 	}
 	
-	public void initialize() {
+	public static void initialize() {
+		container = new Container();
+		
 		Map map = new Map(new Pair(0, 0), new Pair(Main.SCREEN_WIDTH * 3, Main.SCREEN_HEIGHT));
 		container.add(map);
 		
-		Player player = new Player(new Pair(Player.PLAYER_XPOS - Player.PLAYER_WIDTH / 2, Map.FLOOR_HEIGHT - Player.PLAYER_HEIGHT),
+		Player player = new Player(new Pair(Player.PLAYER_POSITON_X, Map.FLOOR_HEIGHT - Player.PLAYER_HEIGHT),
 				new Pair(Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT));
 		container.add(player);
+		
+		new Fireball(new Pair(0, 0), new Pair(0, 0));
+		new Meteor(new Pair(0, 0), new Pair(0, 0));
 	}
 	
 	public void add(Object object) {
@@ -61,12 +72,17 @@ public class Container {
 		
 		else if (object instanceof Player) {
 			playerList.add((Player) object);
-			playerPane.getChildren().addAll(((Entity) object).getCanvas(), ((Player) object).getHpBar());
+			playerPane.getChildren().addAll(((Entity) object).getCanvas(), ((Player) object).getHpBar(), ((Player) object).getScoreText());
 		}
 		
-		else if (object instanceof Fireball) {
-			fireBallList.add((Fireball) object);
-			fireBallPane.getChildren().add(((Entity) object).getCanvas());
+		else if (object instanceof Skill) {
+			skillList.add((Skill) object);
+			skillPane.getChildren().add(((Entity) object).getCanvas());
+		}
+		
+		else if (object instanceof TextModel) {
+			textList.add((TextModel) object);
+			textPane.getChildren().add(((Entity) object).getCanvas());
 		}
 	}
 	
@@ -86,9 +102,14 @@ public class Container {
 			playerPane.getChildren().removeAll(((Entity) object).getCanvas(), ((Player) object).getHpBar());
 		}
 		
-		else if (object instanceof Fireball) {
-			fireBallList.remove((Fireball) object);
-			fireBallPane.getChildren().remove(((Entity) object).getCanvas());
+		else if (object instanceof Skill) {
+			skillList.remove((Skill) object);
+			skillPane.getChildren().remove(((Entity) object).getCanvas());
+		}
+		
+		else if (object instanceof TextModel) {
+			textList.remove((TextModel) object);
+			textPane.getChildren().remove(((Entity) object).getCanvas());
 		}
 	}
 	
@@ -120,12 +141,20 @@ public class Container {
 		return obstacleList;
 	}
 
-	public Pane getFireBallPane() {
-		return fireBallPane;
+	public Pane getSkillPane() {
+		return skillPane;
 	}
 
-	public ArrayList<Fireball> getFireBallList() {
-		return fireBallList;
+	public ArrayList<Skill> getSkillList() {
+		return skillList;
+	}
+
+	public Pane getTextPane() {
+		return textPane;
+	}
+
+	public ArrayList<TextModel> getTextList() {
+		return textList;
 	}
 	
 }

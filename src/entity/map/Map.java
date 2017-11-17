@@ -1,60 +1,84 @@
 package entity.map;
 
-import javafx.scene.canvas.*;
-import javafx.scene.image.Image;
+import java.util.Random;
 
-import main.*;
-import entity.*;
-import property.*;
-import utility.*;
+import entity.Entity;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import property.Movable;
+import property.State;
+import utility.Pair;
 
 public class Map extends Entity implements Movable{
 	public static final double FLOOR_HEIGHT = 600;
 	public static final double GRAVITY = 0.8;
+	public static final double PASSIVE_DAMAGE = 0.01;
+	public static final double PASSIVE_SCORE = 1;
 	
-	private double xSpeed;
-	private double width;
+	protected double speedX, speedY;
+	protected double width;
 	
 	public Map(Pair pos, Pair size) {
 		super(pos, size);
 		
-		xSpeed = -10;
+		speedX = -10;
+		speedY = 0;
 		state = State.STILL;
+		
+		draw();
 	}
 	
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		Image image = new Image(ClassLoader.getSystemResource("images/map/map2.jpg").toString());
+		int rnd = new Random().nextInt(1) + 2;
+		Image image = new Image(ClassLoader.getSystemResource("images/map/map" + rnd + ".jpg").toString());
 		width = image.getWidth();
 		
 		gc.drawImage(image, 0, 0);
 		gc.drawImage(image, width, 0);
 	}
 
-	public void moveX() {
-		recycle();
-		position.first += xSpeed;
+	public void move() {
+		position.first += speedX;
+		position.second += speedY;
+		
+		if (position.first + width <= 0) {
+			position.first = 0;
+		}
+		
 		updatePosition();
 	}
 	
 	public void updatePosition() {
 		canvas.setTranslateX(position.first);
-	}
-	
-	public void recycle() {
-		if (position.first + width <= 0) {
-			position.first = 0;
-//			Container.getContainer().remove(this);
-//			Map map = new Map(new Pair(0, 0), new Pair(Main.SCREEN_WIDTH * 3, Main.SCREEN_HEIGHT));
-//			Container.getContainer().add(map);
-		}
+		canvas.setTranslateY(position.second);
 	}
 
-	public double getXSpeed() {
-		return xSpeed;
+	public boolean isDead() {
+		return false;
 	}
 
-	public void setXSpeed(double xSpeed) {
-		this.xSpeed = xSpeed;
+	public double getSpeedX() {
+		return speedX;
+	}
+
+	public void setSpeedX(double speedX) {
+		this.speedX = speedX;
+	}
+
+	public double getSpeedY() {
+		return speedY;
+	}
+
+	public void setSpeedY(double speedY) {
+		this.speedY = speedY;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
 	}
 }

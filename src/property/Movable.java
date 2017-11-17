@@ -1,8 +1,6 @@
 package property;
 
 public interface Movable {
-	public abstract void moveX();
-	
-	public abstract double getXSpeed();
-	public abstract void setXSpeed(double xSpeed);
+	public abstract void move();
+	public abstract void updatePosition();
 }

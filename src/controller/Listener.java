@@ -1,9 +1,11 @@
 package controller;
 
-import java.util.*;
+import java.util.HashSet;
 
 import javafx.animation.Animation.Status;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import main.Container;
 import main.Main;
 
 public class Listener {
@@ -20,6 +22,10 @@ public class Listener {
 				Main.getTimerUpdate().pause();
 				Main.getTimerAnimate().pause();
 			}
+		}
+		
+		if (keys.contains(KeyCode.ENTER) && Container.getContainer().getPlayerList().isEmpty()) {		//RETRY
+			Container.initialize();
 		}
 	}
 	
