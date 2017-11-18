@@ -175,7 +175,7 @@ public class Player extends Entity implements Animatable, Movable, Slidable {
 			canvas.setTranslateY(position.second);
 			canvas.setOpacity(1 - ((position.second + PLAYER_HEIGHT - Map.FLOOR_HEIGHT) / (Main.SCREEN_HEIGHT - Map.FLOOR_HEIGHT)));
 		}));
-		timeline.setCycleCount(Main.FRAME_RATE * 1);
+		timeline.setCycleCount(Main.FRAME_RATE / 2);
 		timeline.play();
 		timeline.setOnFinished(e -> {
 			hp = 0.00001;

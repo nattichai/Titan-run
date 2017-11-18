@@ -7,8 +7,6 @@ import property.Movable;
 import utility.Pair;
 
 public abstract class Skill extends Entity implements Movable, Animatable{
-	public static final Image[] images = new Image[20];
-	
 	protected double speedX, speedY;
 	protected int currentAnimation;
 

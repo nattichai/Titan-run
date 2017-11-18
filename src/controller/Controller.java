@@ -2,6 +2,9 @@ package controller;
 
 import java.util.Random;
 
+import entity.item.HealthPotion;
+import entity.item.Item;
+import entity.item.Jelly;
 import entity.map.Map;
 import entity.obstacle.AirObstacle;
 import entity.obstacle.GroundObstacle;
@@ -28,6 +31,8 @@ public class Controller {
 	private static State saveState;
 	private static int tick = 0;
 	private static int rnd = 0;
+	
+	private static int height = 0;
 
 	public static void update() {
 		randomObstacle();
@@ -42,6 +47,7 @@ public class Controller {
 			rnd = new Random().nextInt(RANGE_OBSTACLE_SPACE) + MIN_OBSTACLE_SPACE;
 		}
 		tick++;
+		
 		if (tick > rnd) {
 			tick = 0;
 			int rnd = new Random().nextInt(3);
@@ -49,14 +55,26 @@ public class Controller {
 				GroundObstacle obstacle = new GroundObstacle(new Pair(1100, 0),
 						new Pair(Obstacle.OBSTACLE_WIDTH, Main.SCREEN_HEIGHT));
 				Container.getContainer().add(obstacle);
+				height = 0;
 			} else if (rnd == 1) {
 				AirObstacle obstacle = new AirObstacle(new Pair(1100, 0),
 						new Pair(Obstacle.OBSTACLE_WIDTH, Main.SCREEN_HEIGHT));
 				Container.getContainer().add(obstacle);
+				height = -60;
 			} else if (rnd == 2) {
 				HoleObstacle obstacle = new HoleObstacle(new Pair(1100, 0),
 						new Pair(HoleObstacle.HOLE_WIDTH, Main.SCREEN_HEIGHT));
 				Container.getContainer().add(obstacle);
+				height = 0;
+			}
+		}
+		else if (tick % 25 == 0) {
+			if (new Random().nextInt(20) >= 3) {
+				Jelly jelly = new Jelly(new Pair(1100, height), new Pair(Jelly.JELLY_WIDTH, Main.SCREEN_HEIGHT));
+				Container.getContainer().add(jelly);
+			} else {
+				HealthPotion healthPotion = new HealthPotion(new Pair(1100, height), new Pair(HealthPotion.POTION_WIDTH, Main.SCREEN_HEIGHT));
+				Container.getContainer().add(healthPotion);
 			}
 		}
 	}
@@ -131,7 +149,7 @@ public class Controller {
 					if (Container.getContainer().getSkillList().size() < Player.LIMIT_NORMAL_ATTACK) { // NOT EXCEED
 																										// LIMIT NUMBER
 						Listener.keys.remove(KeyCode.R);
-						
+
 						Timeline timerMeteor = new Timeline(new KeyFrame(Duration.millis(150), e -> {
 							Meteor meteor = new Meteor(
 									new Pair(Player.PLAYER_POSITON_X,
@@ -154,6 +172,10 @@ public class Controller {
 			skill.move();
 		}
 
+		for (Item item : Container.getContainer().getItemList()) {
+			item.move();
+		}
+
 	}
 
 	public static void checkCollision() {
@@ -168,6 +190,13 @@ public class Controller {
 					}
 				}
 			}
+			
+			for (Item item : Container.getContainer().getItemList()) {
+				if (item.isCollision(player.getPosition(), player.getState())) {
+					item.setCollected(true);
+					item.effect(player);
+				}
+			}
 		}
 	}
 
@@ -175,6 +204,7 @@ public class Controller {
 		Container.getContainer().getObstacleList().removeIf(o -> o.isDead());
 		Container.getContainer().getSkillList().removeIf(f -> f.isDead());
 		Container.getContainer().getPlayerList().removeIf(p -> p.isDead());
+		Container.getContainer().getItemList().removeIf(i -> i.isDead());
 	}
 
 	public static void animate() {
@@ -188,6 +218,17 @@ public class Controller {
 
 		for (Skill skill : Container.getContainer().getSkillList()) {
 			skill.changeImage();
+		}
+
+		for (Item item : Container.getContainer().getItemList()) {
+			if (item instanceof Jelly) {
+//				System.out.println("jelly");
+				((Jelly) item).changeImage();
+			}
+			else if (item instanceof HealthPotion) {
+//				System.out.println("potion");
+				((HealthPotion) item).changeImage();
+			}
 		}
 	}
 

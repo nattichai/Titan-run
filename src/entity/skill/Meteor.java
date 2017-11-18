@@ -9,6 +9,7 @@ import utility.Pair;
 public class Meteor extends Skill {
 	public static final double SKILL_WIDTH = 200;
 	public static final double SKILL_HEIGHT = 200;
+	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 8; ++i) {
 			images[i] = new Image(ClassLoader.getSystemResource("images/skill/meteor/meteor" + i + ".png").toString());

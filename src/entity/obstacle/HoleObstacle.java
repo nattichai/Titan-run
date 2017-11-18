@@ -2,10 +2,13 @@ package entity.obstacle;
 
 import java.util.Random;
 
+import entity.item.Jelly;
 import entity.map.Map;
 import entity.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.Container;
+import main.Main;
 import property.State;
 import utility.Pair;
 
@@ -19,6 +22,13 @@ public class HoleObstacle extends Obstacle {
 		int rnd = new Random().nextInt(1) + 1;
 		obstacle = new Image(ClassLoader.getSystemResource("images/obstacle/hole" + rnd + ".png").toString());
 		height = obstacle.getHeight();
+		
+		Jelly jelly = new Jelly(new Pair(1100, -50), new Pair(Jelly.JELLY_WIDTH, Main.SCREEN_HEIGHT));
+		Container.getContainer().add(jelly);
+		jelly = new Jelly(new Pair(1200, -100), new Pair(Jelly.JELLY_WIDTH, Main.SCREEN_HEIGHT));
+		Container.getContainer().add(jelly);
+		jelly = new Jelly(new Pair(1300, -50), new Pair(Jelly.JELLY_WIDTH, Main.SCREEN_HEIGHT));
+		Container.getContainer().add(jelly);
 
 		draw();
 	}

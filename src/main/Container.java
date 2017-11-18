@@ -3,6 +3,9 @@ package main;
 import java.util.ArrayList;
 
 import entity.Entity;
+import entity.item.HealthPotion;
+import entity.item.Item;
+import entity.item.Jelly;
 import entity.map.Map;
 import entity.obstacle.Obstacle;
 import entity.player.Player;
@@ -21,12 +24,14 @@ public class Container {
 	private Pane obstaclePane;
 	private Pane skillPane;
 	private Pane textPane;
+	private Pane itemPane;
 	
 	private ArrayList<Map> mapList;
 	private ArrayList<Player> playerList;
 	private ArrayList<Obstacle> obstacleList;
 	private ArrayList<Skill> skillList;
 	private ArrayList<TextModel> textList;
+	private ArrayList<Item> itemList;
 
 	public Container() {
 		mapPane = new Pane();
@@ -34,15 +39,17 @@ public class Container {
 		obstaclePane = new Pane();
 		skillPane = new Pane();
 		textPane = new Pane();
+		itemPane = new Pane();
 		
 		Main.getRoot().getChildren().clear();
-		Main.getRoot().getChildren().addAll(mapPane, obstaclePane, playerPane, skillPane, textPane);
+		Main.getRoot().getChildren().addAll(mapPane, obstaclePane, itemPane, playerPane, skillPane, textPane);
 		
 		mapList = new ArrayList<>();
 		playerList = new ArrayList<>();
 		obstacleList = new ArrayList<>();
 		skillList = new ArrayList<>();
 		textList = new ArrayList<>();
+		itemList = new ArrayList<>();
 	}
 	
 	public static void initialize() {
@@ -57,6 +64,8 @@ public class Container {
 		
 		new Fireball(new Pair(0, 0), new Pair(0, 0));
 		new Meteor(new Pair(0, 0), new Pair(0, 0));
+		new Jelly(new Pair(0, 0), new Pair(0, 0));
+		new HealthPotion(new Pair(0, 0), new Pair(0, 0));
 	}
 	
 	public void add(Object object) {
@@ -84,6 +93,11 @@ public class Container {
 			textList.add((TextModel) object);
 			textPane.getChildren().add(((Entity) object).getCanvas());
 		}
+		
+		else if (object instanceof Item) {
+			itemList.add((Item) object);
+			itemPane.getChildren().add(((Entity) object).getCanvas());
+		}
 	}
 	
 	public void remove(Object object) {
@@ -110,6 +124,11 @@ public class Container {
 		else if (object instanceof TextModel) {
 			textList.remove((TextModel) object);
 			textPane.getChildren().remove(((Entity) object).getCanvas());
+		}
+		
+		else if (object instanceof Item) {
+			itemList.remove((Item) object);
+			itemPane.getChildren().remove(((Entity) object).getCanvas());
 		}
 	}
 	
@@ -155,6 +174,14 @@ public class Container {
 
 	public ArrayList<TextModel> getTextList() {
 		return textList;
+	}
+
+	public Pane getItemPane() {
+		return itemPane;
+	}
+
+	public ArrayList<Item> getItemList() {
+		return itemList;
 	}
 	
 }

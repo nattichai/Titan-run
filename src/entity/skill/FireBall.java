@@ -9,6 +9,7 @@ import utility.Pair;
 public class Fireball extends Skill {
 	public static final double SKILL_WIDTH = 50;
 	public static final double SKILL_HEIGHT = 30;
+	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 20; ++i) {
 			images[i] = new Image(ClassLoader.getSystemResource("images/skill/fireball/Fireball" + i + ".png").toString());
@@ -20,7 +21,7 @@ public class Fireball extends Skill {
 		
 		speedX = 20;
 		speedY = 0;
-		currentAnimation = 5;
+		currentAnimation = 0;
 		
 		draw();
 	}
@@ -28,8 +29,8 @@ public class Fireball extends Skill {
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());	//clear canvas
-		currentAnimation %= 10;
-		currentAnimation += 5;
+		currentAnimation %= 20;
+//		currentAnimation += 5;
 		gc.drawImage(images[currentAnimation ++], 0, 0, SKILL_WIDTH, SKILL_HEIGHT);
 	}
 	

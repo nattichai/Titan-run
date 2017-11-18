@@ -12,7 +12,7 @@ import utility.Pair;
 public class Map extends Entity implements Movable{
 	public static final double FLOOR_HEIGHT = 600;
 	public static final double GRAVITY = 0.8;
-	public static final double PASSIVE_DAMAGE = 0.01;
+	public static final double PASSIVE_DAMAGE = 0.05;
 	public static final double PASSIVE_SCORE = 1;
 	
 	protected double speedX, speedY;
