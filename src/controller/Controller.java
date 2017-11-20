@@ -2,6 +2,8 @@ package controller;
 
 import java.util.Random;
 
+import entity.characters.monster.Monster;
+import entity.characters.player.Player;
 import entity.item.HealthPotion;
 import entity.item.Item;
 import entity.item.Jelly;
@@ -10,8 +12,8 @@ import entity.obstacle.AirObstacle;
 import entity.obstacle.GroundObstacle;
 import entity.obstacle.HoleObstacle;
 import entity.obstacle.Obstacle;
-import entity.player.Player;
 import entity.skill.Fireball;
+import entity.skill.Lightning;
 import entity.skill.Meteor;
 import entity.skill.Skill;
 import javafx.animation.KeyFrame;
@@ -22,60 +24,76 @@ import main.Container;
 import main.Main;
 import property.PowerState;
 import property.State;
-import utility.Pair;
 
 public class Controller {
-	public static final int MIN_OBSTACLE_SPACE = 40;
+	public static final int MIN_OBSTACLE_SPACE = 100;
 	public static final int RANGE_OBSTACLE_SPACE = 20;
 
 	private static State saveState;
 	private static int tick = 0;
-	private static int rnd = 0;
-	
+	private static int rnd = MIN_OBSTACLE_SPACE;
 	private static int height = 0;
 
 	public static void update() {
-		randomObstacle();
+		generateMap();
 		gravity();
 		moveAll();
 		checkCollision();
 		removeAllDead();
+		drawHitbox();
+	}
+	
+	public static void drawHitbox() {
+		Container.getContainer().getItemList().forEach(e -> e.drawHb());
+		Container.getContainer().getMonsterList().forEach(e -> e.drawHb());
+		Container.getContainer().getObstacleList().forEach(e -> e.drawHb());
+		Container.getContainer().getPlayerList().forEach(e -> e.drawHb());
+		Container.getContainer().getSkillList().forEach(e -> e.drawHb());
 	}
 
-	private static void randomObstacle() {
-		if (tick == 0) {
-			rnd = new Random().nextInt(RANGE_OBSTACLE_SPACE) + MIN_OBSTACLE_SPACE;
-		}
+	private static void generateMap() {
 		tick++;
-		
 		if (tick > rnd) {
-			tick = 0;
-			int rnd = new Random().nextInt(3);
-			if (rnd == 0) {
-				GroundObstacle obstacle = new GroundObstacle(new Pair(1100, 0),
-						new Pair(Obstacle.OBSTACLE_WIDTH, Main.SCREEN_HEIGHT));
+			rnd += new Random().nextInt(RANGE_OBSTACLE_SPACE) + MIN_OBSTACLE_SPACE;
+			int r = new Random().nextInt(3);
+			if (r == 0) {
+				GroundObstacle obstacle = new GroundObstacle(1100, 0, Obstacle.OBSTACLE_WIDTH, Main.SCREEN_HEIGHT);
 				Container.getContainer().add(obstacle);
 				height = 0;
-			} else if (rnd == 1) {
-				AirObstacle obstacle = new AirObstacle(new Pair(1100, 0),
-						new Pair(Obstacle.OBSTACLE_WIDTH, Main.SCREEN_HEIGHT));
+			} else if (r == 1) {
+				AirObstacle obstacle = new AirObstacle(1100, 0, Obstacle.OBSTACLE_WIDTH, Main.SCREEN_HEIGHT);
 				Container.getContainer().add(obstacle);
 				height = -60;
-			} else if (rnd == 2) {
-				HoleObstacle obstacle = new HoleObstacle(new Pair(1100, 0),
-						new Pair(HoleObstacle.HOLE_WIDTH, Main.SCREEN_HEIGHT));
+			} else if (r == 2) {
+				HoleObstacle obstacle = new HoleObstacle(1100, 0, HoleObstacle.HOLE_WIDTH, Main.SCREEN_HEIGHT);
 				Container.getContainer().add(obstacle);
 				height = 0;
 			}
 		}
-		else if (tick % 25 == 0) {
-			if (new Random().nextInt(20) >= 3) {
-				Jelly jelly = new Jelly(new Pair(1100, height), new Pair(Jelly.JELLY_WIDTH, Main.SCREEN_HEIGHT));
-				Container.getContainer().add(jelly);
-			} else {
-				HealthPotion healthPotion = new HealthPotion(new Pair(1100, height), new Pair(HealthPotion.POTION_WIDTH, Main.SCREEN_HEIGHT));
-				Container.getContainer().add(healthPotion);
+		if (tick % 25 == 0) {
+			boolean isEmpty = true;
+			for (Obstacle obstacle : Container.getContainer().getObstacleList()) {
+				if (obstacle.getPositionX() - 100 <= 1100
+						&& 1100 <= obstacle.getPositionX() + obstacle.getHb().h + 100) {
+					isEmpty = false;
+					break;
+				}
 			}
+			if (isEmpty) {
+				if (new Random().nextInt(20) >= 1) {
+					Jelly jelly = new Jelly(1100, height, Jelly.JELLY_WIDTH, Main.SCREEN_HEIGHT);
+					Container.getContainer().add(jelly);
+				} else {
+					HealthPotion healthPotion = new HealthPotion(1100, height, HealthPotion.POTION_WIDTH,
+							Main.SCREEN_HEIGHT);
+					Container.getContainer().add(healthPotion);
+				}
+			}
+		}
+		if (tick % 50 == 0 && Container.getContainer().getMonsterList().size() == 0) {
+			Monster monster = new Monster(1100, Map.FLOOR_HEIGHT - Monster.MONSTER_HEIGHT, Monster.MONSTER_WIDTH,
+					Main.SCREEN_HEIGHT, 5);
+			Container.getContainer().add(monster);
 		}
 	}
 
@@ -101,7 +119,21 @@ public class Controller {
 		}
 
 		for (Player player : Container.getContainer().getPlayerList()) {
-			if (Listener.keys.contains(KeyCode.UP)) { // JUMP
+			if (Listener.keys.contains(KeyCode.RIGHT)) { // RIGHT = RUNNING
+				Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-20));
+				Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-20));
+				Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-20));
+			} else {
+				Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-10));
+				Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-10));
+				Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-10));
+			}
+
+			if (Listener.keys.contains(KeyCode.H)) {
+				player.setHp(player.getMaxHp());
+			}
+
+			if (Listener.keys.contains(KeyCode.UP)) { // UP = JUMP
 				if (player.getState() == State.RUNNING) { // FIRST JUMP
 					Listener.keys.remove(KeyCode.UP);
 					player.setCurrentAnimation(8);
@@ -117,7 +149,7 @@ public class Controller {
 				}
 			}
 
-			if (Listener.keys.contains(KeyCode.DOWN)) { // SLIDE
+			if (Listener.keys.contains(KeyCode.DOWN)) { // DOWN = SLIDE & FAST FALL
 				if (player.getState() != State.JUMPING) { // NOT JUMPING THEN SLIDE
 					player.slide();
 				} else {
@@ -135,11 +167,29 @@ public class Controller {
 					if (Container.getContainer().getSkillList().size() < Player.LIMIT_NORMAL_ATTACK) { // NOT EXCEED
 																										// LIMIT NUMBER
 						Listener.keys.remove(KeyCode.Q);
-						Fireball fireball = new Fireball(
-								new Pair(Player.PLAYER_POSITON_X,
-										player.getPosition().second + Player.PLAYER_HEIGHT / 2),
-								new Pair(Fireball.SKILL_WIDTH, Fireball.SKILL_HEIGHT));
+						Fireball fireball = new Fireball(Player.PLAYER_POSITON_X,
+								player.getPositionY() + Player.PLAYER_HEIGHT / 2, Fireball.SKILL_WIDTH,
+								Fireball.SKILL_HEIGHT);
+						fireball.setPlayer(player);
 						Container.getContainer().add(fireball);
+					}
+				}
+			}
+
+			if (Listener.keys.contains(KeyCode.W)) { // W = LIGHTNING
+				if (player.getState() != State.SLIDING) { // NOT SLIDING
+					if (Container.getContainer().getSkillList().size() < Player.LIMIT_NORMAL_ATTACK) { // NOT EXCEED
+																										// LIMIT NUMBER
+						Listener.keys.remove(KeyCode.W);
+
+						Timeline timerLightning = new Timeline(new KeyFrame(Duration.millis(200), e -> {
+							Lightning lightning = new Lightning(nearestMonsterPosition(), 0, Lightning.SKILL_WIDTH,
+									Lightning.SKILL_HEIGHT);
+							lightning.setPlayer(player);
+							Container.getContainer().add(lightning);
+						}));
+						timerLightning.setCycleCount(1);
+						timerLightning.play();
 					}
 				}
 			}
@@ -151,10 +201,10 @@ public class Controller {
 						Listener.keys.remove(KeyCode.R);
 
 						Timeline timerMeteor = new Timeline(new KeyFrame(Duration.millis(150), e -> {
-							Meteor meteor = new Meteor(
-									new Pair(Player.PLAYER_POSITON_X,
-											player.getPosition().second + Player.PLAYER_HEIGHT / 2),
-									new Pair(Meteor.SKILL_WIDTH, Meteor.SKILL_HEIGHT));
+							Meteor meteor = new Meteor(Player.PLAYER_POSITON_X,
+									player.getPositionY() + Player.PLAYER_HEIGHT / 2, Meteor.SKILL_WIDTH,
+									Meteor.SKILL_HEIGHT);
+							meteor.setPlayer(player);
 							Container.getContainer().add(meteor);
 						}));
 						timerMeteor.setCycleCount(7);
@@ -176,13 +226,25 @@ public class Controller {
 			item.move();
 		}
 
+		for (Monster monster : Container.getContainer().getMonsterList()) {
+			monster.move();
+		}
+
+	}
+
+	public static double nearestMonsterPosition() {
+		double pos = 800;
+		for (Monster monster : Container.getContainer().getMonsterList()) {
+			pos = Math.min(pos, monster.getPositionX() + 50);
+		}
+		return pos;
 	}
 
 	public static void checkCollision() {
 		for (Player player : Container.getContainer().getPlayerList()) {
 			if (player.getPowerState() == PowerState.NORMAL) { // NOT IMMORTAL
 				for (Obstacle obstacle : Container.getContainer().getObstacleList()) {
-					if (obstacle.isCollision(player.getPosition(), player.getState())) { // CHECK COLLISION
+					if (obstacle.isCollision(player)) { // CHECK COLLISION
 						if (obstacle instanceof HoleObstacle) // FALL IN A HOLE
 							player.die();
 						else
@@ -190,11 +252,31 @@ public class Controller {
 					}
 				}
 			}
-			
+
 			for (Item item : Container.getContainer().getItemList()) {
-				if (item.isCollision(player.getPosition(), player.getState())) {
+				if (item.isCollision(player)) {
 					item.setCollected(true);
 					item.effect(player);
+				}
+			}
+		}
+
+		for (Monster monster : Container.getContainer().getMonsterList()) {
+			for (Skill skill : Container.getContainer().getSkillList()) {
+				if (skill.isCollision(monster)) {
+					if (skill instanceof Fireball)
+						monster.decreaseHp(Fireball.SKILL_DAMAGE);
+					else if (skill instanceof Lightning)
+						monster.decreaseHp(Lightning.SKILL_DAMAGE);
+					else if (skill instanceof Meteor)
+						monster.decreaseHp(Meteor.SKILL_DAMAGE);
+					if (monster.isDead())
+						skill.getPlayer().addScore(skill.getPlayer().getScore() * 10);
+				}
+			}
+			for (Player player : Container.getContainer().getPlayerList()) {
+				if (player.isCollision(monster)) {
+					player.decreaseHp(monster.getAtk());
 				}
 			}
 		}
@@ -205,6 +287,7 @@ public class Controller {
 		Container.getContainer().getSkillList().removeIf(f -> f.isDead());
 		Container.getContainer().getPlayerList().removeIf(p -> p.isDead());
 		Container.getContainer().getItemList().removeIf(i -> i.isDead());
+		Container.getContainer().getMonsterList().removeIf(m -> m.isDead());
 	}
 
 	public static void animate() {
@@ -221,14 +304,11 @@ public class Controller {
 		}
 
 		for (Item item : Container.getContainer().getItemList()) {
-			if (item instanceof Jelly) {
-//				System.out.println("jelly");
-				((Jelly) item).changeImage();
-			}
-			else if (item instanceof HealthPotion) {
-//				System.out.println("potion");
-				((HealthPotion) item).changeImage();
-			}
+			item.changeImage();
+		}
+
+		for (Monster monster : Container.getContainer().getMonsterList()) {
+			monster.changeImage();
 		}
 	}
 

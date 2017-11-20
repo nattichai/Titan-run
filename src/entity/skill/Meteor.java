@@ -1,5 +1,6 @@
 package entity.skill;
 
+import entity.characters.monster.Monster;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.Container;
@@ -9,6 +10,7 @@ import utility.Pair;
 public class Meteor extends Skill {
 	public static final double SKILL_WIDTH = 200;
 	public static final double SKILL_HEIGHT = 200;
+	public static final double SKILL_DAMAGE = 30;
 	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 8; ++i) {
@@ -16,8 +18,8 @@ public class Meteor extends Skill {
 		}
 	}
 
-	public Meteor(Pair pos, Pair size) {
-		super(pos, size);
+	public Meteor(double x, double y, double w, double h) {
+		super(x, y, w, h);
 
 		speedX = 8;
 		speedY = -30;
@@ -29,7 +31,9 @@ public class Meteor extends Skill {
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
-		currentAnimation %= 8;
+		currentAnimation -= 4;
+		currentAnimation %= 4;
+		currentAnimation += 4;
 		gc.drawImage(images[currentAnimation ++], 0, 0);
 		canvas.setRotate(Math.atan(speedY / speedX) / Math.PI * 180);
 	}
@@ -38,9 +42,22 @@ public class Meteor extends Skill {
 		speedX += accelX;
 		speedY += accelY;
 	}
+	
+	public boolean isCollision(Pair pos) {
+		if (		(positionX	<= pos.first + Monster.MONSTER_WIDTH
+								&& pos.first + Monster.MONSTER_WIDTH		<= positionX + canvas.getWidth()) 
+			|| 	(positionX <= pos.first
+								&& pos.first 							<= positionX + canvas.getWidth())	) {
+			
+			if (	pos.second <= positionY && positionY <= pos.second + Monster.MONSTER_HEIGHT) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean isDead() {
-		if (position.first >= Main.SCREEN_WIDTH || position.second >= Main.SCREEN_HEIGHT) {
+		if (positionX >= Main.SCREEN_WIDTH || positionY >= Main.SCREEN_HEIGHT) {
 			Container.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

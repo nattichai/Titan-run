@@ -4,21 +4,23 @@ import entity.Entity;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import main.Main;
-import utility.Pair;
 
 public class TextModel extends Entity{
 	
-	Image textImage;
-	String text;
+	protected ImageView imageView;
+	protected Image image;
+	protected String text;
 
-	public TextModel(Pair pos, Pair size, Image image, String t) {
-		super(pos, size);
+	public TextModel(double x, double y, double w, double h, Image i, String t) {
+		super(x, y, w, h);
 		
-		textImage = image;
+		image = i;
+		imageView = new ImageView(image);
 		text = t;
 		
 		draw();
@@ -26,8 +28,8 @@ public class TextModel extends Entity{
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		if (textImage != null) {
-			gc.drawImage(textImage, (Main.SCREEN_WIDTH - textImage.getWidth()) / 2, (Main.SCREEN_HEIGHT - textImage.getHeight()) / 2);
+		if (image != null) {
+			gc.drawImage(image, (Main.SCREEN_WIDTH - image.getWidth()) / 2, (Main.SCREEN_HEIGHT - image.getHeight()) / 2);
 		} else {
 			gc.setFill(Color.WHITE);
 			gc.setFont(new Font("Monospace", 50));

@@ -1,8 +1,7 @@
 package entity.item;
 
 import entity.Entity;
-import entity.player.Player;
-import javafx.scene.image.Image;
+import entity.characters.player.Player;
 import main.Container;
 import property.Animatable;
 import property.Movable;
@@ -17,25 +16,25 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	protected int currentAnimation;
 	protected boolean isCollected;
 
-	public Item(Pair pos, Pair size) {
-		super(pos, size);
+	public Item(double x, double y, double w, double h) {
+		super(x, y, w, h);
 
-		speedX = -10;
+		speedX = 0;
 		speedY = 0;
 	}
 
 	public abstract void draw();
 
 	public void move() {
-		position.first += speedX;
-		position.second += speedY;
+		positionX += speedX;
+		positionY += speedY;
 
 		updatePosition();
 	}
 
 	public void updatePosition() {
-		canvas.setTranslateX(position.first);
-		canvas.setTranslateY(position.second);
+		canvas.setTranslateX(positionX);
+		canvas.setTranslateY(positionY);
 	}
 	
 	public abstract void changeImage();
@@ -45,7 +44,7 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	public abstract boolean isCollision(Pair pair, State state);
 
 	public boolean isDead() {
-		if (isCollected || position.first + ITEM_WIDTH < 0) {
+		if (isCollected || positionX + ITEM_WIDTH < 0) {
 			Container.getContainer().getItemPane().getChildren().remove(canvas);
 			return true;
 		}
@@ -54,6 +53,22 @@ public abstract class Item extends Entity implements Movable, Animatable {
 
 	public void setCollected(boolean isCollected) {
 		this.isCollected = isCollected;
+	}
+
+	public double getSpeedX() {
+		return speedX;
+	}
+
+	public void setSpeedX(double speedX) {
+		this.speedX = speedX;
+	}
+
+	public double getSpeedY() {
+		return speedY;
+	}
+
+	public void setSpeedY(double speedY) {
+		this.speedY = speedY;
 	}
 	
 }

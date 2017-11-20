@@ -3,18 +3,18 @@ package main;
 import java.util.ArrayList;
 
 import entity.Entity;
+import entity.characters.monster.Monster;
+import entity.characters.player.Player;
 import entity.item.HealthPotion;
 import entity.item.Item;
 import entity.item.Jelly;
 import entity.map.Map;
 import entity.obstacle.Obstacle;
-import entity.player.Player;
 import entity.skill.Fireball;
 import entity.skill.Meteor;
 import entity.skill.Skill;
 import entity.textmodel.TextModel;
 import javafx.scene.layout.Pane;
-import utility.Pair;
 
 public class Container {
 	private static Container container;
@@ -25,6 +25,7 @@ public class Container {
 	private Pane skillPane;
 	private Pane textPane;
 	private Pane itemPane;
+	private Pane monsterPane;
 	
 	private ArrayList<Map> mapList;
 	private ArrayList<Player> playerList;
@@ -32,6 +33,7 @@ public class Container {
 	private ArrayList<Skill> skillList;
 	private ArrayList<TextModel> textList;
 	private ArrayList<Item> itemList;
+	private ArrayList<Monster> monsterList;
 
 	public Container() {
 		mapPane = new Pane();
@@ -40,9 +42,10 @@ public class Container {
 		skillPane = new Pane();
 		textPane = new Pane();
 		itemPane = new Pane();
+		monsterPane = new Pane();
 		
 		Main.getRoot().getChildren().clear();
-		Main.getRoot().getChildren().addAll(mapPane, obstaclePane, itemPane, playerPane, skillPane, textPane);
+		Main.getRoot().getChildren().addAll(mapPane, obstaclePane, itemPane, playerPane, monsterPane, skillPane, textPane);
 		
 		mapList = new ArrayList<>();
 		playerList = new ArrayList<>();
@@ -50,22 +53,24 @@ public class Container {
 		skillList = new ArrayList<>();
 		textList = new ArrayList<>();
 		itemList = new ArrayList<>();
+		monsterList = new ArrayList<>();
 	}
 	
 	public static void initialize() {
 		container = new Container();
 		
-		Map map = new Map(new Pair(0, 0), new Pair(Main.SCREEN_WIDTH * 3, Main.SCREEN_HEIGHT));
+		Map map = new Map(0, 0, Main.SCREEN_WIDTH * 3, Main.SCREEN_HEIGHT);
 		container.add(map);
 		
-		Player player = new Player(new Pair(Player.PLAYER_POSITON_X, Map.FLOOR_HEIGHT - Player.PLAYER_HEIGHT),
-				new Pair(Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT));
+		Player player = new Player(Player.PLAYER_POSITON_X, Map.FLOOR_HEIGHT - Player.PLAYER_HEIGHT,
+				Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
 		container.add(player);
 		
-		new Fireball(new Pair(0, 0), new Pair(0, 0));
-		new Meteor(new Pair(0, 0), new Pair(0, 0));
-		new Jelly(new Pair(0, 0), new Pair(0, 0));
-		new HealthPotion(new Pair(0, 0), new Pair(0, 0));
+		new Fireball(0, 0, 0, 0);
+		new Meteor(0, 0, 0, 0);
+		new Jelly(0, 0, 0, 0);
+		new HealthPotion(0, 0, 0, 0);
+		new Monster(0, 0, 0, 0, 3);
 	}
 	
 	public void add(Object object) {
@@ -98,6 +103,11 @@ public class Container {
 			itemList.add((Item) object);
 			itemPane.getChildren().add(((Entity) object).getCanvas());
 		}
+		
+		else if (object instanceof Monster) {
+			monsterList.add((Monster) object);
+			monsterPane.getChildren().addAll(((Entity) object).getCanvas(), ((Monster) object).getHpBar());
+		}
 	}
 	
 	public void remove(Object object) {
@@ -129,6 +139,11 @@ public class Container {
 		else if (object instanceof Item) {
 			itemList.remove((Item) object);
 			itemPane.getChildren().remove(((Entity) object).getCanvas());
+		}
+		
+		else if (object instanceof Monster) {
+			monsterList.add((Monster) object);
+			monsterPane.getChildren().addAll(((Entity) object).getCanvas(), ((Monster) object).getHpBar());
 		}
 	}
 	
@@ -182,6 +197,14 @@ public class Container {
 
 	public ArrayList<Item> getItemList() {
 		return itemList;
+	}
+
+	public Pane getMonsterPane() {
+		return monsterPane;
+	}
+
+	public ArrayList<Monster> getMonsterList() {
+		return monsterList;
 	}
 	
 }

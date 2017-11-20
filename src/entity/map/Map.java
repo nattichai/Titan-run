@@ -6,8 +6,6 @@ import entity.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import property.Movable;
-import property.State;
-import utility.Pair;
 
 public class Map extends Entity implements Movable{
 	public static final double FLOOR_HEIGHT = 600;
@@ -18,12 +16,11 @@ public class Map extends Entity implements Movable{
 	protected double speedX, speedY;
 	protected double width;
 	
-	public Map(Pair pos, Pair size) {
-		super(pos, size);
+	public Map(double x, double y, double w, double h) {
+		super(x, y, w, h);
 		
-		speedX = -10;
+		speedX = 0;
 		speedY = 0;
-		state = State.STILL;
 		
 		draw();
 	}
@@ -39,19 +36,19 @@ public class Map extends Entity implements Movable{
 	}
 
 	public void move() {
-		position.first += speedX;
-		position.second += speedY;
+		positionX += speedX;
+		positionY += speedY;
 		
-		if (position.first + width <= 0) {
-			position.first = 0;
+		if (positionX + width <= 0) {
+			positionX = 0;
 		}
 		
 		updatePosition();
 	}
 	
 	public void updatePosition() {
-		canvas.setTranslateX(position.first);
-		canvas.setTranslateY(position.second);
+		canvas.setTranslateX(positionX);
+		canvas.setTranslateY(positionY);
 	}
 
 	public boolean isDead() {

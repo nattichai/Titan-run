@@ -4,8 +4,6 @@ import entity.Entity;
 import javafx.scene.image.Image;
 import main.Container;
 import property.Movable;
-import property.State;
-import utility.Pair;
 
 public abstract class Obstacle extends Entity implements Movable {
 	public static final int OBSTACLE_WIDTH = 200;
@@ -15,32 +13,29 @@ public abstract class Obstacle extends Entity implements Movable {
 	protected double speedX, speedY;
 	protected double height;
 
-	public Obstacle(Pair pos, Pair size) {
-		super(pos, size);
+	public Obstacle(double x, double y, double w, double h) {
+		super(x, y, w, h);
 
-		speedX = -10;
+		speedX = 0;
 		speedY = 0;
-		state = State.STILL;
 	}
 
 	public abstract void draw();
 
 	public void move() {
-		position.first += speedX;
-		position.second += speedY;
+		positionX += speedX;
+		positionY += speedY;
 
 		updatePosition();
 	}
 
 	public void updatePosition() {
-		canvas.setTranslateX(position.first);
-		canvas.setTranslateY(position.second);
+		canvas.setTranslateX(positionX);
+		canvas.setTranslateY(positionY);
 	}
-	
-	public abstract boolean isCollision(Pair pair, State state);
 
 	public boolean isDead() {
-		if (position.first + Obstacle.OBSTACLE_WIDTH + 200 <= 0) {
+		if (positionX + Obstacle.OBSTACLE_WIDTH + 200 <= 0) {
 			Container.getContainer().getObstaclePane().getChildren().remove(canvas);
 			return true;
 		}

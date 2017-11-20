@@ -1,10 +1,11 @@
 package entity.item;
 
+import entity.characters.player.Player;
 import entity.map.Map;
-import entity.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import property.State;
+import utility.Hitbox;
 import utility.Pair;
 
 public class Jelly extends Item{
@@ -17,9 +18,11 @@ public class Jelly extends Item{
 		}
 	}
 	
-	public Jelly(Pair pos, Pair size) {
-		super(pos, size);
+	public Jelly(double x, double y, double w, double h) {
+		super(x, y, w, h);
 		
+		height = positionY + Map.FLOOR_HEIGHT - JELLY_HEIGHT;
+		hb = new Hitbox(5, positionY + Map.FLOOR_HEIGHT - 80, 90, 80);
 		currentAnimation = 0;
 		isCollected = false;
 		draw();
@@ -29,9 +32,8 @@ public class Jelly extends Item{
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());	//clear canvas
 		currentAnimation %= 12;
-		if (position.second != 0)
+		if (positionY != 0)
 			currentAnimation += 12;
-		height = position.second + Map.FLOOR_HEIGHT - JELLY_HEIGHT;
 		gc.drawImage(images[currentAnimation ++], 0, height, JELLY_WIDTH, JELLY_HEIGHT);
 	}
 	
@@ -44,10 +46,10 @@ public class Jelly extends Item{
 	}
 
 	public boolean isCollision(Pair pos, State state) {
-		if (		(position.first + 20 <=	pos.first + Player.PLAYER_WIDTH
-									&& pos.first + Player.PLAYER_WIDTH	<= position.first + canvas.getWidth() - 20)
-			||	(position.first + 20 <= pos.first
-									&& pos.first							<= position.first + canvas.getWidth() - 20)	) {
+		if (		(positionX + 30 <=	pos.first + Player.PLAYER_WIDTH
+									&& pos.first + Player.PLAYER_WIDTH	<= positionX + canvas.getWidth())
+			||	(positionX + 30 <= pos.first
+									&& pos.first							<= positionX + canvas.getWidth())	) {
 			
 			if (pos.second <= height && height <= pos.second + Player.PLAYER_HEIGHT) {
 				return true;
