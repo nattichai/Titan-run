@@ -80,8 +80,8 @@ public class Status {
 		allStatus[5].width = 300;
 		allStatus[5].height = 300;
 		allStatus[5].hb = new Hitbox(120, 90, 60, 160);
-		allStatus[5].speedX = -20;
-		allStatus[5].speedY = -20;
+		allStatus[5].speedX = -15;
+		allStatus[5].speedY = 0;
 		allStatus[5].hp = 100;
 		allStatus[5].maxHp = 100;
 		allStatus[5].atk = 10;
