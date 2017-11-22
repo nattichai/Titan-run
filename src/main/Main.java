@@ -1,7 +1,8 @@
 package main;
 
 import controller.Controller;
-import controller.Listener;
+import controller.Handler;
+import dataStorge.Container;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,8 +15,8 @@ import javafx.util.Duration;
 public class Main extends Application{
 	public static final double SCREEN_WIDTH = 1000;
 	public static final double SCREEN_HEIGHT = 750;
-	public static final int FRAME_RATE = 50;
-	public static final int ANIMATE_RATE = 20;
+	public static final double FRAME_RATE = 50;
+	public static final double ANIMATE_RATE = 20;
 	
 	private static Pane root;
 	private static Timeline timerUpdate;
@@ -44,8 +45,9 @@ public class Main extends Application{
 		timerAnimate.play();
 		
 		Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
-		scene.setOnKeyPressed(event -> Listener.keyPressed(event));
-		scene.setOnKeyReleased(event -> Listener.keyReleased(event));
+		scene.getStylesheets().add(ClassLoader.getSystemResource("utility/style.css").toExternalForm());
+		scene.setOnKeyPressed(event -> Handler.keyPressed(event));
+		scene.setOnKeyReleased(event -> Handler.keyReleased(event));
 		
 		stage.setTitle("Titan Run");
 		stage.setScene(scene);

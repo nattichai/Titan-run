@@ -4,8 +4,7 @@ import entity.characters.player.Player;
 import entity.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import property.State;
-import utility.Pair;
+import property.Hitbox;
 
 public class HealthPotion extends Item{
 	public static final double POTION_WIDTH = 100;
@@ -20,16 +19,20 @@ public class HealthPotion extends Item{
 	public HealthPotion(double x, double y, double w, double h) {
 		super(x, y, w, h);
 		
+		height = positionY + Map.FLOOR_HEIGHT - POTION_HEIGHT;
+		hb = new Hitbox(0, height, 100, 100);
 		currentAnimation = 0;
-		isCollected = false;
 		draw();
+	}
+
+	public HealthPotion() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());	//clear canvas
 		currentAnimation %= 48;
-		height = positionY + Map.FLOOR_HEIGHT - POTION_HEIGHT;
 		gc.drawImage(images[currentAnimation ++], 0, height, POTION_WIDTH, POTION_HEIGHT);
 	}
 	
@@ -39,18 +42,5 @@ public class HealthPotion extends Item{
 	
 	public void effect(Player player) {
 		player.setHp(player.getHp() + 15);
-	}
-
-	public boolean isCollision(Pair pos, State state) {
-		if (		(positionX + 20 <=	pos.first + Player.PLAYER_WIDTH
-									&& pos.first + Player.PLAYER_WIDTH	<= positionX + canvas.getWidth() - 20)
-			||	(positionX + 20 <= pos.first
-									&& pos.first							<= positionX + canvas.getWidth() - 20)	) {
-			
-			if (pos.second <= height && height <= pos.second + Player.PLAYER_HEIGHT) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

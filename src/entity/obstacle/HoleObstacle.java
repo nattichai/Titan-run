@@ -2,25 +2,31 @@ package entity.obstacle;
 
 import java.util.Random;
 
+import dataStorge.Container;
 import entity.characters.player.Player;
 import entity.item.Jelly;
 import entity.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import main.Container;
 import main.Main;
+import property.Hitbox;
 import property.State;
-import utility.Hitbox;
 
 public class HoleObstacle extends Obstacle {
-
 	public static final double HOLE_WIDTH = 300;
+	protected static final Image[] images = new Image[20];
+	static {
+		for (int i = 1; i < 2; ++i) {
+			images[i] = new Image(ClassLoader.getSystemResource("images/obstacle/hole" + i + ".png").toString());
+		}
+	}
 
 	public HoleObstacle(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
 		int rnd = new Random().nextInt(1) + 1;
-		obstacle = new Image(ClassLoader.getSystemResource("images/obstacle/hole" + rnd + ".png").toString());
+		obstacle = images[rnd];
+		width = obstacle.getWidth();
 		height = obstacle.getHeight();
 		
 		hb = new Hitbox(150, Map.FLOOR_HEIGHT - 1, 40, 20);
@@ -33,6 +39,10 @@ public class HoleObstacle extends Obstacle {
 		Container.getContainer().add(jelly);
 
 		draw();
+	}
+
+	public HoleObstacle() {
+		super();
 	}
 
 	public void draw() {

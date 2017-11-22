@@ -1,26 +1,25 @@
 package entity.item;
 
+import dataStorge.Container;
 import entity.Entity;
 import entity.characters.player.Player;
-import main.Container;
 import property.Animatable;
 import property.Movable;
-import property.State;
-import utility.Pair;
 
 public abstract class Item extends Entity implements Movable, Animatable {
-	public static final int ITEM_WIDTH = 200;
-	
 	protected double speedX, speedY;
 	protected double height;
 	protected int currentAnimation;
-	protected boolean isCollected;
 
 	public Item(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = 0;
+		speedX = -10;
 		speedY = 0;
+	}
+
+	public Item() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public abstract void draw();
@@ -40,11 +39,9 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	public abstract void changeImage();
 	
 	public abstract void effect(Player player);
-	
-	public abstract boolean isCollision(Pair pair, State state);
 
 	public boolean isDead() {
-		if (isCollected || positionX + ITEM_WIDTH < 0) {
+		if (isCollided || positionX + 200 < 0) {
 			Container.getContainer().getItemPane().getChildren().remove(canvas);
 			return true;
 		}
@@ -52,7 +49,7 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	}
 
 	public void setCollected(boolean isCollected) {
-		this.isCollected = isCollected;
+		this.isCollided = isCollected;
 	}
 
 	public double getSpeedX() {

@@ -10,8 +10,15 @@ import property.Movable;
 public class Map extends Entity implements Movable{
 	public static final double FLOOR_HEIGHT = 600;
 	public static final double GRAVITY = 0.8;
-	public static final double PASSIVE_DAMAGE = 0.05;
+	public static final double PASSIVE_DAMAGE = 0.045;
 	public static final double PASSIVE_SCORE = 1;
+	public static final double PASSIVE_MANA_REGEN = 0.1;
+	protected static final Image[] images = new Image[10];
+	static {
+		for (int i = 1; i < 3; ++i) {
+			images[i] = new Image(ClassLoader.getSystemResource("images/map/map" + i + ".jpg").toString());
+		}
+	}
 	
 	protected double speedX, speedY;
 	protected double width;
@@ -19,7 +26,7 @@ public class Map extends Entity implements Movable{
 	public Map(double x, double y, double w, double h) {
 		super(x, y, w, h);
 		
-		speedX = 0;
+		speedX = -10;
 		speedY = 0;
 		
 		draw();
@@ -28,7 +35,7 @@ public class Map extends Entity implements Movable{
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		int rnd = new Random().nextInt(1) + 2;
-		Image image = new Image(ClassLoader.getSystemResource("images/map/map" + rnd + ".jpg").toString());
+		Image image = images[rnd];
 		width = image.getWidth();
 		
 		gc.drawImage(image, 0, 0);

@@ -3,14 +3,15 @@ package entity;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import property.Hitbox;
 import property.Side;
-import utility.Hitbox;
 
 public abstract class Entity {
 	protected Canvas canvas;
 	protected double positionX, positionY;
+	protected double width, height;
 	protected Hitbox hb;
-	protected boolean didAttack;
+	protected boolean isCollided;
 	protected Side side;
 	
 	public Entity(double x, double y, double w, double h) {
@@ -20,10 +21,13 @@ public abstract class Entity {
 		positionX = x;
 		positionY = y;
 		hb = new Hitbox(0, 0, w, h);
-		didAttack = false;
+		isCollided = false;
 	}
 	
+	public Entity() {}
+	
 	public abstract void draw();
+	
 	public void drawHb() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Color.BLACK);
@@ -31,11 +35,11 @@ public abstract class Entity {
 	}
 	
 	public boolean isCollision(Entity e) {
-		if (didAttack == true)
+		if (isCollided == true)
 			return false;
 		if (positionX + hb.x < e.positionX + e.hb.x + e.hb.w && positionX + hb.x + hb.w > e.positionX + e.hb.x
 				&& positionY + hb.y < e.positionY + e.hb.y + e.hb.h && positionY + hb.y + hb.h > e.positionY + e.hb.y == true) {
-			didAttack = true;
+			isCollided = true;
 			return true;
 		}
 		return false;
@@ -63,6 +67,22 @@ public abstract class Entity {
 		this.positionY = positionY;
 	}
 
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
 	public Hitbox getHb() {
 		return hb;
 	}
@@ -71,12 +91,12 @@ public abstract class Entity {
 		this.hb = hb;
 	}
 
-	public boolean isDidAttack() {
-		return didAttack;
+	public boolean isCollided() {
+		return isCollided;
 	}
 
-	public void setDidAttack(boolean didAttack) {
-		this.didAttack = didAttack;
+	public void setCollided(boolean isCollided) {
+		this.isCollided = isCollided;
 	}
 
 	public Side getSide() {

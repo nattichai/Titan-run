@@ -1,16 +1,15 @@
 package entity.skill;
 
-import entity.characters.monster.Monster;
+import dataStorge.Container;
 import entity.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import main.Container;
-import utility.Pair;
 
 public class Lightning extends Skill {
-	public static final double SKILL_WIDTH = 50;
+	public static final double SKILL_WIDTH = 100;
 	public static final double SKILL_HEIGHT = Map.FLOOR_HEIGHT;
-	public static final double SKILL_DAMAGE = 5;
+	public static final double SKILL_DAMAGE = 20;
+	public static final double SKILL_COOLDOWN = 4;
 	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 12; ++i) {
@@ -23,26 +22,17 @@ public class Lightning extends Skill {
 		
 		speedX = 0;
 		speedY = 0;
-		currentAnimation = 0;
 		
 		draw();
 	}
+
+	public Lightning() {}
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());	//clear canvas
 		currentAnimation %= 12;
 		gc.drawImage(images[currentAnimation ++], 0, 0, SKILL_WIDTH, SKILL_HEIGHT);
-	}
-	
-	public boolean isCollision(Pair pos) {
-		if (		(positionX	<= pos.first + Monster.MONSTER_WIDTH
-								&& pos.first + Monster.MONSTER_WIDTH		<= positionX + canvas.getWidth()) 
-			|| 	(positionX <= pos.first
-								&& pos.first 							<= positionX + canvas.getWidth())	) {
-				return true;
-		}
-		return false;
 	}
 	
 	public boolean isDead() {

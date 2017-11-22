@@ -1,8 +1,8 @@
 package entity.obstacle;
 
+import dataStorge.Container;
 import entity.Entity;
 import javafx.scene.image.Image;
-import main.Container;
 import property.Movable;
 
 public abstract class Obstacle extends Entity implements Movable {
@@ -16,8 +16,12 @@ public abstract class Obstacle extends Entity implements Movable {
 	public Obstacle(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = 0;
+		speedX = -10;
 		speedY = 0;
+	}
+
+	public Obstacle() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public abstract void draw();

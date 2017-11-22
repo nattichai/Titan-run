@@ -1,43 +1,48 @@
 package entity.characters.monster;
 
+import dataStorge.Container;
+import dataStorge.Storage;
 import entity.characters.Characters;
 import entity.map.Map;
+import entity.skill.Skill;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
-import main.Container;
 import main.Main;
-import property.Status;
 
 public class Monster extends Characters {
-	public static int nImage;
-	public static Image[] images;
 	
-	public static double MONSTER_WIDTH;
-	public static double MONSTER_HEIGHT;
+	protected boolean canMove, canMoveOut;
+	protected Skill skill;
 
 	public Monster(double x, double y, double w, double h, int idx) {
 		super(x, y, w, h);
 
-		nImage = Status.allStatus[idx].nImage;
-		images = Status.allStatus[idx].images;
-		MONSTER_WIDTH = Status.allStatus[idx].width;
-		MONSTER_HEIGHT = Status.allStatus[idx].height;
-		hb = Status.allStatus[idx].hb;
-		speedX = Status.allStatus[idx].speedX;
-		speedY = Status.allStatus[idx].speedY;
-		hp = Status.allStatus[idx].hp;
-		maxHp = Status.allStatus[idx].maxHp;
-		atk	= Status.allStatus[idx].atk;
-		side = Status.allStatus[idx].side;
-		powerState = Status.allStatus[idx].powerState;
-
+		Storage monster = Storage.characters[idx];
+		nImage = monster.nImage;
+		images = monster.images;
+		width = monster.width;
+		height = monster.height;
+		hb = monster.hb;
+		speedX = monster.speedX;
+		speedY = monster.speedY;
+		accelX = monster.accelX;
+		accelY = monster.accelY;
+		hp = monster.hp;
+		maxHp = monster.maxHp;
+		atk	= monster.atk;
+		side = monster.side;
+		powerState = monster.powerState;
+		canMove = true;
+		canMoveOut = false;
+		
 		hpBar = new ProgressBar(1);
-		hpBar.setPrefSize(100, 20);
-		hpBar.setOpacity(0.3);
+		hpBar.setPrefSize(100, 15);
+		hpBar.setOpacity(0.8);
+		hpBar.setStyle("-fx-accent:green;");
 
 		draw();
 	}
@@ -46,17 +51,30 @@ public class Monster extends Characters {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
 		currentAnimation %= 8;
-		gc.drawImage(images[currentAnimation++], 0, 0, MONSTER_WIDTH, MONSTER_HEIGHT);
+		gc.drawImage(images[currentAnimation++], 0, height - hb.y - hb.h, width, height);
 	}
 
 	public void move() {
-		changeSpeed(0.19, Map.GRAVITY);
-		positionX += speedX;
-		positionY += speedY;
+		changeSpeed(accelX, accelY);
+		if (canMove) {
+			positionX += speedX;
+			positionY += speedY;
+		}
+		
+		if (canMove == true && canMoveOut == false && speedX > 0 && positionX >= Main.SCREEN_WIDTH - width - hb.w) {
+			canMove = false;
+			positionX = Main.SCREEN_WIDTH - width - hb.w;
+			Timeline timer = new Timeline(new KeyFrame(Duration.millis(2000), e -> {}));
+			timer.play();
+			timer.setOnFinished(e -> {
+				canMove = true;
+				canMoveOut = true;
+			});
+		}
 		hpBar.relocate(positionX + hb.x, positionY + hb.y - 100);
 
-		if (positionY >= Map.FLOOR_HEIGHT - MONSTER_HEIGHT) {
-			positionY = Map.FLOOR_HEIGHT - MONSTER_HEIGHT;
+		if (positionY >= Map.FLOOR_HEIGHT - height) {
+			positionY = Map.FLOOR_HEIGHT - height;
 			speedY = 0;
 		}
 		updatePosition();
@@ -70,7 +88,7 @@ public class Monster extends Characters {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
 			if (canvas.getOpacity() == 1)
 				canvas.setOpacity(0.5);
-			else
+			else if (canvas.getOpacity() == 0.5)
 				canvas.setOpacity(1);
 		}));
 		timeline.setCycleCount(8);
@@ -78,21 +96,14 @@ public class Monster extends Characters {
 	}
 
 	public void die() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / Main.FRAME_RATE), e -> {
-			positionY += 5;
-			canvas.setTranslateY(positionY);
-			canvas.setOpacity(1 - ((positionY + MONSTER_HEIGHT - Map.FLOOR_HEIGHT) / (Main.SCREEN_HEIGHT - Map.FLOOR_HEIGHT)));
-			canvas.setRotate(canvas.getRotate() + 20);
-		}));
-		timeline.setCycleCount(Main.FRAME_RATE / 2);
-		timeline.play();
-		timeline.setOnFinished(e -> {
-			hp = 0.00001;
-		});
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), canvas);
+		ft.setFromValue(1.0);
+		ft.setToValue(0);
+		ft.play();
 	}
 
 	public boolean isDead() {
-		if (hp == 0.00001 || positionX >= Main.SCREEN_WIDTH + 150) {
+		if (canvas.getOpacity() == 0 || positionX >= Main.SCREEN_WIDTH + 150) {
 			Container.getContainer().getMonsterPane().getChildren().removeAll(canvas, hpBar);
 			return true;
 		}

@@ -2,26 +2,26 @@ package entity.characters;
 
 import entity.Entity;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import property.Animatable;
 import property.Attackable;
 import property.Movable;
 import property.PowerState;
-import property.State;
 
 public abstract class Characters extends Entity implements Movable, Animatable, Attackable {
+	protected int nImage;
+	protected Image[] images;
 	protected double speedX, speedY;
+	protected double accelX, accelY;
 	protected int currentAnimation;
 	protected double hp, maxHp;
 	protected ProgressBar hpBar;
 	protected double atk;
-	protected State state;
 	protected PowerState powerState;
 
 	public Characters(double x, double y, double w, double h) {
 		super(x, y, w, h);
-
-		speedX = 0;
-		speedY = 0;
+		
 		currentAnimation = 0;
 	}
 
@@ -47,10 +47,18 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 		}
 		hp -= d;
 		if (hp <= 0) {
+			hp = 0.00001;
 			die();
-			return;
 		}
 		hpBar.setProgress(hp / maxHp);
+		if (hp / maxHp >= 0.75)
+			hpBar.setStyle("-fx-accent:green;");
+		else if (hp / maxHp >= 0.5)
+			hpBar.setStyle("-fx-accent:yellow;");
+		else if (hp / maxHp >= 0.25)
+			hpBar.setStyle("-fx-accent:orange;");
+		else
+			hpBar.setStyle("-fx-accent:red;");
 		if (d > 1) {
 			injured();
 		}
@@ -118,14 +126,6 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 
 	public void setAtk(double atk) {
 		this.atk = atk;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	public PowerState getPowerState() {

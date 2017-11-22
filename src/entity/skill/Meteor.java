@@ -1,16 +1,17 @@
 package entity.skill;
 
-import entity.characters.monster.Monster;
+import dataStorge.Container;
+import entity.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import main.Container;
 import main.Main;
-import utility.Pair;
+import property.Hitbox;
 
 public class Meteor extends Skill {
-	public static final double SKILL_WIDTH = 200;
-	public static final double SKILL_HEIGHT = 200;
-	public static final double SKILL_DAMAGE = 30;
+	public static final double SKILL_WIDTH = 500;
+	public static final double SKILL_HEIGHT = 500;
+	public static final double SKILL_DAMAGE = 999;
+	public static final double SKILL_COOLDOWN = 15;
 	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 8; ++i) {
@@ -21,39 +22,29 @@ public class Meteor extends Skill {
 	public Meteor(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = 8;
-		speedY = -30;
-		currentAnimation = 0;
+		hb = new Hitbox(0, 0, w, h);
+		speedX = 5;
+		speedY = 5;
+		currentAnimation = 4;
+		canvas.setRotate(45);
 
 		draw();
+	}
+
+	public Meteor() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
-		currentAnimation -= 4;
 		currentAnimation %= 4;
-		currentAnimation += 4;
-		gc.drawImage(images[currentAnimation ++], 0, 0);
-		canvas.setRotate(Math.atan(speedY / speedX) / Math.PI * 180);
+		gc.drawImage(images[currentAnimation ++], 0, 0, SKILL_WIDTH, SKILL_HEIGHT);
 	}
 	
-	public void changeSpeed(double accelX, double accelY) {
-		speedX += accelX;
-		speedY += accelY;
-	}
-	
-	public boolean isCollision(Pair pos) {
-		if (		(positionX	<= pos.first + Monster.MONSTER_WIDTH
-								&& pos.first + Monster.MONSTER_WIDTH		<= positionX + canvas.getWidth()) 
-			|| 	(positionX <= pos.first
-								&& pos.first 							<= positionX + canvas.getWidth())	) {
-			
-			if (	pos.second <= positionY && positionY <= pos.second + Monster.MONSTER_HEIGHT) {
-				return true;
-			}
-		}
-		return false;
+	public boolean isCollision(Entity e) {
+		return positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w && positionX + hb.x + hb.w > e.getPositionX() + e.getHb().x
+				&& positionY + hb.y < e.getPositionY() + e.getHb().y + e.getHb().h && positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y;
 	}
 
 	public boolean isDead() {
