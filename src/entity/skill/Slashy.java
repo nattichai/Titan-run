@@ -24,8 +24,6 @@ public class Slashy extends Skill {
 
 		speedX = 0;
 		speedY = 0;
-
-		draw();
 	}
 
 	public Slashy() {
@@ -45,7 +43,7 @@ public class Slashy extends Skill {
 	}
 
 	public boolean isDead() {
-		if (currentAnimation == 38) {
+		if (owner.getHp() == 0.00001 || currentAnimation == 38) {
 			Container.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

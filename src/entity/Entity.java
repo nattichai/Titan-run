@@ -35,7 +35,7 @@ public abstract class Entity {
 	}
 	
 	public boolean isCollision(Entity e) {
-		if (isCollided == true)
+		if (isCollided == true || side == e.side || (side == Side.NEUTRAL && e.side == Side.MONSTER))
 			return false;
 		if (positionX + hb.x < e.positionX + e.hb.x + e.hb.w && positionX + hb.x + hb.w > e.positionX + e.hb.x
 				&& positionY + hb.y < e.positionY + e.hb.y + e.hb.h && positionY + hb.y + hb.h > e.positionY + e.hb.y == true) {

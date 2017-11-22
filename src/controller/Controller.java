@@ -30,6 +30,12 @@ public class Controller {
 	private static int tick = 0;
 	private static int rnd = MIN_OBSTACLE_SPACE;
 	private static int height = 0;
+	
+	public Controller() {
+		tick = 0;
+		rnd = MIN_OBSTACLE_SPACE;
+		height = 0;
+	}
 
 	public static void update() {
 		Handler.handler();
@@ -73,7 +79,7 @@ public class Controller {
 				}
 			}
 		}
-		if (tick % 100 == 0) {
+		if (tick % 200 == 0) {
 			Monster monster = new Monster(1100, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT, new Random().nextInt(4) + 2);
 			Container.getContainer().add(monster);
 		}
@@ -154,8 +160,12 @@ public class Controller {
 						monster.decreaseHp(Slashy.SKILL_DAMAGE);
 					else if (skill instanceof Meteor)
 						monster.decreaseHp(Meteor.SKILL_DAMAGE);
-					if (monster.isDead())
-						skill.getPlayer().getPlayerData().addScore(skill.getPlayer().getPlayerData().getScore() * 10);
+					if (monster.isDead()) {
+						if (skill.getOwner() instanceof Player) {
+							Player player = (Player) skill.getOwner();
+							player.getPlayerData().addScore(player.getPlayerData().getScore() * 10);
+						}
+					}
 				}
 			}
 			if (monster.getHp() > 0.00001) {
@@ -211,4 +221,11 @@ public class Controller {
 		}
 	}
 
+	public static void setTick(int tick) {
+		Controller.tick = tick;
+	}
+	
+	public static void setRnd(int rnd) {
+		Controller.rnd = rnd;
+	}
 }

@@ -2,7 +2,6 @@ package entity.skill;
 
 import controller.Handler;
 import dataStorge.Container;
-import entity.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -25,15 +24,13 @@ public class Shield extends Skill {
 		
 		speedX = 0;
 		speedY = 0;
-		
-//		draw();
 	}
 
 	public Shield() {
 	}
 	
 	public void updatePosition() {
-		positionY = player.getPositionY() - 50;
+		positionY = owner.getPositionY() - 50;
 		canvas.setTranslateX(positionX);
 		canvas.setTranslateY(positionY);
 	}
@@ -46,7 +43,7 @@ public class Shield extends Skill {
 	}
 	
 	public boolean isDead() {
-		if (!Handler.getKeys().contains(KeyCode.SPACE) || positionX >= Main.SCREEN_WIDTH) {
+		if (owner.getHp() == 0.00001 || !Handler.getKeys().contains(KeyCode.SPACE) || positionX >= Main.SCREEN_WIDTH) {
 			Container.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

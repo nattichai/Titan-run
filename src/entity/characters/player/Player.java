@@ -5,6 +5,7 @@ import dataStorge.PlayerData;
 import dataStorge.Storage;
 import entity.characters.Characters;
 import entity.gui.GUI;
+import entity.gui.GUIImage;
 import entity.map.Map;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -69,8 +70,6 @@ public class Player extends Characters implements Slidable {
 		state = State.RUNNING;
 		
 		playerData = new PlayerData();
-
-		draw();
 	}
 
 	public void draw() {
@@ -141,7 +140,7 @@ public class Player extends Characters implements Slidable {
 			Main.getTimerUpdate().play();
 			Main.getTimerAnimate().play();
 		});
-		GUI youAreDead = new GUI(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT,
+		GUI youAreDead = new GUIImage(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT,
 				new Image(ClassLoader.getSystemResource("images/text/you died.png").toString()));
 		Container.getContainer().add(youAreDead);
 	}

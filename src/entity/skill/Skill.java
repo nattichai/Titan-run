@@ -1,12 +1,15 @@
 package entity.skill;
 
 import entity.Entity;
+import entity.characters.Characters;
+import entity.characters.monster.Monster;
 import entity.characters.player.Player;
 import property.Animatable;
 import property.Movable;
+import property.Side;
 
 public abstract class Skill extends Entity implements Movable, Animatable{
-	protected Player player;
+	protected Characters owner;
 	protected double speedX, speedY;
 	protected int currentAnimation;
 
@@ -36,12 +39,20 @@ public abstract class Skill extends Entity implements Movable, Animatable{
 
 	public abstract boolean isDead();
 
-	public Player getPlayer() {
-		return player;
+	public Characters getOwner() {
+		return owner;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
+	public void setOwner(Characters owner) {
+		if (owner instanceof Player) {
+			side = Side.PLAYER;
+			this.owner = (Player) owner;
+		} else if (owner instanceof Monster) {
+			side = Side.MONSTER;
+			this.owner = (Monster) owner;
+		} else {
+			side = Side.NEUTRAL;
+		}
 	}
 
 	public double getSpeedX() {

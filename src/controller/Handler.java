@@ -54,15 +54,15 @@ public class Handler {
 	}
 
 	public static void handler() {
-		 if (keys.contains(KeyCode.RIGHT)) { // RIGHT = RUNNING
-		 Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-20));
-		 Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-20));
-		 Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-20));
-		 } else {
-		 Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-10));
-		 Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-10));
-		 Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-10));
-		 }
+//		 if (keys.contains(KeyCode.RIGHT)) { // RIGHT = RUNNING
+//		 Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-20));
+//		 Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-20));
+//		 Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-20));
+//		 } else {
+//		 Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-10));
+//		 Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-10));
+//		 Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-10));
+//		 }
 
 		if (keys.contains(KeyCode.H)) { // H = HEAL
 			for (Player player : Container.getContainer().getPlayerList()) {
@@ -108,7 +108,7 @@ public class Handler {
 		if (keys.contains(KeyCode.SPACE)) { // SPACE = SHIELD (USE MANA)
 			for (Player player : Container.getContainer().getPlayerList()) {
 				if (hasShield) {
-					player.addMana(-0.4);
+					player.addMana(-0.5);
 					player.setPowerState(PowerState.IMMORTAL);
 					if (player.getMana() <= 0) {
 						keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false, false, false, false));
@@ -117,7 +117,7 @@ public class Handler {
 					hasShield = true;
 					Shield shield = new Shield(player.getPositionX() - 150, player.getPositionY() - 50, Shield.SKILL_WIDTH,
 							Shield.SKILL_HEIGHT);
-					shield.setPlayer(player);
+					shield.setOwner(player);
 					Container.getContainer().add(shield);
 				}
 			}
@@ -131,7 +131,7 @@ public class Handler {
 						Fireball fireball = new Fireball(player.getPositionX(),
 								player.getPositionY() + player.getHeight() / 2, Fireball.SKILL_WIDTH,
 								Fireball.SKILL_HEIGHT);
-						fireball.setPlayer(player);
+						fireball.setOwner(player);
 						Container.getContainer().add(fireball);
 					}
 				}
@@ -146,7 +146,7 @@ public class Handler {
 						Timeline timerLightning = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 							Lightning lightning = new Lightning(nearestMonsterPosition(), 0, Lightning.SKILL_WIDTH,
 									Lightning.SKILL_HEIGHT);
-							lightning.setPlayer(player);
+							lightning.setOwner(player);
 							Container.getContainer().add(lightning);
 						}));
 						timerLightning.setCycleCount(10);
@@ -164,7 +164,7 @@ public class Handler {
 						Timeline timerThunderbolt = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 							Thunderbolt thunderbolt = new Thunderbolt(0, 0, Thunderbolt.SKILL_WIDTH,
 									Thunderbolt.SKILL_HEIGHT);
-							thunderbolt.setPlayer(player);
+							thunderbolt.setOwner(player);
 							Container.getContainer().add(thunderbolt);
 						}));
 						timerThunderbolt.setCycleCount(1);
@@ -182,7 +182,7 @@ public class Handler {
 						Timeline timerMeteor = new Timeline(new KeyFrame(Duration.millis(150), e -> {
 							Meteor meteor = new Meteor(player.getPositionX(), -200, Meteor.SKILL_WIDTH,
 									Meteor.SKILL_HEIGHT);
-							meteor.setPlayer(player);
+							meteor.setOwner(player);
 							Container.getContainer().add(meteor);
 						}));
 						timerMeteor.setCycleCount(1);
@@ -199,7 +199,7 @@ public class Handler {
 						PlayerData.resetCooldown(4);
 						Timeline timerSlashy = new Timeline(new KeyFrame(Duration.millis(200), e -> {
 							Slashy slashy = new Slashy(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-							slashy.setPlayer(player);
+							slashy.setOwner(player);
 							Container.getContainer().add(slashy);
 						}));
 						timerSlashy.setCycleCount(1);

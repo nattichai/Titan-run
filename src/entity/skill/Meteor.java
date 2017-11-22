@@ -8,7 +8,7 @@ import main.Main;
 import property.Hitbox;
 
 public class Meteor extends Skill {
-	public static final double SKILL_WIDTH = 500;
+	public static final double SKILL_WIDTH = 800;
 	public static final double SKILL_HEIGHT = 500;
 	public static final double SKILL_DAMAGE = 999;
 	public static final double SKILL_COOLDOWN = 15;
@@ -27,8 +27,6 @@ public class Meteor extends Skill {
 		speedY = 5;
 		currentAnimation = 4;
 		canvas.setRotate(45);
-
-		draw();
 	}
 
 	public Meteor() {
@@ -48,7 +46,7 @@ public class Meteor extends Skill {
 	}
 
 	public boolean isDead() {
-		if (positionX >= Main.SCREEN_WIDTH || positionY >= Main.SCREEN_HEIGHT) {
+		if (owner.getHp() == 0.00001 || positionX >= Main.SCREEN_WIDTH || positionY >= Main.SCREEN_HEIGHT) {
 			Container.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

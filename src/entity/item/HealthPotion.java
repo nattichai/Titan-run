@@ -22,7 +22,6 @@ public class HealthPotion extends Item{
 		height = positionY + Map.FLOOR_HEIGHT - POTION_HEIGHT;
 		hb = new Hitbox(0, height, 100, 100);
 		currentAnimation = 0;
-		draw();
 	}
 
 	public HealthPotion() {

@@ -2,6 +2,7 @@ package dataStorge;
 
 import java.util.ArrayList;
 
+import controller.Controller;
 import entity.Entity;
 import entity.characters.monster.Monster;
 import entity.characters.player.Player;
@@ -23,7 +24,6 @@ import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.effect.Lighting;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -82,6 +82,7 @@ public class Container {
 
 	public static void initialize() {
 		container = new Container();
+		new Controller();
 		new Storage();
 		new Shield();
 		new Fireball();
@@ -100,6 +101,9 @@ public class Container {
 
 		Player player = new Player(90, Map.FLOOR_HEIGHT - 200, 120, 200);
 		container.add(player);
+		
+//		Controller.setTick(0);
+//		Controller.setRnd(Controller.MIN_OBSTACLE_SPACE);
 		
 	}
 

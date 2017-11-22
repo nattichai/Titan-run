@@ -1,6 +1,7 @@
 package dataStorge;
 
-import entity.gui.GUI;
+import entity.gui.GUIProgress;
+import entity.gui.GUIText;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
 import entity.skill.Meteor;
@@ -20,31 +21,31 @@ public class PlayerData {
 	}
 	
 	private double score;
-	private GUI scoreText;
+	private GUIText scoreText;
 	private static double[] cooldown;
-	private static GUI[] cooldownText;
-	private static GUI[] cooldownProgress;
+	private static GUIText[] cooldownText;
+	private static GUIProgress[] cooldownProgress;
 	
 	public PlayerData() {
 		score = 0;
-		scoreText = new GUI(-350, -50, 800, 200, "Score: " + score);
+		scoreText = new GUIText(-350, -50, 800, 200, "Score: " + score);
 		scoreText.getCanvas().getGraphicsContext2D().setTextAlign(TextAlignment.LEFT);
 		scoreText.getCanvas().getGraphicsContext2D().setTextBaseline(VPos.TOP);
 		Container.getContainer().add(scoreText);
 		
 		cooldown = new double[100];
-		cooldownText = new GUI[100];
-		cooldownText[0] = new GUI(25, 125, 75, 75, "Q");
-		cooldownText[1] = new GUI(105, 125, 75, 75, "W");
-		cooldownText[2] = new GUI(185, 125, 75, 75, "E");
-		cooldownText[3] = new GUI(265, 125, 75, 75, "R");
-		cooldownText[4] = new GUI(25, 205, 75, 75, "1");
-		cooldownProgress = new GUI[100];
-		cooldownProgress[0] = new GUI(25, 125, 75, 75, 0.0);
-		cooldownProgress[1] = new GUI(105, 125, 75, 75, 0.0);
-		cooldownProgress[2] = new GUI(185, 125, 75, 75, 0.0);
-		cooldownProgress[3] = new GUI(265, 125, 75, 75, 0.0);
-		cooldownProgress[4] = new GUI(25, 205, 75, 75, 0.0);
+		cooldownText = new GUIText[100];
+		cooldownText[0] = new GUIText(25, 125, 75, 75, "Q");
+		cooldownText[1] = new GUIText(105, 125, 75, 75, "W");
+		cooldownText[2] = new GUIText(185, 125, 75, 75, "E");
+		cooldownText[3] = new GUIText(265, 125, 75, 75, "R");
+		cooldownText[4] = new GUIText(25, 205, 75, 75, "1");
+		cooldownProgress = new GUIProgress[100];
+		cooldownProgress[0] = new GUIProgress(25, 125, 75, 75, 0.0);
+		cooldownProgress[1] = new GUIProgress(105, 125, 75, 75, 0.0);
+		cooldownProgress[2] = new GUIProgress(185, 125, 75, 75, 0.0);
+		cooldownProgress[3] = new GUIProgress(265, 125, 75, 75, 0.0);
+		cooldownProgress[4] = new GUIProgress(25, 205, 75, 75, 0.0);
 		Container.getContainer().add(cooldownText[0]);
 		Container.getContainer().add(cooldownText[1]);
 		Container.getContainer().add(cooldownText[2]);
@@ -69,7 +70,7 @@ public class PlayerData {
 		score += s;
 		score *= 1.01;
 		scoreText.setText("Score: " + changeUnit(score));
-		scoreText.drawText();
+		scoreText.draw();
 	}
 	
 	public String changeUnit(double d) {
@@ -97,7 +98,7 @@ public class PlayerData {
 	public static void resetCooldown(int index) {
 		cooldown[index] = fullCooldown[index];
 		cooldownProgress[index].setProgress(1);
-		cooldownProgress[index].drawProgress();
+		cooldownProgress[index].draw();
 	}
 	
 	public static void decreaseCooldown(double cd) {
@@ -106,7 +107,7 @@ public class PlayerData {
 			if (cooldown[i] < 0)
 				cooldown[i] = 0;
 			cooldownProgress[i].setProgress(cooldown[i] / fullCooldown[i]);
-			cooldownProgress[i].drawProgress();
+			cooldownProgress[i].draw();
 		}
 	}
 }

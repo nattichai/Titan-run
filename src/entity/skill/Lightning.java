@@ -22,8 +22,6 @@ public class Lightning extends Skill {
 		
 		speedX = 0;
 		speedY = 0;
-		
-		draw();
 	}
 
 	public Lightning() {}
@@ -36,7 +34,7 @@ public class Lightning extends Skill {
 	}
 	
 	public boolean isDead() {
-		if (currentAnimation == 11) {
+		if (owner.getHp() == 0.00001 || currentAnimation == 11) {
 			Container.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

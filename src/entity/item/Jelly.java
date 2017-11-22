@@ -23,7 +23,6 @@ public class Jelly extends Item{
 		hb = new Hitbox(5, positionY + Map.FLOOR_HEIGHT - 80, 90, 80);
 		currentAnimation = 0;
 		isCollided = false;
-		draw();
 	}
 
 	public Jelly() {

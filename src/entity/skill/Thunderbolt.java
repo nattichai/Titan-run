@@ -24,8 +24,6 @@ public class Thunderbolt extends Skill {
 
 		speedX = 10;
 		speedY = 0;
-
-		draw();
 	}
 
 	public Thunderbolt() {
@@ -45,7 +43,7 @@ public class Thunderbolt extends Skill {
 	}
 
 	public boolean isDead() {
-		if (currentAnimation == 38) {
+		if (owner.getHp() == 0.00001 || currentAnimation == 38) {
 			Container.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

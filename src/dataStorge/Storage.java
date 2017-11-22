@@ -1,6 +1,11 @@
 package dataStorge;
 
 import entity.map.Map;
+import entity.skill.Fireball;
+import entity.skill.Lightning;
+import entity.skill.Meteor;
+import entity.skill.Skill;
+import entity.skill.Thunderbolt;
 import javafx.scene.image.Image;
 import property.Hitbox;
 import property.PowerState;
@@ -17,6 +22,7 @@ public class Storage {
 	public double waitTime;			//stay time then move out
 	public double hp, maxHp;			//hit point
 	public double atk;				//attack
+	public Skill skill;				//skill
 	public Side side;				//side
 	public PowerState powerState;	//power state
 	
@@ -55,6 +61,7 @@ public class Storage {
 		pikachu.hp = 100;
 		pikachu.maxHp = 100;
 		pikachu.atk = 10;
+		pikachu.skill = new Thunderbolt();
 		pikachu.side = Side.MONSTER;
 		pikachu.powerState = PowerState.NORMAL;
 
@@ -74,6 +81,7 @@ public class Storage {
 		spearman.hp = 100;
 		spearman.maxHp = 100;
 		spearman.atk = 10;
+		spearman.skill = new Lightning();
 		spearman.side = Side.MONSTER;
 		spearman.powerState = PowerState.NORMAL;
 
@@ -93,6 +101,7 @@ public class Storage {
 		sorcerer.hp = 100;
 		sorcerer.maxHp = 100;
 		sorcerer.atk = 10;
+		sorcerer.skill = new Meteor();
 		sorcerer.side = Side.MONSTER;
 		sorcerer.powerState = PowerState.NORMAL;
 
@@ -112,6 +121,7 @@ public class Storage {
 		shaman.hp = 100;
 		shaman.maxHp = 100;
 		shaman.atk = 10;
+		shaman.skill = new Fireball();
 		shaman.side = Side.MONSTER;
 		shaman.powerState = PowerState.NORMAL;
 		
