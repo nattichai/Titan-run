@@ -1,5 +1,7 @@
 package entity.skill;
 
+import java.util.Random;
+
 import dataStorge.Container;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -8,9 +10,9 @@ import main.Main;
 public class Fireball extends Skill {
 	public static final double SKILL_WIDTH = 50;
 	public static final double SKILL_HEIGHT = 30;
-	public static final double SKILL_DAMAGE = 10;
+	public static final double SKILL_DAMAGE = 5;
 	public static final double SKILL_COOLDOWN = 0.10;
-	protected static final Image[] images = new Image[20];
+	protected static final Image[] images = new Image[10];
 	static {
 		for (int i = 0; i < 10; ++i) {
 			images[i] = new Image(ClassLoader.getSystemResource("images/skill/fireball/fireball" + i + ".png").toString());
@@ -22,12 +24,12 @@ public class Fireball extends Skill {
 		
 		speedX = 20;
 		speedY = 0;
-		
-		draw();
+		damage = SKILL_DAMAGE;
+		currentAnimation = new Random().nextInt(10);
 	}
 
 	public Fireball() {
-		super();
+		
 	}
 
 	public void draw() {
@@ -38,7 +40,7 @@ public class Fireball extends Skill {
 	}
 	
 	public boolean isDead() {
-		if (isCollided || positionX >= Main.SCREEN_WIDTH) {
+		if (owner.getHp() == 0.00001 || isCollided || positionX < -100 || positionX >= Main.SCREEN_WIDTH) {
 			Container.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}
