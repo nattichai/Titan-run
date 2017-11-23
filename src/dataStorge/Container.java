@@ -102,9 +102,6 @@ public class Container {
 		Player player = new Player(90, Map.FLOOR_HEIGHT - 200, 120, 200);
 		container.add(player);
 		
-//		Controller.setTick(0);
-//		Controller.setRnd(Controller.MIN_OBSTACLE_SPACE);
-		
 	}
 
 	public void add(Object object) {

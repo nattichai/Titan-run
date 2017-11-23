@@ -174,29 +174,29 @@ public class Handler {
 			}
 		}
 
-		if (keys.contains(KeyCode.R)) { // R = METEOR (ULTIMATE)
+//		if (keys.contains(KeyCode.R)) { // R = METEOR (ULTIMATE)
+//			for (Player player : Container.getContainer().getPlayerList()) {
+//				if (player.getState() != State.SLIDING) { // NOT SLIDING
+//					if (PlayerData.getCooldown(3) <= 0) {
+//						PlayerData.resetCooldown(3);
+//						Timeline timerMeteor = new Timeline(new KeyFrame(Duration.millis(150), e -> {
+//							Meteor meteor = new Meteor(player.getPositionX(), -200, Meteor.SKILL_WIDTH,
+//									Meteor.SKILL_HEIGHT);
+//							meteor.setOwner(player);
+//							Container.getContainer().add(meteor);
+//						}));
+//						timerMeteor.setCycleCount(1);
+//						timerMeteor.play();
+//					}
+//				}
+//			}
+//		}
+
+		if (keys.contains(KeyCode.R)) { // 1 = SLASHY
 			for (Player player : Container.getContainer().getPlayerList()) {
 				if (player.getState() != State.SLIDING) { // NOT SLIDING
 					if (PlayerData.getCooldown(3) <= 0) {
 						PlayerData.resetCooldown(3);
-						Timeline timerMeteor = new Timeline(new KeyFrame(Duration.millis(150), e -> {
-							Meteor meteor = new Meteor(player.getPositionX(), -200, Meteor.SKILL_WIDTH,
-									Meteor.SKILL_HEIGHT);
-							meteor.setOwner(player);
-							Container.getContainer().add(meteor);
-						}));
-						timerMeteor.setCycleCount(1);
-						timerMeteor.play();
-					}
-				}
-			}
-		}
-
-		if (keys.contains(KeyCode.DIGIT1)) { // 1 = SLASHY
-			for (Player player : Container.getContainer().getPlayerList()) {
-				if (player.getState() != State.SLIDING) { // NOT SLIDING
-					if (PlayerData.getCooldown(4) <= 0) {
-						PlayerData.resetCooldown(4);
 						Timeline timerSlashy = new Timeline(new KeyFrame(Duration.millis(200), e -> {
 							Slashy slashy = new Slashy(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 							slashy.setOwner(player);

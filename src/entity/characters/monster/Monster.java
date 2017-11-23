@@ -5,12 +5,14 @@ import dataStorge.Storage;
 import entity.characters.Characters;
 import entity.characters.player.Player;
 import entity.map.Map;
+import entity.skill.Darkspear;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
 import entity.skill.Meteor;
 import entity.skill.Skill;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
+import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,10 +26,12 @@ public class Monster extends Characters {
 	protected boolean canMove, canMoveOut;
 	protected Skill skill;
 
+	private Timeline timer;
+
 	public Monster(double x, double y, double w, double h, int idx) {
 		super(x, y, w, h);
 
-		Storage monster = Storage.characters[idx];
+		Storage monster = Storage.characters[4];
 		nImage = monster.nImage;
 		images = monster.images;
 		width = monster.width;
@@ -55,7 +59,7 @@ public class Monster extends Characters {
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
-		currentAnimation %= 8;
+		currentAnimation %= nImage;
 		gc.drawImage(images[currentAnimation++], 0, height - hb.y - hb.h, width, height);
 	}
 
@@ -84,11 +88,12 @@ public class Monster extends Characters {
 	public void stayInMap() {
 		canMove = false;
 		positionX = Main.SCREEN_WIDTH - width - hb.w;
-		Timeline timer = new Timeline(new KeyFrame(Duration.millis(1000), e -> {
+		timer = new Timeline(new KeyFrame(Duration.millis(1000), e -> {
 		})); // wait 1 sec
 		timer.play();
 		timer.setOnFinished(e -> {
-			useSkill();
+			if (hp > 0.00001)
+				useSkill();
 			Timeline timerSkill = new Timeline(new KeyFrame(Duration.millis(1000), f -> {
 			})); // wait 1 sec
 			timerSkill.play();
@@ -101,7 +106,7 @@ public class Monster extends Characters {
 
 	private void useSkill() {
 		if (skill instanceof Fireball) {
-			Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Fireball skill = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH,
 						Fireball.SKILL_HEIGHT);
 				skill.setOwner(this);
@@ -114,7 +119,7 @@ public class Monster extends Characters {
 		}
 
 		else if (skill instanceof Lightning) {
-			Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Lightning skill = new Lightning(nearestPlayerPosition(), 0, Lightning.SKILL_WIDTH,
 						Lightning.SKILL_HEIGHT);
 				skill.setOwner(this);
@@ -127,7 +132,7 @@ public class Monster extends Characters {
 		}
 
 		else if (skill instanceof Thunderbolt) {
-			Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				skill = new Thunderbolt(Main.SCREEN_WIDTH - Thunderbolt.SKILL_WIDTH, 0, Thunderbolt.SKILL_WIDTH,
 						Thunderbolt.SKILL_HEIGHT);
 				skill.setOwner(this);
@@ -140,10 +145,11 @@ public class Monster extends Characters {
 		}
 
 		else if (skill instanceof Meteor) {
-			Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				skill = new Meteor(Main.SCREEN_WIDTH - positionX, -200, Meteor.SKILL_WIDTH, Meteor.SKILL_HEIGHT);
+			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+				skill = new Meteor(Main.SCREEN_WIDTH - 100, -Meteor.SKILL_HEIGHT, Meteor.SKILL_WIDTH,
+						Meteor.SKILL_HEIGHT);
 				skill.setOwner(this);
-				skill.getCanvas().setRotate(135);
+				skill.getCanvas().setScaleX(-1);
 				skill.setSpeedX(-skill.getSpeedX());
 				Container.getContainer().add(skill);
 			}));
@@ -152,7 +158,7 @@ public class Monster extends Characters {
 		}
 
 		else if (skill instanceof Slashy) {
-			Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				skill = new Slashy(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 				skill.setOwner(this);
 				skill.getCanvas().setScaleX(-1);
@@ -162,10 +168,23 @@ public class Monster extends Characters {
 			timer.setCycleCount(1);
 			timer.play();
 		}
+
+		else if (skill instanceof Darkspear) {
+			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+				skill = new Darkspear(Main.SCREEN_WIDTH - Darkspear.SKILL_WIDTH,
+						Map.FLOOR_HEIGHT - height / 2 - Darkspear.SKILL_HEIGHT / 2, Darkspear.SKILL_WIDTH,
+						Darkspear.SKILL_HEIGHT);
+				skill.setOwner(this);
+				skill.setSpeedX(-skill.getSpeedX());
+				Container.getContainer().add(skill);
+			}));
+			timer.setCycleCount(1);
+			timer.play();
+		}
 	}
 
 	private double nearestPlayerPosition() {
-		double pos = 800;
+		double pos = 200;
 		for (Player player : Container.getContainer().getPlayerList()) {
 			pos = Math.min(pos, player.getPositionX() + 50);
 		}
@@ -174,6 +193,11 @@ public class Monster extends Characters {
 
 	public void changeImage() {
 		draw();
+	}
+
+	public void affectTo(Characters player) {
+		// takes damage to player = atk
+		player.decreaseHp(atk);
 	}
 
 	public void injured() {
@@ -188,10 +212,14 @@ public class Monster extends Characters {
 	}
 
 	public void die() {
+		// fade away
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), canvas);
 		ft.setFromValue(1.0);
 		ft.setToValue(0);
 		ft.play();
+		// stop skill animation if it not yet
+		if (timer != null)
+			timer.stop();
 	}
 
 	public boolean isDead() {

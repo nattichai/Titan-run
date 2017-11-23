@@ -1,9 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import dataStorge.Container;
 import dataStorge.PlayerData;
+import entity.Entity;
+import entity.characters.Characters;
 import entity.characters.monster.Monster;
 import entity.characters.player.Player;
 import entity.item.HealthPotion;
@@ -14,14 +17,10 @@ import entity.obstacle.AirObstacle;
 import entity.obstacle.GroundObstacle;
 import entity.obstacle.HoleObstacle;
 import entity.obstacle.Obstacle;
-import entity.skill.Fireball;
-import entity.skill.Lightning;
-import entity.skill.Meteor;
+import entity.skill.Darkspear;
+import entity.skill.Shield;
 import entity.skill.Skill;
-import entity.skill.Slashy;
-import entity.skill.Thunderbolt;
 import main.Main;
-import property.PowerState;
 
 public class Controller {
 	public static final int MIN_OBSTACLE_SPACE = 100;
@@ -41,7 +40,7 @@ public class Controller {
 		Handler.handler();
 		generateMap();
 		moveAll();
-		checkCollision();
+		checkAllCollision();
 		removeAllDead();
 		decreaseCooldown();
 //		drawHitbox();
@@ -126,52 +125,39 @@ public class Controller {
 
 	}
 
-	public static void checkCollision() {
-		for (Player player : Container.getContainer().getPlayerList()) {
-			if (player.getPowerState() != PowerState.IMMORTAL) { // NOT IMMORTAL
-				for (Obstacle obstacle : Container.getContainer().getObstacleList()) {
-					if (obstacle.isCollision(player)) { // CHECK COLLISION
-						if (obstacle instanceof HoleObstacle) // FALL IN A HOLE
-							player.die();
-						else
-							player.decreaseHp(Obstacle.OBSTACLE_DAMAGE); // DAMAGED BY HITTING
+	public static void checkAllCollision() {
+		ArrayList<Player> playerList = Container.getContainer().getPlayerList();
+		ArrayList<Monster> monsterList = Container.getContainer().getMonsterList();
+		ArrayList<Obstacle> obstacleList = Container.getContainer().getObstacleList();
+		ArrayList<Item> itemList = Container.getContainer().getItemList();
+		ArrayList<Skill> skillList = Container.getContainer().getSkillList();
+		
+		checkPairCollision(playerList, obstacleList);
+		checkPairCollision(playerList, monsterList);
+		checkPairCollision(playerList, itemList);
+		checkPairCollision(playerList, skillList);
+		checkPairCollision(monsterList, skillList);
+		checkPairCollision(skillList, skillList);
+	}
+	
+	public static void checkPairCollision(ArrayList<? extends Entity> first, ArrayList<? extends Entity> second) {
+		for (Entity firstEntity : first) {
+			for (Entity secondEntity : second) {
+				
+				if (firstEntity instanceof Characters) {
+					if (secondEntity.isCollision(firstEntity)) {
+						secondEntity.affectTo((Characters) firstEntity);
 					}
 				}
-			}
-
-			for (Item item : Container.getContainer().getItemList()) {
-				if (item.isCollision(player)) {
-					item.setCollected(true);
-					item.effect(player);
-				}
-			}
-		}
-
-		for (Monster monster : Container.getContainer().getMonsterList()) {
-			for (Skill skill : Container.getContainer().getSkillList()) {
-				if (skill.isCollision(monster)) {
-					if (skill instanceof Fireball)
-						monster.decreaseHp(Fireball.SKILL_DAMAGE);
-					else if (skill instanceof Lightning)
-						monster.decreaseHp(Lightning.SKILL_DAMAGE);
-					else if (skill instanceof Thunderbolt)
-						monster.decreaseHp(Thunderbolt.SKILL_DAMAGE);
-					else if (skill instanceof Slashy)
-						monster.decreaseHp(Slashy.SKILL_DAMAGE);
-					else if (skill instanceof Meteor)
-						monster.decreaseHp(Meteor.SKILL_DAMAGE);
-					if (monster.isDead()) {
-						if (skill.getOwner() instanceof Player) {
-							Player player = (Player) skill.getOwner();
-							player.getPlayerData().addScore(player.getPlayerData().getScore() * 10);
+				
+				else if (firstEntity instanceof Skill) {
+					if (firstEntity instanceof Shield && !(secondEntity instanceof Darkspear)) {
+						if (secondEntity.isCollision(firstEntity)) {
+							((Shield) firstEntity).affectTo((Skill) secondEntity);
 						}
 					}
-				}
-			}
-			if (monster.getHp() > 0.00001) {
-				for (Player player : Container.getContainer().getPlayerList()) {
-					if (player.getPowerState() != PowerState.IMMORTAL && monster.isCollision(player)) {
-						player.decreaseHp(monster.getAtk());
+					else {
+						break;
 					}
 				}
 			}

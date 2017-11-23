@@ -2,6 +2,7 @@ package entity.obstacle;
 
 import dataStorge.Container;
 import entity.Entity;
+import entity.characters.Characters;
 import javafx.scene.image.Image;
 import property.Movable;
 
@@ -25,6 +26,8 @@ public abstract class Obstacle extends Entity implements Movable {
 	}
 
 	public abstract void draw();
+	
+	public void changeSpeed(double accelX, double accelY) {}
 
 	public void move() {
 		positionX += speedX;
@@ -36,6 +39,13 @@ public abstract class Obstacle extends Entity implements Movable {
 	public void updatePosition() {
 		canvas.setTranslateX(positionX);
 		canvas.setTranslateY(positionY);
+	}
+	
+	public void affectTo(Characters player) {
+		if (this instanceof HoleObstacle) // FALL IN A HOLE
+			player.die();
+		else
+			player.decreaseHp(Obstacle.OBSTACLE_DAMAGE); // DAMAGED BY HITTING
 	}
 
 	public boolean isDead() {

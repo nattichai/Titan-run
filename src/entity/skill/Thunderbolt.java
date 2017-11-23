@@ -5,6 +5,8 @@ import entity.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.Main;
+import property.Hitbox;
+import property.Side;
 
 public class Thunderbolt extends Skill {
 	public static final double SKILL_WIDTH = 600;
@@ -24,6 +26,8 @@ public class Thunderbolt extends Skill {
 
 		speedX = 10;
 		speedY = 0;
+		damage = SKILL_DAMAGE;
+		hb = new Hitbox(200, 0, SKILL_WIDTH - 400, SKILL_HEIGHT);
 	}
 
 	public Thunderbolt() {
@@ -38,6 +42,8 @@ public class Thunderbolt extends Skill {
 	}
 	
 	public boolean isCollision(Entity e) {
+		if (side == e.getSide() || (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
+			return false;
 		return positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w && positionX + hb.x + hb.w > e.getPositionX() + e.getHb().x
 				&& positionY + hb.y < e.getPositionY() + e.getHb().y + e.getHb().h && positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y;
 	}

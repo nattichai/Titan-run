@@ -22,6 +22,7 @@ public class Lightning extends Skill {
 		
 		speedX = 0;
 		speedY = 0;
+		damage = SKILL_DAMAGE;
 	}
 
 	public Lightning() {}

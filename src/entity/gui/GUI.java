@@ -1,6 +1,7 @@
 package entity.gui;
 
 import entity.Entity;
+import entity.characters.Characters;
 
 public abstract class GUI extends Entity{
 	
@@ -9,6 +10,10 @@ public abstract class GUI extends Entity{
 	}
 	
 	public abstract void draw();
+	
+	public void affectTo(Characters e) {
+		
+	}
 
 	public boolean isDead() {
 		return false;

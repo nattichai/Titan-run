@@ -1,5 +1,6 @@
 package entity;
 
+import entity.characters.Characters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -44,6 +45,8 @@ public abstract class Entity {
 		}
 		return false;
 	}
+	
+	public abstract void affectTo(Characters e);
 	
 	public abstract boolean isDead();
 

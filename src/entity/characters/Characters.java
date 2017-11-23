@@ -42,7 +42,7 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	public abstract void changeImage();
 
 	public void decreaseHp(double d) {
-		if (hp == 0.00001) {
+		if (hp == 0.00001 || powerState == PowerState.IMMORTAL) {
 			return;
 		}
 		hp -= d;

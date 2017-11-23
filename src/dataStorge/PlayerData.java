@@ -16,8 +16,7 @@ public class PlayerData {
 		fullCooldown[0] = Fireball.SKILL_COOLDOWN;
 		fullCooldown[1] = Lightning.SKILL_COOLDOWN;
 		fullCooldown[2] = Thunderbolt.SKILL_COOLDOWN;
-		fullCooldown[3] = Meteor.SKILL_COOLDOWN;
-		fullCooldown[4] = Slashy.SKILL_COOLDOWN;
+		fullCooldown[3] = Slashy.SKILL_COOLDOWN;
 	}
 	
 	private double score;
@@ -39,23 +38,19 @@ public class PlayerData {
 		cooldownText[1] = new GUIText(105, 125, 75, 75, "W");
 		cooldownText[2] = new GUIText(185, 125, 75, 75, "E");
 		cooldownText[3] = new GUIText(265, 125, 75, 75, "R");
-		cooldownText[4] = new GUIText(25, 205, 75, 75, "1");
 		cooldownProgress = new GUIProgress[100];
 		cooldownProgress[0] = new GUIProgress(25, 125, 75, 75, 0.0);
 		cooldownProgress[1] = new GUIProgress(105, 125, 75, 75, 0.0);
 		cooldownProgress[2] = new GUIProgress(185, 125, 75, 75, 0.0);
 		cooldownProgress[3] = new GUIProgress(265, 125, 75, 75, 0.0);
-		cooldownProgress[4] = new GUIProgress(25, 205, 75, 75, 0.0);
 		Container.getContainer().add(cooldownText[0]);
 		Container.getContainer().add(cooldownText[1]);
 		Container.getContainer().add(cooldownText[2]);
 		Container.getContainer().add(cooldownText[3]);
-		Container.getContainer().add(cooldownText[4]);
 		Container.getContainer().add(cooldownProgress[0]);
 		Container.getContainer().add(cooldownProgress[1]);
 		Container.getContainer().add(cooldownProgress[2]);
 		Container.getContainer().add(cooldownProgress[3]);
-		Container.getContainer().add(cooldownProgress[4]);
 	}
 
 	public double getScore() {
@@ -68,8 +63,7 @@ public class PlayerData {
 	
 	public void addScore(double s) {
 		score += s;
-		score *= 1.01;
-		scoreText.setText("Score: " + changeUnit(score));
+		scoreText.setText("Score: " + String.format("%.0f", score));
 		scoreText.draw();
 	}
 	
@@ -81,7 +75,7 @@ public class PlayerData {
 			d /= 1000;
 			count ++;
 		}
-		number = String.format("%.2f ", d);
+		number = String.format("%.0f ", d);
 		if (count == 0) unit = "";
 		else if (count == 1) unit = "K";
 		else if (count == 2) unit = "M";
@@ -102,7 +96,7 @@ public class PlayerData {
 	}
 	
 	public static void decreaseCooldown(double cd) {
-		for (int i = 0; i < 5; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			cooldown[i] -= cd;
 			if (cooldown[i] < 0)
 				cooldown[i] = 0;

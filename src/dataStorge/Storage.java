@@ -1,6 +1,7 @@
 package dataStorge;
 
 import entity.map.Map;
+import entity.skill.Darkspear;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
 import entity.skill.Meteor;
@@ -81,7 +82,7 @@ public class Storage {
 		spearman.hp = 100;
 		spearman.maxHp = 100;
 		spearman.atk = 10;
-		spearman.skill = new Lightning();
+		spearman.skill = new Darkspear();
 		spearman.side = Side.MONSTER;
 		spearman.powerState = PowerState.NORMAL;
 

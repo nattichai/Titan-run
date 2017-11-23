@@ -99,6 +99,11 @@ public class Player extends Characters implements Slidable {
 			draw();
 		}
 	}
+	
+	public void affectTo(Characters e) {
+		//takes damage to e = atk
+		e.decreaseHp(atk);
+	}
 
 	public void slide() {
 		state = State.SLIDING;

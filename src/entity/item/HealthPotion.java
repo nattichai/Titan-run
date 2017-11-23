@@ -1,6 +1,6 @@
 package entity.item;
 
-import entity.characters.player.Player;
+import entity.characters.Characters;
 import entity.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -39,7 +39,8 @@ public class HealthPotion extends Item{
 		draw();
 	}
 	
-	public void effect(Player player) {
+	public void affectTo(Characters player) {
+		// increase hp by 15
 		player.setHp(player.getHp() + 15);
 	}
 }

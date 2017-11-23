@@ -3,6 +3,7 @@ package entity.map;
 import java.util.Random;
 
 import entity.Entity;
+import entity.characters.Characters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import property.Movable;
@@ -11,7 +12,7 @@ public class Map extends Entity implements Movable{
 	public static final double FLOOR_HEIGHT = 600;
 	public static final double GRAVITY = 0.8;
 	public static final double PASSIVE_DAMAGE = 0.045;
-	public static final double PASSIVE_SCORE = 1;
+	public static final double PASSIVE_SCORE = 0;
 	public static final double PASSIVE_MANA_REGEN = 0.1;
 	protected static final Image[] images = new Image[10];
 	static {
@@ -41,6 +42,8 @@ public class Map extends Entity implements Movable{
 		gc.drawImage(image, 0, 0);
 		gc.drawImage(image, width, 0);
 	}
+	
+	public void changeSpeed(double accelX, double accelY) {}
 
 	public void move() {
 		positionX += speedX;
@@ -56,6 +59,10 @@ public class Map extends Entity implements Movable{
 	public void updatePosition() {
 		canvas.setTranslateX(positionX);
 		canvas.setTranslateY(positionY);
+	}
+	
+	public void affectTo(Characters e) {
+		
 	}
 
 	public boolean isDead() {

@@ -2,7 +2,6 @@ package entity.item;
 
 import dataStorge.Container;
 import entity.Entity;
-import entity.characters.player.Player;
 import property.Animatable;
 import property.Movable;
 
@@ -23,6 +22,8 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	}
 
 	public abstract void draw();
+	
+	public void changeSpeed(double accelX, double accelY) {}
 
 	public void move() {
 		positionX += speedX;
@@ -37,8 +38,6 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	}
 	
 	public abstract void changeImage();
-	
-	public abstract void effect(Player player);
 
 	public boolean isDead() {
 		if (isCollided || positionX + 200 < 0) {
@@ -46,10 +45,6 @@ public abstract class Item extends Entity implements Movable, Animatable {
 			return true;
 		}
 		return false;
-	}
-
-	public void setCollected(boolean isCollected) {
-		this.isCollided = isCollected;
 	}
 
 	public double getSpeedX() {

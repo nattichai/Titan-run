@@ -1,5 +1,7 @@
 package entity.item;
 
+import dataStorge.PlayerData;
+import entity.characters.Characters;
 import entity.characters.player.Player;
 import entity.map.Map;
 import javafx.scene.canvas.GraphicsContext;
@@ -42,8 +44,10 @@ public class Jelly extends Item{
 		draw();
 	}
 	
-	public void effect(Player player) {
-		player.getPlayerData().addScore(player.getPlayerData().getScore());
+	public void affectTo(Characters player) {
+		// plus score by double
+		PlayerData playerData = ((Player) player).getPlayerData();
+		playerData.addScore(1);
 	}
 
 }

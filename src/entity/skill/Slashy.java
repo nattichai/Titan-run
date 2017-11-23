@@ -5,6 +5,7 @@ import entity.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.Main;
+import property.Side;
 
 public class Slashy extends Skill {
 	public static final double SKILL_WIDTH = Main.SCREEN_WIDTH;
@@ -24,6 +25,7 @@ public class Slashy extends Skill {
 
 		speedX = 0;
 		speedY = 0;
+		damage = SKILL_DAMAGE;
 	}
 
 	public Slashy() {
@@ -38,6 +40,8 @@ public class Slashy extends Skill {
 	}
 	
 	public boolean isCollision(Entity e) {
+		if (side == e.getSide() || (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
+			return false;
 		return positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w && positionX + hb.x + hb.w > e.getPositionX() + e.getHb().x
 				&& positionY + hb.y < e.getPositionY() + e.getHb().y + e.getHb().h && positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y;
 	}
