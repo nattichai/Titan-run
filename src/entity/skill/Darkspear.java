@@ -11,6 +11,7 @@ public class Darkspear extends Skill {
 	public static final double SKILL_HEIGHT = 600;
 	public static final double SKILL_DAMAGE = 20;
 	public static final double SKILL_COOLDOWN = 10;
+	
 	protected static final Image[] images = new Image[16];
 	static {
 		for (int i = 0; i < 16; ++i) {

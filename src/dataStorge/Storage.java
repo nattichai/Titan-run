@@ -3,7 +3,6 @@ package dataStorge;
 import entity.map.Map;
 import entity.skill.Darkspear;
 import entity.skill.Fireball;
-import entity.skill.Lightning;
 import entity.skill.Meteor;
 import entity.skill.Skill;
 import entity.skill.Thunderbolt;

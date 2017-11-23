@@ -57,13 +57,14 @@ public class Container {
 		guiPane = new Pane();
 		itemPane = new Pane();
 		monsterPane = new Pane();
+		
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 //		grid.setGridLinesVisible(true);
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < Main.SCREEN_WIDTH / 50; i++) {
 			grid.getColumnConstraints().addAll(new ColumnConstraints(50));
 	     }
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < Main.SCREEN_HEIGHT / 50; i++) {
 			grid.getRowConstraints().add(new RowConstraints(50));
 		}
 
@@ -96,7 +97,7 @@ public class Container {
 		new GroundObstacle();
 		new HoleObstacle();
 
-		Map map = new Map(0, 0, Main.SCREEN_WIDTH * 3, Main.SCREEN_HEIGHT);
+		Map map = new Map(0, 0, Main.SCREEN_WIDTH * 2, Main.SCREEN_HEIGHT);
 		container.add(map);
 
 		Player player = new Player(90, Map.FLOOR_HEIGHT - 200, 120, 200);

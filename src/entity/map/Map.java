@@ -6,6 +6,7 @@ import entity.Entity;
 import entity.characters.Characters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.Main;
 import property.Movable;
 
 public class Map extends Entity implements Movable{
@@ -27,7 +28,7 @@ public class Map extends Entity implements Movable{
 	public Map(double x, double y, double w, double h) {
 		super(x, y, w, h);
 		
-		speedX = -10;
+		speedX = -Main.SPEED;
 		speedY = 0;
 		
 		draw();
@@ -37,10 +38,10 @@ public class Map extends Entity implements Movable{
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		int rnd = new Random().nextInt(1) + 2;
 		Image image = images[rnd];
-		width = image.getWidth();
+		width = Main.SCREEN_WIDTH;
 		
-		gc.drawImage(image, 0, 0);
-		gc.drawImage(image, width, 0);
+		gc.drawImage(image, 0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		gc.drawImage(image, Main.SCREEN_WIDTH, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 	}
 	
 	public void changeSpeed(double accelX, double accelY) {}

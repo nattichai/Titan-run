@@ -2,6 +2,7 @@ package entity.item;
 
 import dataStorge.Container;
 import entity.Entity;
+import main.Main;
 import property.Animatable;
 import property.Movable;
 
@@ -13,7 +14,7 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	public Item(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = -10;
+		speedX = -Main.SPEED;
 		speedY = 0;
 	}
 

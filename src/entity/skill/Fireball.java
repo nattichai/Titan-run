@@ -11,7 +11,8 @@ public class Fireball extends Skill {
 	public static final double SKILL_WIDTH = 50;
 	public static final double SKILL_HEIGHT = 30;
 	public static final double SKILL_DAMAGE = 5;
-	public static final double SKILL_COOLDOWN = 0.10;
+	public static final double SKILL_COOLDOWN = 0.20;
+	
 	protected static final Image[] images = new Image[10];
 	static {
 		for (int i = 0; i < 10; ++i) {

@@ -11,7 +11,8 @@ public class Slashy extends Skill {
 	public static final double SKILL_WIDTH = Main.SCREEN_WIDTH;
 	public static final double SKILL_HEIGHT = Main.SCREEN_HEIGHT;
 	public static final double SKILL_DAMAGE = 10;
-	public static final double SKILL_COOLDOWN = 20;
+	public static final double SKILL_COOLDOWN = 24;
+	
 	protected static final Image[] images = new Image[40];
 	static {
 		for (int i = 0; i < 20; ++i) {

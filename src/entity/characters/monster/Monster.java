@@ -12,7 +12,6 @@ import entity.skill.Meteor;
 import entity.skill.Skill;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
-import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -70,7 +69,7 @@ public class Monster extends Characters {
 			positionY += speedY;
 		}
 
-		// first time move out = stay in the exact position for 2 secs
+		// first time move out = stay in map a few secs
 		if (canMove == true && canMoveOut == false && speedX > 0 && positionX >= Main.SCREEN_WIDTH - width - hb.w) {
 			stayInMap();
 		}
@@ -88,19 +87,12 @@ public class Monster extends Characters {
 	public void stayInMap() {
 		canMove = false;
 		positionX = Main.SCREEN_WIDTH - width - hb.w;
-		timer = new Timeline(new KeyFrame(Duration.millis(1000), e -> {
-		})); // wait 1 sec
+		timer = new Timeline(new KeyFrame(Duration.millis(1000), e -> useSkill()), new KeyFrame(Duration.millis(4000)));
+		timer.setCycleCount(2);
 		timer.play();
 		timer.setOnFinished(e -> {
-			if (hp > 0.00001)
-				useSkill();
-			Timeline timerSkill = new Timeline(new KeyFrame(Duration.millis(1000), f -> {
-			})); // wait 1 sec
-			timerSkill.play();
-			timerSkill.setOnFinished(f -> {
-				canMove = true;
-				canMoveOut = true;
-			});
+			canMove = true;
+			canMoveOut = true;
 		});
 	}
 
@@ -146,10 +138,12 @@ public class Monster extends Characters {
 
 		else if (skill instanceof Meteor) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				skill = new Meteor(Main.SCREEN_WIDTH - 100, -Meteor.SKILL_HEIGHT, Meteor.SKILL_WIDTH,
+				skill = new Meteor(Main.SCREEN_WIDTH - 500, -Meteor.SKILL_HEIGHT, Meteor.SKILL_WIDTH,
 						Meteor.SKILL_HEIGHT);
 				skill.setOwner(this);
-				skill.getCanvas().setScaleX(-1);
+				skill.getCanvas().setRotate(127);
+				skill.setPositionX(skill.getCanvas().getTranslateX());
+				skill.setPositionY(skill.getCanvas().getTranslateY());
 				skill.setSpeedX(-skill.getSpeedX());
 				Container.getContainer().add(skill);
 			}));
@@ -217,7 +211,7 @@ public class Monster extends Characters {
 		ft.setFromValue(1.0);
 		ft.setToValue(0);
 		ft.play();
-		// stop skill animation if it not yet
+		// stop skill animation if it not stop yet
 		if (timer != null)
 			timer.stop();
 	}

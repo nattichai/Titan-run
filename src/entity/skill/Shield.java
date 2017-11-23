@@ -2,9 +2,6 @@ package entity.skill;
 
 import controller.Handler;
 import dataStorge.Container;
-import dataStorge.PlayerData;
-import entity.characters.Characters;
-import entity.characters.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -16,6 +13,7 @@ public class Shield extends Skill {
 	public static final double SKILL_HEIGHT = 300;
 	public static final double SKILL_DAMAGE = 10;
 	public static final double SKILL_COOLDOWN = 0.10;
+	
 	protected static final Image[] images = new Image[63];
 	static {
 		for (int i = 0; i < 63; ++i) {

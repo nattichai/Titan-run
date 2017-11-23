@@ -9,8 +9,8 @@ import property.Hitbox;
 import property.Side;
 
 public class Meteor extends Skill {
-	public static final double SKILL_WIDTH = 1000;
-	public static final double SKILL_HEIGHT = 750;
+	public static final double SKILL_WIDTH = 800;
+	public static final double SKILL_HEIGHT = 270;
 	public static final double SKILL_DAMAGE = 20;
 	public static final double SKILL_COOLDOWN = 15;
 	
@@ -27,7 +27,9 @@ public class Meteor extends Skill {
 		speedX = 12;
 		speedY = 9;
 		damage = SKILL_DAMAGE;
-		hb = new Hitbox(100, 400, 300, 300);
+		hb = new Hitbox(0, 530, 270, 270);
+		
+		draw();
 	}
 
 	public Meteor() {

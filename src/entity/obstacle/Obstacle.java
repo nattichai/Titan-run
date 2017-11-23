@@ -4,6 +4,7 @@ import dataStorge.Container;
 import entity.Entity;
 import entity.characters.Characters;
 import javafx.scene.image.Image;
+import main.Main;
 import property.Movable;
 
 public abstract class Obstacle extends Entity implements Movable {
@@ -17,7 +18,7 @@ public abstract class Obstacle extends Entity implements Movable {
 	public Obstacle(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = -10;
+		speedX = -Main.SPEED;
 		speedY = 0;
 	}
 

@@ -9,7 +9,8 @@ public class Lightning extends Skill {
 	public static final double SKILL_WIDTH = 100;
 	public static final double SKILL_HEIGHT = Map.FLOOR_HEIGHT;
 	public static final double SKILL_DAMAGE = 20;
-	public static final double SKILL_COOLDOWN = 4;
+	public static final double SKILL_COOLDOWN = 8;
+	
 	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 12; ++i) {

@@ -18,6 +18,7 @@ import entity.obstacle.GroundObstacle;
 import entity.obstacle.HoleObstacle;
 import entity.obstacle.Obstacle;
 import entity.skill.Darkspear;
+import entity.skill.Meteor;
 import entity.skill.Shield;
 import entity.skill.Skill;
 import main.Main;
@@ -29,7 +30,7 @@ public class Controller {
 	private static int tick = 0;
 	private static int rnd = MIN_OBSTACLE_SPACE;
 	private static int height = 0;
-	
+
 	public Controller() {
 		tick = 0;
 		rnd = MIN_OBSTACLE_SPACE;
@@ -43,7 +44,8 @@ public class Controller {
 		checkAllCollision();
 		removeAllDead();
 		decreaseCooldown();
-//		drawHitbox();
+//		 showSize();
+//		 drawHitbox();
 	}
 
 	private static void generateMap() {
@@ -131,7 +133,7 @@ public class Controller {
 		ArrayList<Obstacle> obstacleList = Container.getContainer().getObstacleList();
 		ArrayList<Item> itemList = Container.getContainer().getItemList();
 		ArrayList<Skill> skillList = Container.getContainer().getSkillList();
-		
+
 		checkPairCollision(playerList, obstacleList);
 		checkPairCollision(playerList, monsterList);
 		checkPairCollision(playerList, itemList);
@@ -139,24 +141,24 @@ public class Controller {
 		checkPairCollision(monsterList, skillList);
 		checkPairCollision(skillList, skillList);
 	}
-	
+
 	public static void checkPairCollision(ArrayList<? extends Entity> first, ArrayList<? extends Entity> second) {
 		for (Entity firstEntity : first) {
 			for (Entity secondEntity : second) {
-				
+
 				if (firstEntity instanceof Characters) {
 					if (secondEntity.isCollision(firstEntity)) {
 						secondEntity.affectTo((Characters) firstEntity);
 					}
 				}
-				
+
 				else if (firstEntity instanceof Skill) {
-					if (firstEntity instanceof Shield && !(secondEntity instanceof Darkspear)) {
+					if (firstEntity instanceof Shield && !(secondEntity instanceof Darkspear)
+							&& !(secondEntity instanceof Meteor)) {
 						if (secondEntity.isCollision(firstEntity)) {
 							((Shield) firstEntity).affectTo((Skill) secondEntity);
 						}
-					}
-					else {
+					} else {
 						break;
 					}
 				}
@@ -173,8 +175,24 @@ public class Controller {
 	}
 
 	public static void decreaseCooldown() {
-		double timePassed = 1 / Main.FRAME_RATE;
-		PlayerData.decreaseCooldown(timePassed);
+		PlayerData.decreaseCooldown(1 / Main.FRAME_RATE);
+	}
+
+	public static void showSize() {
+		System.out.print(Container.getContainer().getMapPane().getChildren().size() + " ");
+		System.out.print(Container.getContainer().getObstaclePane().getChildren().size() + " ");
+		System.out.print(Container.getContainer().getItemPane().getChildren().size() + " ");
+		System.out.print(Container.getContainer().getPlayerPane().getChildren().size() + " ");
+		System.out.print(Container.getContainer().getMonsterPane().getChildren().size() + " ");
+		System.out.print(Container.getContainer().getSkillPane().getChildren().size() + " ");
+		System.out.println(Container.getContainer().getGuiPane().getChildren().size());
+		System.out.print(Container.getContainer().getMapList().size() + " ");
+		System.out.print(Container.getContainer().getObstacleList().size() + " ");
+		System.out.print(Container.getContainer().getItemList().size() + " ");
+		System.out.print(Container.getContainer().getPlayerList().size() + " ");
+		System.out.print(Container.getContainer().getMonsterList().size() + " ");
+		System.out.print(Container.getContainer().getSkillList().size() + " ");
+		System.out.println(Container.getContainer().getGuiList().size());
 	}
 
 	public static void drawHitbox() {
@@ -210,7 +228,7 @@ public class Controller {
 	public static void setTick(int tick) {
 		Controller.tick = tick;
 	}
-	
+
 	public static void setRnd(int rnd) {
 		Controller.rnd = rnd;
 	}

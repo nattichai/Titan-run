@@ -4,7 +4,6 @@ import entity.gui.GUIProgress;
 import entity.gui.GUIText;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
-import entity.skill.Meteor;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
 import javafx.geometry.VPos;

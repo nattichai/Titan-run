@@ -12,7 +12,8 @@ public class Thunderbolt extends Skill {
 	public static final double SKILL_WIDTH = 600;
 	public static final double SKILL_HEIGHT = Main.SCREEN_HEIGHT;
 	public static final double SKILL_DAMAGE = 20;
-	public static final double SKILL_COOLDOWN = 10;
+	public static final double SKILL_COOLDOWN = 15;
+	
 	protected static final Image[] images = new Image[40];
 	static {
 		for (int i = 0; i < 38; ++i) {

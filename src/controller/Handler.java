@@ -8,7 +8,6 @@ import entity.characters.monster.Monster;
 import entity.characters.player.Player;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
-import entity.skill.Meteor;
 import entity.skill.Shield;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
@@ -25,11 +24,30 @@ import property.State;
 public class Handler {
 	private static HashSet<KeyCode> keys = new HashSet<>();
 	private static State saveState;
+	private static boolean isRunning;
 	private static boolean hasShield;
 
 	public static void keyPressed(KeyEvent event) {
 		keys.add(event.getCode());
+	}
 
+	public static void keyReleased(KeyEvent event) {
+		keys.remove(event.getCode());
+		
+		if (event.getCode() == KeyCode.SPACE) {
+			hasShield = false;
+			Container.getContainer().getPlayerList().forEach(p -> p.setPowerState(PowerState.NORMAL));
+		} else if (event.getCode() == KeyCode.RIGHT) {
+			isRunning = false;
+			Main.SPEED = 10;
+			Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-10));
+			Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-10));
+			Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-10));
+		}
+	}
+
+	public static void handler() {
+		// P = PAUSE & UNPAUSE
 		if (keys.contains(KeyCode.P)) { // PAUSE
 			if (Main.getTimerAnimate().getStatus() == Status.PAUSED) {
 				Main.getTimerUpdate().play();
@@ -40,47 +58,31 @@ public class Handler {
 			}
 		}
 
-		if (keys.contains(KeyCode.ENTER) && Container.getContainer().getPlayerList().isEmpty()) { // RETRY
+		// ENTER = RETRY
+		if (keys.contains(KeyCode.ENTER) && Container.getContainer().getPlayerList().isEmpty()) {
 			Container.initialize();
 		}
-	}
 
-	public static void keyReleased(KeyEvent event) {
-		keys.remove(event.getCode());
-		if (event.getCode() == KeyCode.SPACE) {
-			hasShield = false;
-			Container.getContainer().getPlayerList().forEach(p -> p.setPowerState(PowerState.NORMAL));
-		}
-	}
-
-	public static void handler() {
-//		 if (keys.contains(KeyCode.RIGHT)) { // RIGHT = RUNNING
-//		 Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-20));
-//		 Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-20));
-//		 Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-20));
-//		 } else {
-//		 Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-10));
-//		 Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-10));
-//		 Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-10));
-//		 }
-
-		if (keys.contains(KeyCode.H)) { // H = HEAL
-			for (Player player : Container.getContainer().getPlayerList()) {
-				player.setHp(player.getMaxHp());
-			}
+		// RIGHT ARROW = RUNNING
+		if (keys.contains(KeyCode.RIGHT) && !isRunning) {
+			isRunning = true;
+			Main.SPEED = 20;
+			Container.getContainer().getMapList().forEach(e -> e.setSpeedX(-20));
+			Container.getContainer().getItemList().forEach(e -> e.setSpeedX(-20));
+			Container.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-20));
 		}
 
-		if (keys.contains(KeyCode.UP)) { // UP = JUMP
+		// UP ARROW = JUMP
+		if (keys.contains(KeyCode.UP)) {
 			for (Player player : Container.getContainer().getPlayerList()) {
-				if (player.getState() == State.RUNNING) { // FIRST JUMP
+				if (player.getState() == State.RUNNING) {
 					keys.remove(KeyCode.UP);
 					player.setCurrentAnimation(8);
-					player.draw();
 					player.setSpeedY(-18);
-					player.addJump(1 - player.getJump());
+					player.setJump(1);
 					player.setState(State.JUMPING);
 					saveState = State.JUMPING;
-				} else if (player.getState() == State.JUMPING && player.getJump() < Player.MAX_JUMP) { // OTHER JUMP
+				} else if (player.getState() == State.JUMPING && player.getJump() < Player.MAX_JUMP) {
 					keys.remove(KeyCode.UP);
 					player.setSpeedY(-15);
 					player.addJump(1);
@@ -88,44 +90,53 @@ public class Handler {
 			}
 		}
 
-		if (keys.contains(KeyCode.DOWN)) { // DOWN = SLIDE & FAST FALL
+		// DOWN = SLIDE & FAST FALL
+		if (keys.contains(KeyCode.DOWN)) {
 			for (Player player : Container.getContainer().getPlayerList()) {
-				if (player.getState() != State.JUMPING) { // NOT JUMPING THEN SLIDE
+				if (player.getState() != State.JUMPING) {
 					player.slide();
 				} else {
-					player.setSpeedY(player.getSpeedY() + Player.MOVEDOWN_SPEED); // FAST MOVEDOWN
+					player.setSpeedY(player.getSpeedY() + Player.MOVEDOWN_SPEED);
 				}
 			}
-		}
-
-		if (!keys.contains(KeyCode.DOWN)) { // NOT SLIDING THEN RETURN TO SAVE STAGE
+		} else {
 			for (Player player : Container.getContainer().getPlayerList()) {
 				player.getCanvas().setRotate(0);
 				player.setState(saveState);
 			}
 		}
 
-		if (keys.contains(KeyCode.SPACE)) { // SPACE = SHIELD (USE MANA)
+		// SPACE = SHIELD (USE MANA)
+		if (keys.contains(KeyCode.SPACE)) {
 			for (Player player : Container.getContainer().getPlayerList()) {
 				if (hasShield) {
 					player.addMana(-0.5);
 					player.setPowerState(PowerState.IMMORTAL);
 					if (player.getMana() <= 0) {
-						keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false, false, false, false));
+						keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
+								false, false, false));
 					}
 				} else if (player.getMana() >= 0.5) {
 					hasShield = true;
-					Shield shield = new Shield(player.getPositionX() - 150, player.getPositionY() - 50, Shield.SKILL_WIDTH,
-							Shield.SKILL_HEIGHT);
+					Shield shield = new Shield(player.getPositionX() - 150, player.getPositionY() - 50,
+							Shield.SKILL_WIDTH, Shield.SKILL_HEIGHT);
 					shield.setOwner(player);
 					Container.getContainer().add(shield);
 				}
 			}
 		}
 
-		if (keys.contains(KeyCode.Q)) { // Q = FIREBALL (NORMAL ATTACK)
+		// H = HEAL
+		if (keys.contains(KeyCode.H)) {
 			for (Player player : Container.getContainer().getPlayerList()) {
-				if (player.getState() != State.SLIDING) { // NOT SLIDING
+				player.setHp(player.getMaxHp());
+			}
+		}
+
+		// Q = FIREBALL (NORMAL ATTACK)
+		if (keys.contains(KeyCode.Q)) {
+			for (Player player : Container.getContainer().getPlayerList()) {
+				if (player.getState() != State.SLIDING) {
 					if (PlayerData.getCooldown(0) <= 0) {
 						PlayerData.resetCooldown(0);
 						Fireball fireball = new Fireball(player.getPositionX(),
@@ -138,9 +149,10 @@ public class Handler {
 			}
 		}
 
-		if (keys.contains(KeyCode.W)) { // W = LIGHTNING
+		// W = LIGHTNING
+		if (keys.contains(KeyCode.W)) {
 			for (Player player : Container.getContainer().getPlayerList()) {
-				if (player.getState() != State.SLIDING) { // NOT SLIDING
+				if (player.getState() != State.SLIDING) {
 					if (PlayerData.getCooldown(1) <= 0) {
 						PlayerData.resetCooldown(1);
 						Timeline timerLightning = new Timeline(new KeyFrame(Duration.millis(100), e -> {
@@ -156,9 +168,10 @@ public class Handler {
 			}
 		}
 
-		if (keys.contains(KeyCode.E)) { // E = THUNDERBOLT
+		// E = THUNDERBOLT
+		if (keys.contains(KeyCode.E)) {
 			for (Player player : Container.getContainer().getPlayerList()) {
-				if (player.getState() != State.SLIDING) { // NOT SLIDING
+				if (player.getState() != State.SLIDING) {
 					if (PlayerData.getCooldown(2) <= 0) {
 						PlayerData.resetCooldown(2);
 						Timeline timerThunderbolt = new Timeline(new KeyFrame(Duration.millis(100), e -> {
@@ -174,27 +187,10 @@ public class Handler {
 			}
 		}
 
-//		if (keys.contains(KeyCode.R)) { // R = METEOR (ULTIMATE)
-//			for (Player player : Container.getContainer().getPlayerList()) {
-//				if (player.getState() != State.SLIDING) { // NOT SLIDING
-//					if (PlayerData.getCooldown(3) <= 0) {
-//						PlayerData.resetCooldown(3);
-//						Timeline timerMeteor = new Timeline(new KeyFrame(Duration.millis(150), e -> {
-//							Meteor meteor = new Meteor(player.getPositionX(), -200, Meteor.SKILL_WIDTH,
-//									Meteor.SKILL_HEIGHT);
-//							meteor.setOwner(player);
-//							Container.getContainer().add(meteor);
-//						}));
-//						timerMeteor.setCycleCount(1);
-//						timerMeteor.play();
-//					}
-//				}
-//			}
-//		}
-
-		if (keys.contains(KeyCode.R)) { // 1 = SLASHY
+		// R = SLASHY
+		if (keys.contains(KeyCode.R)) { 
 			for (Player player : Container.getContainer().getPlayerList()) {
-				if (player.getState() != State.SLIDING) { // NOT SLIDING
+				if (player.getState() != State.SLIDING) {
 					if (PlayerData.getCooldown(3) <= 0) {
 						PlayerData.resetCooldown(3);
 						Timeline timerSlashy = new Timeline(new KeyFrame(Duration.millis(200), e -> {

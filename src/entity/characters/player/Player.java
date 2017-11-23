@@ -26,6 +26,9 @@ public class Player extends Characters implements Slidable {
 	public static final double MOVEDOWN_SPEED = 1.5;
 	public static final int MAX_JUMP = 2;
 	
+	protected static final GUI youAreDead = new GUIImage(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT,
+			new Image(ClassLoader.getSystemResource("images/text/you died.png").toString()));
+	
 	protected Image imageSlide;
 	protected int jump;
 	protected double mana, maxMana;
@@ -145,8 +148,6 @@ public class Player extends Characters implements Slidable {
 			Main.getTimerUpdate().play();
 			Main.getTimerAnimate().play();
 		});
-		GUI youAreDead = new GUIImage(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT,
-				new Image(ClassLoader.getSystemResource("images/text/you died.png").toString()));
 		Container.getContainer().add(youAreDead);
 	}
 
@@ -197,7 +198,7 @@ public class Player extends Characters implements Slidable {
 	public void setMana(double mana) {
 		this.mana = mana;
 	}
-	
+
 	public void addMana(double mana) {
 		this.mana += mana;
 		if (this.mana < 0) {
@@ -206,5 +207,9 @@ public class Player extends Characters implements Slidable {
 			this.mana = maxMana;
 		}
 		manaBar.setProgress(this.mana / maxMana);
+	}
+
+	public void setJump(int j) {
+		jump = j;
 	}
 }
