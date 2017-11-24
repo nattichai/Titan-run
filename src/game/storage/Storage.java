@@ -1,14 +1,14 @@
 package game.storage;
 
-import game.model.entity.map.Map;
-import game.model.entity.skill.Darkspear;
-import game.model.entity.skill.Fireball;
-import game.model.entity.skill.Meteor;
-import game.model.entity.skill.Skill;
-import game.model.entity.skill.Thunderbolt;
-import game.model.property.Hitbox;
-import game.model.property.PowerState;
-import game.model.property.Side;
+import entity.map.Map;
+import entity.skill.Darkspear;
+import entity.skill.Fireball;
+import entity.skill.Meteor;
+import entity.skill.Skill;
+import entity.skill.Thunderbolt;
+import game.property.Hitbox;
+import game.property.PowerState;
+import game.property.Side;
 import javafx.scene.image.Image;
 
 public class Storage {

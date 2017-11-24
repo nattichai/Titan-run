@@ -1,26 +1,26 @@
 package game;
 
-import game.animate.Animate;
-import game.logic.Logic;
+import game.animations.Animations;
 import game.model.Model;
+import game.updater.Updater;
 import javafx.scene.layout.Pane;
 import window.SceneManager;
 
 public class GameMain {
 	private static Pane gamePane;
-	private static Logic logic;
-	private static Animate animate;
+	private static Updater updater;
+	private static Animations animations;
 	
 	public static void newGame() {
 		gamePane = new Pane();
-		logic = new Logic();
-		animate = new Animate();
+		updater = new Updater();
+		animations = new Animations();
 		
 		Model.initialize();
 		SceneManager.gotoSceneOf(gamePane);
 		
-		logic.startGame();
-		animate.startAnimation();
+		updater.startGame();
+		animations.startAnimation();
 	}
 
 	public static Pane getGamePane() {

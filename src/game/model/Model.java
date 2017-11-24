@@ -2,28 +2,28 @@ package game.model;
 
 import java.util.ArrayList;
 
+import entity.Entity;
+import entity.characters.Monster;
+import entity.characters.Player;
+import entity.gui.GUI;
+import entity.item.HealthPotion;
+import entity.item.Item;
+import entity.item.Jelly;
+import entity.map.Map;
+import entity.obstacle.AirObstacle;
+import entity.obstacle.GroundObstacle;
+import entity.obstacle.HoleObstacle;
+import entity.obstacle.Obstacle;
+import entity.skill.Fireball;
+import entity.skill.Lightning;
+import entity.skill.Meteor;
+import entity.skill.Shield;
+import entity.skill.Skill;
+import entity.skill.Slashy;
+import entity.skill.Thunderbolt;
 import game.GameMain;
-import game.logic.Logic;
-import game.model.entity.Entity;
-import game.model.entity.characters.monster.Monster;
-import game.model.entity.characters.player.Player;
-import game.model.entity.gui.GUI;
-import game.model.entity.item.HealthPotion;
-import game.model.entity.item.Item;
-import game.model.entity.item.Jelly;
-import game.model.entity.map.Map;
-import game.model.entity.obstacle.AirObstacle;
-import game.model.entity.obstacle.GroundObstacle;
-import game.model.entity.obstacle.HoleObstacle;
-import game.model.entity.obstacle.Obstacle;
-import game.model.entity.skill.Fireball;
-import game.model.entity.skill.Lightning;
-import game.model.entity.skill.Meteor;
-import game.model.entity.skill.Shield;
-import game.model.entity.skill.Skill;
-import game.model.entity.skill.Slashy;
-import game.model.entity.skill.Thunderbolt;
 import game.storage.Storage;
+import game.updater.Updater;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 import window.SceneManager;
@@ -70,7 +70,7 @@ public class Model {
 
 	public static void initialize() {
 		container = new Model();
-		new Logic();
+		new Updater();
 		new Storage();
 		new Shield();
 		new Fireball();

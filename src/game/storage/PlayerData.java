@@ -1,12 +1,12 @@
 package game.storage;
 
+import entity.gui.GUIProgress;
+import entity.gui.GUIText;
+import entity.skill.Fireball;
+import entity.skill.Lightning;
+import entity.skill.Slashy;
+import entity.skill.Thunderbolt;
 import game.model.Model;
-import game.model.entity.gui.GUIProgress;
-import game.model.entity.gui.GUIText;
-import game.model.entity.skill.Fireball;
-import game.model.entity.skill.Lightning;
-import game.model.entity.skill.Slashy;
-import game.model.entity.skill.Thunderbolt;
 import javafx.geometry.VPos;
 import javafx.scene.text.TextAlignment;
 

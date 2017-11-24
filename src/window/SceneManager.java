@@ -1,6 +1,7 @@
 package window;
 
-import input.Handler;
+import input.GameHandler;
+import input.MainMenuHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -22,7 +23,7 @@ public class SceneManager {
 		MainMenu.initialize();
 		mainMenuPane = MainMenu.getMainMenuPane();
 		mainMenuScene = new Scene(mainMenuPane, SCREEN_WIDTH, SCREEN_HEIGHT);
-		mainMenuScene.setOnKeyPressed(event -> MainMenu.keyPressed(event));
+		mainMenuScene.setOnKeyPressed(event -> MainMenuHandler.keyPressed(event));
 	}
 
 	public static void gotoMainMenu() {
@@ -32,8 +33,8 @@ public class SceneManager {
 	public static void gotoSceneOf(Pane pane) {
 		Scene scene = new Scene(pane, SCREEN_WIDTH, SCREEN_HEIGHT);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("utility/style.css").toExternalForm());
-		scene.setOnKeyPressed(e -> Handler.keyPressed(e));
-		scene.setOnKeyReleased(e -> Handler.keyReleased(e));
+		scene.setOnKeyPressed(e -> GameHandler.keyPressed(e));
+		scene.setOnKeyReleased(e -> GameHandler.keyReleased(e));
 		primaryStage.setScene(scene);
 
 	}
