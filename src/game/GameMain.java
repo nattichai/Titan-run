@@ -10,15 +10,15 @@ public class GameMain {
 	private static Pane gamePane;
 	private static Updater updater;
 	private static Animations animations;
-	
+
 	public static void newGame() {
 		gamePane = new Pane();
 		updater = new Updater();
 		animations = new Animations();
-		
+
 		Model.initialize();
 		SceneManager.gotoSceneOf(gamePane);
-		
+
 		updater.startGame();
 		animations.startAnimation();
 	}

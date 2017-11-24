@@ -17,8 +17,7 @@ public class Thunderbolt extends Skill {
 	protected static final Image[] images = new Image[40];
 	static {
 		for (int i = 0; i < 38; ++i) {
-			images[i] = new Image(
-					ClassLoader.getSystemResource("images/skill/thunderbolt/thunderbolt" + i + ".png").toString());
+			images[i] = new Image("images/skill/thunderbolt/thunderbolt" + i + ".png");
 		}
 	}
 

@@ -170,7 +170,7 @@ public class Model {
 			monsterPane.getChildren().addAll(canvas, ((Monster) object).getHpBar());
 		}
 	}
-	
+
 	public void clearAllData() {
 		monsterList.forEach(m -> m.die());
 		skillList.forEach(s -> s.isDead());

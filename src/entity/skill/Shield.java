@@ -17,7 +17,7 @@ public class Shield extends Skill {
 	protected static final Image[] images = new Image[63];
 	static {
 		for (int i = 0; i < 63; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/skill/shield/shield" + i + ".png").toString());
+			images[i] = new Image("images/skill/shield/shield" + i + ".png");
 		}
 	}
 

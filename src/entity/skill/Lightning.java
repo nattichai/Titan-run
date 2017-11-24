@@ -14,8 +14,7 @@ public class Lightning extends Skill {
 	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 12; ++i) {
-			images[i] = new Image(
-					ClassLoader.getSystemResource("images/skill/lightning/lightning" + i + ".png").toString());
+			images[i] = new Image("images/skill/lightning/lightning" + i + ".png");
 		}
 	}
 

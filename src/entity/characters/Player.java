@@ -36,7 +36,7 @@ public class Player extends Characters implements Slidable {
 	public static final int MAX_JUMP = 2;
 
 	protected static final GUI youAreDead = new GUIImage(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
-			new Image(ClassLoader.getSystemResource("images/cutscene/you died.png").toString()));
+			new Image("images/cutscene/you died.png"));
 
 	protected Image imageSlide;
 	protected int jump;
@@ -78,7 +78,6 @@ public class Player extends Characters implements Slidable {
 		manaBar = new ProgressBar(1);
 		manaBar.setPrefSize(200, 7);
 		manaBar.setOpacity(0.8);
-		manaBar.setPadding(new Insets(0));
 		state = State.RUNNING;
 
 		playerData = new PlayerData();

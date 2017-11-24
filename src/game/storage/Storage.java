@@ -32,8 +32,7 @@ public class Storage {
 		player.nImage = 10;
 		player.images = new Image[player.nImage];
 		for (int i = 0; i < player.nImage; ++i) {
-			player.images[i] = new Image(
-					ClassLoader.getSystemResource("images/character/character1_" + i + ".png").toString());
+			player.images[i] = new Image("images/character/character1_" + i + ".png");
 		}
 		player.width = 120;
 		player.height = 200;
@@ -50,8 +49,7 @@ public class Storage {
 		pikachu.nImage = 8;
 		pikachu.images = new Image[pikachu.nImage];
 		for (int i = 0; i < pikachu.nImage; ++i) {
-			pikachu.images[i] = new Image(
-					ClassLoader.getSystemResource("images/character/character2_" + i + ".png").toString());
+			pikachu.images[i] = new Image("images/character/character2_" + i + ".png");
 		}
 		pikachu.width = 200;
 		pikachu.height = 130;
@@ -71,8 +69,7 @@ public class Storage {
 		spearman.nImage = 12;
 		spearman.images = new Image[spearman.nImage];
 		for (int i = 0; i < spearman.nImage; ++i) {
-			spearman.images[i] = new Image(
-					ClassLoader.getSystemResource("images/character/character3_" + i + ".png").toString());
+			spearman.images[i] = new Image("images/character/character3_" + i + ".png");
 		}
 		spearman.width = 300;
 		spearman.height = 300;
@@ -92,8 +89,7 @@ public class Storage {
 		sorcerer.nImage = 23;
 		sorcerer.images = new Image[sorcerer.nImage];
 		for (int i = 0; i < sorcerer.nImage; ++i) {
-			sorcerer.images[i] = new Image(
-					ClassLoader.getSystemResource("images/character/character4_" + i + ".png").toString());
+			sorcerer.images[i] = new Image("images/character/character4_" + i + ".png");
 		}
 		sorcerer.width = 300;
 		sorcerer.height = 300;
@@ -113,8 +109,7 @@ public class Storage {
 		shaman.nImage = 47;
 		shaman.images = new Image[shaman.nImage];
 		for (int i = 0; i < shaman.nImage; ++i) {
-			shaman.images[i] = new Image(
-					ClassLoader.getSystemResource("images/character/character5_" + i + ".png").toString());
+			shaman.images[i] = new Image("images/character/character5_" + i + ".png");
 		}
 		shaman.width = 300;
 		shaman.height = 300;

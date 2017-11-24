@@ -69,7 +69,7 @@ public class Updater {
 		removeAllDead();
 		decreaseCooldown();
 		// showSize();
-		// drawHitbox();
+//		 drawHitbox();
 	}
 
 	private static void generateMap() {

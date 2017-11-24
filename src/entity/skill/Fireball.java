@@ -16,8 +16,7 @@ public class Fireball extends Skill {
 	protected static final Image[] images = new Image[10];
 	static {
 		for (int i = 0; i < 10; ++i) {
-			images[i] = new Image(
-					ClassLoader.getSystemResource("images/skill/fireball/fireball" + i + ".png").toString());
+			images[i] = new Image("images/skill/fireball/fireball" + i + ".png");
 		}
 	}
 

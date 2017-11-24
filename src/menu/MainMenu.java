@@ -1,18 +1,14 @@
 package menu;
 
 import entity.map.Map;
-import game.GameMain;
 import game.updater.Updater;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,7 +17,7 @@ import javafx.util.Duration;
 import window.SceneManager;
 
 public class MainMenu {
-	private static final Font FONT = new Font("monospacee", 40);
+	private static final Font FONT = new Font("monospace", 40);
 	private static final Image logo = new Image("images/cutscene/titan run logo.png");
 
 	private static Pane mainMenuPane;
@@ -47,7 +43,6 @@ public class MainMenu {
 		gc.setFont(FONT);
 		gc.fillText("PRESS ENTER TO CONTINUE", SceneManager.SCREEN_WIDTH / 2, 500);
 
-		
 		gc.drawImage(logo, (SceneManager.SCREEN_WIDTH - logo.getWidth()) / 2, 200);
 
 		mainMenuPane = new Pane(map.getCanvas(), canvas);

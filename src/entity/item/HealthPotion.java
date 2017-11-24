@@ -12,7 +12,7 @@ public class HealthPotion extends Item {
 	protected static final Image[] images = new Image[50];
 	static {
 		for (int i = 0; i < 48; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/item/health potion" + i + ".png").toString());
+			images[i] = new Image("images/item/health potion" + i + ".png");
 		}
 	}
 

@@ -17,7 +17,7 @@ public class Meteor extends Skill {
 	protected static final Image[] images = new Image[60];
 	static {
 		for (int i = 0; i < 60; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/skill/meteor/meteor" + i + ".png").toString());
+			images[i] = new Image("images/skill/meteor/meteor" + i + ".png");
 		}
 	}
 

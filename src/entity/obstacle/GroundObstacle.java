@@ -14,7 +14,7 @@ public class GroundObstacle extends Obstacle {
 	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 1; i < 4; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/obstacle/ground" + i + ".png").toString());
+			images[i] = new Image("images/obstacle/ground" + i + ".png");
 		}
 	}
 

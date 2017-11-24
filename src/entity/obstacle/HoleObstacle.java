@@ -17,7 +17,7 @@ public class HoleObstacle extends Obstacle {
 	protected static final Image[] images = new Image[20];
 	static {
 		for (int i = 1; i < 2; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/obstacle/hole" + i + ".png").toString());
+			images[i] = new Image("images/obstacle/hole" + i + ".png");
 		}
 	}
 

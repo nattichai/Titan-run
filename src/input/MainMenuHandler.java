@@ -7,7 +7,7 @@ import javafx.scene.input.KeyEvent;
 import menu.MainMenu;
 
 public class MainMenuHandler {
-	
+
 	public static void keyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			MainMenu.stopTimeline();

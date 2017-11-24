@@ -16,7 +16,7 @@ public class Slashy extends Skill {
 	protected static final Image[] images = new Image[40];
 	static {
 		for (int i = 0; i < 20; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/skill/slashy/slashy" + i + ".png").toString());
+			images[i] = new Image("images/skill/slashy/slashy" + i + ".png");
 		}
 	}
 

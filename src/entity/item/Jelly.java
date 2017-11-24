@@ -14,7 +14,7 @@ public class Jelly extends Item {
 	protected static final Image[] images = new Image[25];
 	static {
 		for (int i = 0; i < 24; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/item/jelly" + i + ".png").toString());
+			images[i] = new Image("images/item/jelly" + i + ".png");
 		}
 	}
 

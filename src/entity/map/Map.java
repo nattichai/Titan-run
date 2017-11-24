@@ -18,18 +18,20 @@ public class Map extends Entity implements Movable {
 	protected static final Image[] images = new Image[10];
 	static {
 		for (int i = 1; i < 3; ++i) {
-			images[i] = new Image(ClassLoader.getSystemResource("images/map/map" + i + ".jpg").toString());
+			images[i] = new Image("images/map/map" + i + ".jpg");
 		}
 	}
 
 	protected double speedX, speedY;
 	protected double width;
+	protected double distance;
 
 	public Map(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
 		speedX = -SceneManager.SPEED;
 		speedY = 0;
+		distance = 0;
 
 		draw();
 	}

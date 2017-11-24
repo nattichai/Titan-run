@@ -15,8 +15,7 @@ public class Darkspear extends Skill {
 	protected static final Image[] images = new Image[16];
 	static {
 		for (int i = 0; i < 16; ++i) {
-			images[i] = new Image(
-					ClassLoader.getSystemResource("images/skill/darkspear/darkspear" + i + ".png").toString());
+			images[i] = new Image("images/skill/darkspear/darkspear" + i + ".png");
 		}
 	}
 
