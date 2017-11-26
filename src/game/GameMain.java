@@ -1,26 +1,36 @@
 package game;
 
-import game.animations.Animations;
 import game.model.Model;
-import game.updater.Updater;
 import javafx.scene.layout.Pane;
 import window.SceneManager;
 
 public class GameMain {
+	public static double SPEED = 2;
+	public static final int OBSTACLE_SPACE = 1200;
+	public static final int ITEM_SPACE = 100;
+	public static final int MONSTER_SPACE = 3000;
+	public static final double STAGE_DISTANCE = 20000;
+
 	private static Pane gamePane;
-	private static Updater updater;
-	private static Animations animations;
 
-	public static void newGame() {
+	public static void initialize() {
 		gamePane = new Pane();
-		updater = new Updater();
-		animations = new Animations();
-
 		Model.initialize();
-		SceneManager.gotoSceneOf(gamePane);
+		Model container = Model.getContainer();
+		// gamePane.getChildren().add(container.getMapPane());
+		gamePane.getChildren().add(container.getObstaclePane());
+		gamePane.getChildren().add(container.getItemPane());
+		gamePane.getChildren().add(container.getMonsterPane());
+		gamePane.getChildren().add(container.getPlayerPane());
+		gamePane.getChildren().add(container.getSkillPane());
+		gamePane.getChildren().add(container.getGuiPane());
+	}
 
-		updater.startGame();
-		animations.startAnimation();
+	public static void setSpeed(double speed) {
+		GameMain.SPEED = speed;
+		SceneManager.getMap().setSpeedX(-speed);
+		Model.getContainer().getItemList().forEach(e -> e.setSpeedX(-speed));
+		Model.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-speed));
 	}
 
 	public static Pane getGamePane() {

@@ -18,8 +18,8 @@ public class GroundObstacle extends Obstacle {
 		}
 	}
 
-	public GroundObstacle(double x, double y, double w, double h) {
-		super(x, y, w, h);
+	public GroundObstacle() {
+		super(SceneManager.SCREEN_WIDTH + 210, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
 		int rnd = new Random().nextInt(3) + 1;
 		obstacle = images[rnd];
@@ -28,34 +28,30 @@ public class GroundObstacle extends Obstacle {
 		hb = new Hitbox(40, Map.FLOOR_HEIGHT - height + 70, width - 90, height - 30);
 
 		if (height < 200) {
-			Jelly jelly = new Jelly(1000, -50, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			Jelly jelly = new Jelly(1025, 400);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1050, -75, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1100, 350);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1150, -100, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1250, 300);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1250, -75, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1400, 350);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1300, -50, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1475, 400);
 			Model.getContainer().add(jelly);
 		} else {
-			Jelly jelly = new Jelly(900, -80, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			Jelly jelly = new Jelly(1000, 390);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1000, -120, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1075, 290);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1150, -160, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1250, 190);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1300, -120, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1425, 290);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1400, -80, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+			jelly = new Jelly(1500, 390);
 			Model.getContainer().add(jelly);
 		}
 
 		draw();
-	}
-
-	public GroundObstacle() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void draw() {

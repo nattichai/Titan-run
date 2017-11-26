@@ -13,7 +13,7 @@ public class Map extends Entity implements Movable {
 	public static final double FLOOR_HEIGHT = 600;
 	public static final double GRAVITY = 0.8;
 	public static final double PASSIVE_DAMAGE = 0.045;
-	public static final double PASSIVE_SCORE = 0;
+	public static final double PASSIVE_SCORE = 1;
 	public static final double PASSIVE_MANA_REGEN = 0.1;
 	protected static final Image[] images = new Image[10];
 	static {
@@ -24,16 +24,18 @@ public class Map extends Entity implements Movable {
 
 	protected double speedX, speedY;
 	protected double width;
-	protected double distance;
 
 	public Map(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = -SceneManager.SPEED;
+		speedX = -2;
 		speedY = 0;
-		distance = 0;
 
 		draw();
+	}
+
+	public Map() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public void draw() {

@@ -7,6 +7,7 @@ import game.property.Hitbox;
 import game.property.State;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import window.SceneManager;
 
 public class AirObstacle extends Obstacle {
 	public static final int AIR_HEIGHT = 500;
@@ -17,8 +18,8 @@ public class AirObstacle extends Obstacle {
 		}
 	}
 
-	public AirObstacle(double x, double y, double w, double h) {
-		super(x, y, w, h);
+	public AirObstacle() {
+		super(SceneManager.SCREEN_WIDTH + 210, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
 		int rnd = new Random().nextInt(4) + 1;
 		obstacle = images[rnd];
@@ -28,10 +29,6 @@ public class AirObstacle extends Obstacle {
 		hb = new Hitbox(30, AIR_HEIGHT - height + 50, width - 60, height - 50);
 
 		draw();
-	}
-
-	public AirObstacle() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void draw() {

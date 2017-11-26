@@ -5,7 +5,7 @@ import game.property.Animatable;
 import game.property.Attackable;
 import game.property.Movable;
 import game.property.PowerState;
-import javafx.scene.control.ProgressBar;
+import game.property.UserInterface;
 import javafx.scene.image.Image;
 
 public abstract class Characters extends Entity implements Movable, Animatable, Attackable {
@@ -15,9 +15,9 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	protected double accelX, accelY;
 	protected int currentAnimation;
 	protected double hp, maxHp;
-	protected ProgressBar hpBar;
 	protected double atk;
 	protected PowerState powerState;
+	protected UserInterface userInterface;
 
 	public Characters(double x, double y, double w, double h) {
 		super(x, y, w, h);
@@ -41,7 +41,7 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	public abstract void changeImage();
 
 	public void decreaseHp(double d) {
-		if (hp == 0.00001 || powerState == PowerState.IMMORTAL) {
+		if (hp <= 0.00001 || powerState == PowerState.IMMORTAL) {
 			return;
 		}
 		hp -= d;
@@ -49,15 +49,7 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 			hp = 0.00001;
 			die();
 		}
-		hpBar.setProgress(hp / maxHp);
-		if (hp / maxHp >= 0.75)
-			hpBar.setStyle("-fx-accent:green;");
-		else if (hp / maxHp >= 0.5)
-			hpBar.setStyle("-fx-accent:yellow;");
-		else if (hp / maxHp >= 0.25)
-			hpBar.setStyle("-fx-accent:orange;");
-		else
-			hpBar.setStyle("-fx-accent:red;");
+		userInterface.updateHp(hp / maxHp);
 		if (d > 1) {
 			injured();
 		}
@@ -111,14 +103,6 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 		this.maxHp = maxHp;
 	}
 
-	public ProgressBar getHpBar() {
-		return hpBar;
-	}
-
-	public void setHpBar(ProgressBar hpBar) {
-		this.hpBar = hpBar;
-	}
-
 	public double getAtk() {
 		return atk;
 	}
@@ -133,6 +117,10 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 
 	public void setPowerState(PowerState powerState) {
 		this.powerState = powerState;
+	}
+
+	public UserInterface getUserInterface() {
+		return userInterface;
 	}
 
 }

@@ -2,6 +2,7 @@ package entity.item;
 
 import entity.characters.Characters;
 import entity.map.Map;
+import game.model.Model;
 import game.property.Hitbox;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -42,5 +43,7 @@ public class HealthPotion extends Item {
 	public void affectTo(Characters player) {
 		// increase hp by 15
 		player.setHp(player.getHp() + 15);
+		// add score by 500
+		Model.getContainer().getPlayer().addScore(500);
 	}
 }

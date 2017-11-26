@@ -9,12 +9,12 @@ import entity.skill.Skill;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
 import game.model.Model;
+import game.property.UserInterface;
 import game.storage.Storage;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
 import window.SceneManager;
 
@@ -47,10 +47,9 @@ public class Monster extends Characters {
 		canMove = true;
 		canMoveOut = false;
 
-		hpBar = new ProgressBar(1);
-		hpBar.setPrefSize(100, 15);
-		hpBar.setOpacity(0.8);
-		hpBar.setStyle("-fx-accent:green;");
+		userInterface = new UserInterface(this);
+
+		userInterface.getHpBar().setPrefSize(100, 15);
 	}
 
 	public void draw() {
@@ -79,7 +78,8 @@ public class Monster extends Characters {
 			speedY = 0;
 		}
 
-		hpBar.relocate(positionX + hb.x, positionY + hb.y - 100);
+		userInterface.updateHp(positionX + hb.x, positionY + hb.y - 100);
+
 		updatePosition();
 	}
 
@@ -96,6 +96,9 @@ public class Monster extends Characters {
 	}
 
 	private void useSkill() {
+		if (isDead()) {
+			return;
+		}
 		if (skill instanceof Fireball) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Fireball skill = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH,
@@ -111,8 +114,7 @@ public class Monster extends Characters {
 
 		else if (skill instanceof Lightning) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				Lightning skill = new Lightning(nearestPlayerPosition(), 0, Lightning.SKILL_WIDTH,
-						Lightning.SKILL_HEIGHT);
+				Lightning skill = new Lightning(140, 0, Lightning.SKILL_WIDTH, Lightning.SKILL_HEIGHT);
 				skill.setOwner(this);
 				skill.getCanvas().setScaleX(-1);
 				skill.setSpeedX(-skill.getSpeedX());
@@ -175,14 +177,6 @@ public class Monster extends Characters {
 		}
 	}
 
-	private double nearestPlayerPosition() {
-		double pos = 200;
-		for (Player player : Model.getContainer().getPlayerList()) {
-			pos = Math.min(pos, player.getPositionX() + 50);
-		}
-		return pos;
-	}
-
 	public void changeImage() {
 		draw();
 	}
@@ -205,6 +199,8 @@ public class Monster extends Characters {
 
 	public void die() {
 		hp = 0.00001;
+		// kill monster = get 2000 scores;
+		Model.getContainer().getPlayer().addScore(2000);
 		// fade away
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), canvas);
 		ft.setFromValue(1.0);
@@ -217,7 +213,7 @@ public class Monster extends Characters {
 
 	public boolean isDead() {
 		if (canvas.getOpacity() == 0 || positionX >= SceneManager.SCREEN_WIDTH + 150) {
-			Model.getContainer().getMonsterPane().getChildren().removeAll(canvas, hpBar);
+			Model.getContainer().getMonsterPane().getChildren().removeAll(canvas, userInterface.getHpBar());
 			return true;
 		}
 		return false;

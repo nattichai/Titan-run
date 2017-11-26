@@ -15,9 +15,36 @@ public class Animations {
 	public static final double LOOP_TIME = 1000 / ANIMATATION_RATE;
 
 	private static Timeline timerAnimation;
+	static {
+		timerAnimation = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
+			animateAll();
+		}));
+		timerAnimation.setCycleCount(Animation.INDEFINITE);
+	}
+	private static Player player;
+
+	public Animations() {
+		player = Model.getContainer().getPlayer();
+	}
 
 	public void startAnimation() {
-		new Thread(this::animationLoop, "Game Animation Thread").start();
+		new Thread(new Runnable() {
+			public void run() {
+				timerAnimation.play();
+			}
+		}).start();
+	}
+
+	public void pauseAnimation() {
+		if (timerAnimation != null) {
+			timerAnimation.pause();
+		}
+	}
+
+	public void continueAnimation() {
+		if (timerAnimation != null) {
+			timerAnimation.play();
+		}
 	}
 
 	public void stopAnimation() {
@@ -25,20 +52,8 @@ public class Animations {
 			timerAnimation.stop();
 	}
 
-	private void animationLoop() {
-		timerAnimation = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
-			updateAnimation();
-		}));
-		timerAnimation.setCycleCount(Animation.INDEFINITE);
-		timerAnimation.play();
-	}
-
-	public static void updateAnimation() {
-		animateAll();
-	}
-
 	private static void animateAll() {
-		for (Player player : Model.getContainer().getPlayerList()) {
+		if (player != null) {
 			player.changeImage();
 		}
 

@@ -7,7 +7,6 @@ import entity.characters.Player;
 import game.property.Animatable;
 import game.property.Movable;
 import game.property.Side;
-import game.storage.PlayerData;
 
 public abstract class Skill extends Entity implements Movable, Animatable {
 	protected Characters owner;
@@ -44,12 +43,8 @@ public abstract class Skill extends Entity implements Movable, Animatable {
 	}
 
 	public void affectTo(Characters character) {
+		// takes damage = atk * skill's damage multipler
 		character.decreaseHp(owner.getAtk() * damage);
-		// get score 10 times of old score
-		if (owner instanceof Player) {
-			PlayerData playerData = ((Player) owner).getPlayerData();
-			playerData.addScore(10);
-		}
 	}
 
 	public abstract boolean isDead();

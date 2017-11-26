@@ -21,8 +21,8 @@ public class HoleObstacle extends Obstacle {
 		}
 	}
 
-	public HoleObstacle(double x, double y, double w, double h) {
-		super(x, y, w, h);
+	public HoleObstacle() {
+		super(SceneManager.SCREEN_WIDTH + 180, 0, HOLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
 		int rnd = new Random().nextInt(1) + 1;
 		obstacle = images[rnd];
@@ -31,18 +31,18 @@ public class HoleObstacle extends Obstacle {
 
 		hb = new Hitbox(150, Map.FLOOR_HEIGHT - 1, 40, 20);
 
-		Jelly jelly = new Jelly(1100, -50, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+		Jelly jelly = new Jelly(1100, 450);
 		Model.getContainer().add(jelly);
-		jelly = new Jelly(1200, -100, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+		jelly = new Jelly(1175, 400);
 		Model.getContainer().add(jelly);
-		jelly = new Jelly(1300, -50, Jelly.JELLY_WIDTH, SceneManager.SCREEN_HEIGHT);
+		jelly = new Jelly(1300, 350);
+		Model.getContainer().add(jelly);
+		jelly = new Jelly(1425, 400);
+		Model.getContainer().add(jelly);
+		jelly = new Jelly(1500, 450);
 		Model.getContainer().add(jelly);
 
 		draw();
-	}
-
-	public HoleObstacle() {
-		super();
 	}
 
 	public void draw() {

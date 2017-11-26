@@ -2,7 +2,6 @@ package entity.gui;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import window.SceneManager;
 
 public class GUIImage extends GUI {
 	Image image;
@@ -11,15 +10,25 @@ public class GUIImage extends GUI {
 		super(x, y, w, h);
 
 		image = i;
+		width = image.getWidth();
+		height = image.getHeight();
+
+		draw();
+	}
+
+	public GUIImage(double x, double y, double w, double h, Image i, double width, double height) {
+		super(x, y, w, h);
+
+		image = i;
+		this.width = width;
+		this.height = height;
 
 		draw();
 	}
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		gc.drawImage(image, (SceneManager.SCREEN_WIDTH - image.getWidth()) / 2,
-				(SceneManager.SCREEN_HEIGHT - image.getHeight()) / 2);
+		gc.drawImage(image, (canvas.getWidth() - width) / 2, (canvas.getHeight() - height) / 2, width, height);
 	}
 
 }

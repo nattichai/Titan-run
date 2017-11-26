@@ -10,9 +10,6 @@ import entity.item.HealthPotion;
 import entity.item.Item;
 import entity.item.Jelly;
 import entity.map.Map;
-import entity.obstacle.AirObstacle;
-import entity.obstacle.GroundObstacle;
-import entity.obstacle.HoleObstacle;
 import entity.obstacle.Obstacle;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
@@ -21,12 +18,10 @@ import entity.skill.Shield;
 import entity.skill.Skill;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
-import game.GameMain;
 import game.storage.Storage;
-import game.updater.Updater;
+import input.GameHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
-import window.SceneManager;
 
 public class Model {
 	private static Model container;
@@ -39,8 +34,8 @@ public class Model {
 	private Pane itemPane;
 	private Pane monsterPane;
 
-	private ArrayList<Map> mapList;
-	private ArrayList<Player> playerList;
+	private static Map map;
+	private Player player;
 	private ArrayList<Obstacle> obstacleList;
 	private ArrayList<Skill> skillList;
 	private ArrayList<GUI> guiList;
@@ -56,22 +51,20 @@ public class Model {
 		itemPane = new Pane();
 		monsterPane = new Pane();
 
-		mapList = new ArrayList<>();
-		playerList = new ArrayList<>();
 		obstacleList = new ArrayList<>();
 		skillList = new ArrayList<>();
 		guiList = new ArrayList<>();
 		itemList = new ArrayList<>();
 		monsterList = new ArrayList<>();
-
-		GameMain.getGamePane().getChildren().addAll(mapPane, obstaclePane, itemPane, monsterPane, playerPane, skillPane,
-				guiPane);
 	}
 
 	public static void initialize() {
 		container = new Model();
-		new Updater();
+		container.add(map);
+		container.add(new Player(90, Map.FLOOR_HEIGHT - 200, 120, 200));
+		GameHandler.setPlayer();
 		new Storage();
+		new Map();
 		new Shield();
 		new Fireball();
 		new Lightning();
@@ -80,16 +73,6 @@ public class Model {
 		new Slashy();
 		new Jelly();
 		new HealthPotion();
-		new AirObstacle();
-		new GroundObstacle();
-		new HoleObstacle();
-
-		Map map = new Map(0, 0, SceneManager.SCREEN_WIDTH * 2, SceneManager.SCREEN_HEIGHT);
-		container.add(map);
-
-		Player player = new Player(90, Map.FLOOR_HEIGHT - 200, 120, 200);
-		Model.getContainer().add(player);
-
 	}
 
 	public void add(Object object) {
@@ -103,13 +86,14 @@ public class Model {
 		}
 
 		else if (object instanceof Map) {
-			mapList.add((Map) object);
+			map = (Map) object;
 			mapPane.getChildren().add(canvas);
 		}
 
 		else if (object instanceof Player) {
-			playerList.add((Player) object);
-			playerPane.getChildren().addAll(canvas, ((Player) object).getHpBar(), ((Player) object).getManaBar());
+			player = (Player) object;
+			playerPane.getChildren().addAll(canvas, ((Player) object).getUserInterface().getHpBar(),
+					((Player) object).getUserInterface().getManaBar());
 		}
 
 		else if (object instanceof Skill) {
@@ -129,7 +113,7 @@ public class Model {
 
 		else if (object instanceof Monster) {
 			monsterList.add((Monster) object);
-			monsterPane.getChildren().addAll(canvas, ((Monster) object).getHpBar());
+			monsterPane.getChildren().addAll(canvas, ((Monster) object).getUserInterface().getHpBar());
 		}
 	}
 
@@ -141,13 +125,13 @@ public class Model {
 		}
 
 		else if (object instanceof Map) {
-			mapList.remove((Map) object);
 			mapPane.getChildren().remove(canvas);
 		}
 
 		else if (object instanceof Player) {
-			playerList.remove((Player) object);
-			playerPane.getChildren().removeAll(canvas, ((Player) object).getHpBar(), ((Player) object).getManaBar());
+			playerPane.getChildren().removeAll(canvas, ((Player) object).getUserInterface().getHpBar(),
+					((Player) object).getUserInterface().getManaBar());
+			player = null;
 		}
 
 		else if (object instanceof Skill) {
@@ -167,28 +151,13 @@ public class Model {
 
 		else if (object instanceof Monster) {
 			monsterList.add((Monster) object);
-			monsterPane.getChildren().addAll(canvas, ((Monster) object).getHpBar());
+			monsterPane.getChildren().addAll(canvas, ((Monster) object).getUserInterface().getHpBar());
 		}
 	}
 
 	public void clearAllData() {
-		monsterList.forEach(m -> m.die());
-		skillList.forEach(s -> s.isDead());
-		mapPane.getChildren().clear();
-		playerPane.getChildren().clear();
-		obstaclePane.getChildren().clear();
-		skillPane.getChildren().clear();
-		guiPane.getChildren().clear();
-		itemPane.getChildren().clear();
-		monsterPane.getChildren().clear();
-		mapList.clear();
-		playerList.clear();
-		obstacleList.clear();
-		skillList.clear();
-		guiList.clear();
-		itemList.clear();
-		monsterList.clear();
-		GameMain.getGamePane().getChildren().clear();
+		monsterList.forEach(m -> m.getCanvas().setOpacity(0));
+		skillList.removeIf(s -> s.isDead());
 	}
 
 	public static Model getContainer() {
@@ -199,16 +168,8 @@ public class Model {
 		return playerPane;
 	}
 
-	public ArrayList<Player> getPlayerList() {
-		return playerList;
-	}
-
 	public Pane getMapPane() {
 		return mapPane;
-	}
-
-	public ArrayList<Map> getMapList() {
-		return mapList;
 	}
 
 	public Pane getObstaclePane() {
@@ -249,6 +210,14 @@ public class Model {
 
 	public ArrayList<Monster> getMonsterList() {
 		return monsterList;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 
 }

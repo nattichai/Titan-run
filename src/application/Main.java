@@ -11,6 +11,7 @@ public class Main extends Application {
 		SceneManager.gotoMainMenu();
 		primaryStage.setTitle("Titan Run");
 		primaryStage.setResizable(false);
+		primaryStage.centerOnScreen();
 	}
 
 	public static void main(String[] args) {

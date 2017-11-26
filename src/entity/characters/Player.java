@@ -1,29 +1,25 @@
 package entity.characters;
 
-import entity.gui.GUI;
-import entity.gui.GUIImage;
 import entity.map.Map;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
 import entity.skill.Shield;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
-import game.animations.Animations;
+import game.GameMain;
 import game.model.Model;
 import game.property.Hitbox;
 import game.property.PowerState;
 import game.property.Side;
 import game.property.Slidable;
 import game.property.State;
-import game.storage.PlayerData;
+import game.property.UserInterface;
 import game.storage.Storage;
 import game.updater.Updater;
 import input.GameHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -35,16 +31,20 @@ public class Player extends Characters implements Slidable {
 	public static final double MOVEDOWN_SPEED = 1.5;
 	public static final int MAX_JUMP = 2;
 
-	protected static final GUI youAreDead = new GUIImage(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
-			new Image("images/cutscene/you died.png"));
-
+	protected static final double[] fullCooldown = new double[5];
+	static {
+		fullCooldown[0] = Fireball.SKILL_COOLDOWN;
+		fullCooldown[1] = Lightning.SKILL_COOLDOWN;
+		fullCooldown[2] = Thunderbolt.SKILL_COOLDOWN;
+		fullCooldown[3] = Slashy.SKILL_COOLDOWN;
+	}
 	protected Image imageSlide;
 	protected int jump;
 	protected double mana, maxMana;
-	protected ProgressBar manaBar;
 	protected State state;
-
-	private PlayerData playerData;
+	protected double score;
+	protected double[] cooldown;
+	protected double distance;
 
 	public Player(double x, double y, double w, double h) {
 		super(x, y, w, h);
@@ -70,17 +70,16 @@ public class Player extends Characters implements Slidable {
 		powerState = player.powerState;
 
 		jump = 0;
-		hpBar = new ProgressBar(1);
-		hpBar.setPrefSize(200, 15);
-		hpBar.setOpacity(0.8);
 		mana = 100;
 		maxMana = 100;
-		manaBar = new ProgressBar(1);
-		manaBar.setPrefSize(200, 7);
-		manaBar.setOpacity(0.8);
 		state = State.RUNNING;
+		score = 0;
+		cooldown = new double[5];
+		distance = 0;
 
-		playerData = new PlayerData();
+		userInterface = new UserInterface(this);
+
+		userInterface.getHpBar().setPrefSize(200, 15);
 	}
 
 	public void draw() {
@@ -94,8 +93,8 @@ public class Player extends Characters implements Slidable {
 		changeSpeed(accelX, accelY);
 		positionX += speedX;
 		positionY += speedY;
-		hpBar.relocate(positionX - 25, positionY - 50);
-		manaBar.relocate(positionX - 25, positionY - 32);
+		userInterface.updateHp(positionX - 25, positionY - 50);
+		userInterface.updateMana(positionX - 25, positionY - 32);
 
 		if (state == State.SLIDING) {
 			positionY = Map.FLOOR_HEIGHT - width;
@@ -169,8 +168,8 @@ public class Player extends Characters implements Slidable {
 	}
 
 	public void useFireball() {
-		if (state != State.SLIDING && playerData.getCooldown(0) <= 0) {
-			playerData.resetCooldown(0);
+		if (state != State.SLIDING && cooldown[0] <= 0) {
+			resetCooldown(0);
 			Fireball fireball = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH,
 					Fireball.SKILL_HEIGHT);
 			fireball.setOwner(this);
@@ -179,8 +178,8 @@ public class Player extends Characters implements Slidable {
 	}
 
 	public void useLightning() {
-		if (state != State.SLIDING && playerData.getCooldown(1) <= 0) {
-			playerData.resetCooldown(1);
+		if (state != State.SLIDING && cooldown[1] <= 0) {
+			resetCooldown(1);
 			Timeline timerLightning = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Lightning lightning = new Lightning(nearestMonsterPosition(), 0, Lightning.SKILL_WIDTH,
 						Lightning.SKILL_HEIGHT);
@@ -201,8 +200,8 @@ public class Player extends Characters implements Slidable {
 	}
 
 	public void useThunderbolt() {
-		if (state != State.SLIDING && playerData.getCooldown(2) <= 0) {
-			playerData.resetCooldown(2);
+		if (state != State.SLIDING && cooldown[2] <= 0) {
+			resetCooldown(2);
 			Thunderbolt thunderbolt = new Thunderbolt(0, 0, Thunderbolt.SKILL_WIDTH, Thunderbolt.SKILL_HEIGHT);
 			thunderbolt.setOwner(this);
 			Model.getContainer().add(thunderbolt);
@@ -210,8 +209,8 @@ public class Player extends Characters implements Slidable {
 	}
 
 	public void useSlashy() {
-		if (state != State.SLIDING && playerData.getCooldown(3) <= 0) {
-			playerData.resetCooldown(3);
+		if (state != State.SLIDING && cooldown[3] <= 0) {
+			resetCooldown(3);
 			Slashy slashy = new Slashy(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
 			slashy.setOwner(this);
 			Model.getContainer().add(slashy);
@@ -234,31 +233,26 @@ public class Player extends Characters implements Slidable {
 	}
 
 	public void die() {
-		Updater.getTimerUpdate().stop();
-		Animations.getTimerAnimation().stop();
+		hp = 0.00001;
+		Updater.playerDead();
+		SceneManager.pauseGame();
+		// GameMain.setSpeed(2);
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
 			positionY += 10;
 			canvas.setTranslateY(positionY);
-			canvas.setOpacity(
-					1 - ((positionY + height - Map.FLOOR_HEIGHT) / (SceneManager.SCREEN_HEIGHT - Map.FLOOR_HEIGHT)));
 			canvas.setRotate(canvas.getRotate() + 15);
 		}));
 		timeline.setCycleCount((int) Updater.FPS / 2);
 		timeline.play();
 		timeline.setOnFinished(e -> {
-			hp = 0.00001;
-			Updater.getTimerUpdate().play();
-			Animations.getTimerAnimation().play();
+			SceneManager.continueGame();
+			userInterface.dead();
+			Model.getContainer().remove(this);
 		});
-		Model.getContainer().add(youAreDead);
 	}
 
 	public boolean isDead() {
-		if (hp == 0.00001) {
-			Model.getContainer().getPlayerPane().getChildren().removeAll(canvas, hpBar, manaBar);
-			return true;
-		}
-		return false;
+		return hp == 0.00001;
 	}
 
 	public int getJump() {
@@ -277,22 +271,6 @@ public class Player extends Characters implements Slidable {
 		this.state = state;
 	}
 
-	public PlayerData getPlayerData() {
-		return playerData;
-	}
-
-	public void setPlayerData(PlayerData playerData) {
-		this.playerData = playerData;
-	}
-
-	public ProgressBar getManaBar() {
-		return manaBar;
-	}
-
-	public void setManaBar(ProgressBar manaBar) {
-		this.manaBar = manaBar;
-	}
-
 	public double getMana() {
 		return mana;
 	}
@@ -308,10 +286,46 @@ public class Player extends Characters implements Slidable {
 		} else if (this.mana > maxMana) {
 			this.mana = maxMana;
 		}
-		manaBar.setProgress(this.mana / maxMana);
+		userInterface.updateMana(this.mana / maxMana);
 	}
 
 	public void setJump(int j) {
 		jump = j;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void addScore(double s) {
+		score += s;
+		userInterface.updateScore(score);
+	}
+
+	public double getCooldown(int index) {
+		return cooldown[index];
+	}
+
+	public void resetCooldown(int index) {
+		cooldown[index] = fullCooldown[index];
+		userInterface.updateCooldown(index, 1);
+	}
+
+	public void decreaseCooldown(double cd) {
+		for (int i = 0; i < 4; ++i) {
+			cooldown[i] -= cd;
+			if (cooldown[i] < 0)
+				cooldown[i] = 0;
+			userInterface.updateCooldown(i, cooldown[i] / fullCooldown[i]);
+		}
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void addDistance(double d) {
+		distance += d;
+		userInterface.updateDistance(distance / GameMain.STAGE_DISTANCE);
 	}
 }
