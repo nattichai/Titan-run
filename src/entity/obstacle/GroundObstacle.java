@@ -11,17 +11,17 @@ import javafx.scene.image.Image;
 import window.SceneManager;
 
 public class GroundObstacle extends Obstacle {
-	protected static final Image[] images = new Image[20];
+	public static final Image[] images = new Image[3];
 	static {
 		for (int i = 1; i < 4; ++i) {
-			images[i] = new Image("images/obstacle/ground" + i + ".png");
+			images[i - 1] = new Image("images/obstacle/ground" + i + ".png");
 		}
 	}
 
 	public GroundObstacle() {
 		super(SceneManager.SCREEN_WIDTH + 210, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
-		int rnd = new Random().nextInt(3) + 1;
+		int rnd = new Random().nextInt(3);
 		obstacle = images[rnd];
 		width = obstacle.getWidth();
 		height = obstacle.getHeight();

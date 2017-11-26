@@ -19,6 +19,7 @@ import entity.skill.Darkspear;
 import entity.skill.Meteor;
 import entity.skill.Shield;
 import entity.skill.Skill;
+import entity.skill.Thunderbolt;
 import game.GameMain;
 import game.model.Model;
 import input.GameHandler;
@@ -115,16 +116,14 @@ public class Updater {
 					Jelly jelly = new Jelly(SceneManager.SCREEN_WIDTH + 100, height);
 					Model.getContainer().add(jelly);
 				} else {
-					HealthPotion healthPotion = new HealthPotion(SceneManager.SCREEN_WIDTH + 100, height,
-							HealthPotion.POTION_WIDTH, SceneManager.SCREEN_HEIGHT);
+					HealthPotion healthPotion = new HealthPotion(SceneManager.SCREEN_WIDTH + 100, height);
 					Model.getContainer().add(healthPotion);
 				}
 			}
 		}
 		if (distance >= spaceMonster) {
 			spaceMonster += GameMain.MONSTER_SPACE;
-			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, SceneManager.SCREEN_WIDTH,
-					SceneManager.SCREEN_HEIGHT, new Random().nextInt(4) + 2);
+			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(4) + 2);
 			Model.getContainer().add(monster);
 		}
 	}
@@ -208,7 +207,7 @@ public class Updater {
 
 				else if (firstEntity instanceof Skill) {
 					if (firstEntity instanceof Shield && !(secondEntity instanceof Darkspear)
-							&& !(secondEntity instanceof Meteor)) {
+							&& !(secondEntity instanceof Meteor) && !(secondEntity instanceof Thunderbolt)) {
 						if (secondEntity.isCollision(firstEntity)) {
 							((Shield) firstEntity).affectTo((Skill) secondEntity);
 						}

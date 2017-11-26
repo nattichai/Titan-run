@@ -14,7 +14,7 @@ public class Meteor extends Skill {
 	public static final double SKILL_DAMAGE = 2.5;
 	public static final double SKILL_COOLDOWN = 15;
 
-	protected static final Image[] images = new Image[60];
+	public static final Image[] images = new Image[60];
 	static {
 		for (int i = 0; i < 60; ++i) {
 			images[i] = new Image("images/skill/meteor/meteor" + i + ".png");

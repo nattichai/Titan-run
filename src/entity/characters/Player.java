@@ -24,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
+import menu.MainMenu;
 import window.SceneManager;
 
 public class Player extends Characters implements Slidable {
@@ -79,6 +80,7 @@ public class Player extends Characters implements Slidable {
 
 		userInterface = new UserInterface(this);
 
+		userInterface.setName(MainMenu.getRegisterName().getText());
 		userInterface.getHpBar().setPrefSize(200, 15);
 	}
 
@@ -95,6 +97,7 @@ public class Player extends Characters implements Slidable {
 		positionY += speedY;
 		userInterface.updateHp(positionX - 25, positionY - 50);
 		userInterface.updateMana(positionX - 25, positionY - 32);
+		userInterface.updateNamePos(positionX - 25, positionY - 80);
 
 		if (state == State.SLIDING) {
 			positionY = Map.FLOOR_HEIGHT - width;

@@ -25,8 +25,8 @@ public class Monster extends Characters {
 
 	private Timeline timer;
 
-	public Monster(double x, double y, double w, double h, int idx) {
-		super(x, y, w, h);
+	public Monster(double x, double y, int idx) {
+		super(x, y, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
 
 		Storage monster = Storage.characters[idx];
 		nImage = monster.nImage;
@@ -78,7 +78,7 @@ public class Monster extends Characters {
 			speedY = 0;
 		}
 
-		userInterface.updateHp(positionX + hb.x, positionY + hb.y - 100);
+		userInterface.updateHp(positionX + hb.x, positionY + hb.y - 50);
 
 		updatePosition();
 	}

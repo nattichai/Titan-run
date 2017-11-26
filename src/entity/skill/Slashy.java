@@ -13,7 +13,7 @@ public class Slashy extends Skill {
 	public static final double SKILL_DAMAGE = 3;
 	public static final double SKILL_COOLDOWN = 24;
 
-	protected static final Image[] images = new Image[40];
+	public static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 20; ++i) {
 			images[i] = new Image("images/skill/slashy/slashy" + i + ".png");
@@ -35,7 +35,7 @@ public class Slashy extends Skill {
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
-		currentAnimation %= 38;
+		currentAnimation %= 20;
 		gc.drawImage(images[currentAnimation++], 0, 0, SKILL_WIDTH, SKILL_HEIGHT);
 	}
 
@@ -49,7 +49,7 @@ public class Slashy extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || currentAnimation == 38) {
+		if (owner.getHp() == 0.00001 || currentAnimation == 20) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

@@ -35,4 +35,8 @@ public class GUIText extends GUI {
 		text = string;
 	}
 
+	public String getText() {
+		return text;
+	}
+
 }

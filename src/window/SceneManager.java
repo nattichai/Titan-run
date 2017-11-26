@@ -30,13 +30,10 @@ public class SceneManager {
 
 	public static void initialize(Stage stage) {
 		Model.initialize();
-
 		oldPane = new Pane();
 		root = new Pane(map.getCanvas(), oldPane);
-
 		scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("utility/style.css").toExternalForm());
-
 		primaryStage = stage;
 		primaryStage.setScene(scene);
 		primaryStage.show();

@@ -12,7 +12,7 @@ public class Darkspear extends Skill {
 	public static final double SKILL_DAMAGE = 2;
 	public static final double SKILL_COOLDOWN = 10;
 
-	protected static final Image[] images = new Image[16];
+	public static final Image[] images = new Image[16];
 	static {
 		for (int i = 0; i < 16; ++i) {
 			images[i] = new Image("images/skill/darkspear/darkspear" + i + ".png");

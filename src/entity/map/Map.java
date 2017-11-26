@@ -15,10 +15,10 @@ public class Map extends Entity implements Movable {
 	public static final double PASSIVE_DAMAGE = 0.045;
 	public static final double PASSIVE_SCORE = 1;
 	public static final double PASSIVE_MANA_REGEN = 0.1;
-	protected static final Image[] images = new Image[10];
+	public static final Image[] images = new Image[2];
 	static {
 		for (int i = 1; i < 3; ++i) {
-			images[i] = new Image("images/map/map" + i + ".jpg");
+			images[i - 1] = new Image("images/map/map" + i + ".jpg");
 		}
 	}
 
@@ -40,7 +40,7 @@ public class Map extends Entity implements Movable {
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		int rnd = new Random().nextInt(1) + 2;
+		int rnd = new Random().nextInt(1) + 1;
 		Image image = images[rnd];
 		width = SceneManager.SCREEN_WIDTH;
 

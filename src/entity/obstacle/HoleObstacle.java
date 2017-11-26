@@ -14,17 +14,17 @@ import window.SceneManager;
 
 public class HoleObstacle extends Obstacle {
 	public static final double HOLE_WIDTH = 300;
-	protected static final Image[] images = new Image[20];
+	public static final Image[] images = new Image[1];
 	static {
 		for (int i = 1; i < 2; ++i) {
-			images[i] = new Image("images/obstacle/hole" + i + ".png");
+			images[i - 1] = new Image("images/obstacle/hole" + i + ".png");
 		}
 	}
 
 	public HoleObstacle() {
 		super(SceneManager.SCREEN_WIDTH + 180, 0, HOLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
-		int rnd = new Random().nextInt(1) + 1;
+		int rnd = new Random().nextInt(1);
 		obstacle = images[rnd];
 		width = obstacle.getWidth();
 		height = obstacle.getHeight();

@@ -11,7 +11,7 @@ public class Lightning extends Skill {
 	public static final double SKILL_DAMAGE = 1;
 	public static final double SKILL_COOLDOWN = 8;
 
-	protected static final Image[] images = new Image[20];
+	public static final Image[] images = new Image[12];
 	static {
 		for (int i = 0; i < 12; ++i) {
 			images[i] = new Image("images/skill/lightning/lightning" + i + ".png");

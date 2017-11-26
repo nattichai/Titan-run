@@ -11,17 +11,17 @@ import window.SceneManager;
 
 public class AirObstacle extends Obstacle {
 	public static final int AIR_HEIGHT = 500;
-	protected static final Image[] images = new Image[20];
+	public static final Image[] images = new Image[4];
 	static {
 		for (int i = 1; i < 5; ++i) {
-			images[i] = new Image("images/obstacle/air" + i + ".png");
+			images[i - 1] = new Image("images/obstacle/air" + i + ".png");
 		}
 	}
 
 	public AirObstacle() {
 		super(SceneManager.SCREEN_WIDTH + 210, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
-		int rnd = new Random().nextInt(4) + 1;
+		int rnd = new Random().nextInt(4);
 		obstacle = images[rnd];
 		width = obstacle.getWidth();
 		height = obstacle.getHeight();

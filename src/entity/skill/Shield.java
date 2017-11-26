@@ -14,7 +14,7 @@ public class Shield extends Skill {
 	public static final double SKILL_DAMAGE = 100;
 	public static final double SKILL_COOLDOWN = 0.10;
 
-	protected static final Image[] images = new Image[63];
+	public static final Image[] images = new Image[63];
 	static {
 		for (int i = 0; i < 63; ++i) {
 			images[i] = new Image("images/skill/shield/shield" + i + ".png");

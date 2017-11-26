@@ -13,7 +13,7 @@ public class Fireball extends Skill {
 	public static final double SKILL_DAMAGE = 0.5;
 	public static final double SKILL_COOLDOWN = 0.20;
 
-	protected static final Image[] images = new Image[10];
+	public static final Image[] images = new Image[10];
 	static {
 		for (int i = 0; i < 10; ++i) {
 			images[i] = new Image("images/skill/fireball/fireball" + i + ".png");

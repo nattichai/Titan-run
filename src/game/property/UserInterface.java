@@ -4,11 +4,10 @@ import entity.characters.Characters;
 import entity.characters.Player;
 import entity.gui.GUIImage;
 import entity.gui.GUIProgress;
+import entity.gui.GUIRectangle;
 import entity.gui.GUIText;
 import game.model.Model;
 import javafx.geometry.VPos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -16,9 +15,11 @@ import javafx.scene.text.TextAlignment;
 import window.SceneManager;
 
 public class UserInterface {
+	private GUIText name;
 	private GUIText scoreText;
 	private GUIText[] cooldownText;
 	private GUIProgress[] cooldownProgress;
+	private GUIRectangle cooldownArea;
 	private ProgressBar distanceBar;
 	private ProgressBar hpBar;
 	private ProgressBar manaBar;
@@ -30,17 +31,17 @@ public class UserInterface {
 		hpBar.setOpacity(0.8);
 
 		if (character instanceof Player) {
+			name = new GUIText(0, 0, 200, 30, "Po", Color.WHITE, 15);
+			name.getCanvas().setOpacity(0.5);
+			Model.getContainer().add(name);
+
 			scoreText = new GUIText(-375, -75, 800, 200, "Score: " + 0, Color.WHITE, 30);
 			scoreText.getCanvas().getGraphicsContext2D().setTextAlign(TextAlignment.LEFT);
 			scoreText.getCanvas().getGraphicsContext2D().setTextBaseline(VPos.TOP);
 			Model.getContainer().add(scoreText);
 
-			Canvas canvas = new Canvas(325, 85);
-			canvas.relocate(335, 645);
-			GraphicsContext gc = canvas.getGraphicsContext2D();
-			gc.setFill(Color.gray(0, 0.2));
-			gc.fillRect(0, 0, 325, 85);
-			Model.getContainer().getGuiPane().getChildren().add(canvas);
+			cooldownArea = new GUIRectangle(335, 645, 325, 85, Color.BLACK, 0.1);
+			Model.getContainer().add(cooldownArea);
 
 			cooldownProgress = new GUIProgress[5];
 			cooldownProgress[0] = new GUIProgress(340, 650, 75, 75, 0.0);
@@ -77,6 +78,15 @@ public class UserInterface {
 			youAreDead = new GUIImage(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
 					new Image("images/cutscene/you died.png"));
 		}
+	}
+
+	public void setName(String s) {
+		name.setText(s);
+		name.draw();
+	}
+
+	public void updateNamePos(double x, double y) {
+		name.getCanvas().relocate(x, y);
 	}
 
 	public void updateScore(double score) {

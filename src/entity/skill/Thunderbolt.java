@@ -14,7 +14,7 @@ public class Thunderbolt extends Skill {
 	public static final double SKILL_DAMAGE = 1.5;
 	public static final double SKILL_COOLDOWN = 15;
 
-	protected static final Image[] images = new Image[40];
+	public static final Image[] images = new Image[38];
 	static {
 		for (int i = 0; i < 38; ++i) {
 			images[i] = new Image("images/skill/thunderbolt/thunderbolt" + i + ".png");
