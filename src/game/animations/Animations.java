@@ -68,6 +68,12 @@ public class Animations {
 		for (Monster monster : Model.getContainer().getMonsterList()) {
 			monster.changeImage();
 		}
+
+		// for (GUI gui : Model.getContainer().getGuiList()) {
+		// if (gui instanceof GUIGif) {
+		// ((GUIGif) gui).changeImage();
+		// }
+		// }
 	}
 
 	public static Timeline getTimerAnimation() {

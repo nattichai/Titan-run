@@ -9,6 +9,7 @@ import entity.skill.Skill;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
 import game.model.Model;
+import game.property.Side;
 import game.property.UserInterface;
 import game.storage.Storage;
 import javafx.animation.FadeTransition;
@@ -29,6 +30,10 @@ public class Monster extends Characters {
 		super(x, y, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
 
 		Storage monster = Storage.characters[idx];
+		if (monster.side == Side.PLAYER) {
+			monster.side = Side.MONSTER;
+			canvas.setScaleX(-1);
+		}
 		nImage = monster.nImage;
 		images = monster.images;
 		width = monster.width;
@@ -56,7 +61,7 @@ public class Monster extends Characters {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
 		currentAnimation %= nImage;
-		gc.drawImage(images[currentAnimation++], 0, height - hb.y - hb.h, width, height);
+		gc.drawImage(images[currentAnimation], 0, height - hb.y - hb.h, width, height);
 	}
 
 	public void move() {
@@ -178,6 +183,7 @@ public class Monster extends Characters {
 	}
 
 	public void changeImage() {
+		currentAnimation++;
 		draw();
 	}
 

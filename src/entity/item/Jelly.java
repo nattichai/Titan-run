@@ -31,13 +31,14 @@ public class Jelly extends Item {
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
-		currentAnimation %= 12;
 		if (positionY != 500)
 			currentAnimation += 12;
-		gc.drawImage(images[currentAnimation++], 0, 0, JELLY_WIDTH, JELLY_HEIGHT);
+		gc.drawImage(images[currentAnimation], 0, 0, JELLY_WIDTH, JELLY_HEIGHT);
 	}
 
 	public void changeImage() {
+		currentAnimation++;
+		currentAnimation %= 12;
 		draw();
 	}
 

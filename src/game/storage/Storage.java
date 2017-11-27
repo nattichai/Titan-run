@@ -37,7 +37,9 @@ public class Storage {
 		player.width = 120;
 		player.height = 200;
 		player.hb = new Hitbox(20, 20, 100, 180);
-		player.accelX = 0;
+		player.speedX = -12;
+		player.speedY = 0;
+		player.accelX = 0.15;
 		player.accelY = Map.GRAVITY;
 		player.hp = 100;
 		player.maxHp = 100;
@@ -125,10 +127,31 @@ public class Storage {
 		shaman.side = Side.MONSTER;
 		shaman.powerState = PowerState.NORMAL;
 
+		Storage slime = new Storage();
+		slime.nImage = 6;
+		slime.images = new Image[slime.nImage];
+		for (int i = 0; i < slime.nImage; ++i) {
+			slime.images[i] = new Image("images/character/character6_" + i + ".png");
+		}
+		slime.width = 300;
+		slime.height = 300;
+		slime.hb = new Hitbox(120, 90, 60, 160);
+		slime.speedX = -18;
+		slime.speedY = 0;
+		slime.accelX = 0.19;
+		slime.accelY = Map.GRAVITY;
+		slime.hp = 100;
+		slime.maxHp = 100;
+		slime.atk = 10;
+		slime.skill = new Fireball();
+		slime.side = Side.MONSTER;
+		slime.powerState = PowerState.NORMAL;
+
 		characters[1] = player;
 		characters[2] = pikachu;
 		characters[3] = spearman;
 		characters[4] = sorcerer;
 		characters[5] = shaman;
+		characters[6] = slime;
 	}
 }

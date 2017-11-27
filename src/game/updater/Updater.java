@@ -7,6 +7,8 @@ import entity.Entity;
 import entity.characters.Characters;
 import entity.characters.Monster;
 import entity.characters.Player;
+import entity.gui.GUIRectangle;
+import entity.gui.GUIText;
 import entity.item.HealthPotion;
 import entity.item.Item;
 import entity.item.Jelly;
@@ -24,8 +26,10 @@ import game.GameMain;
 import game.model.Model;
 import input.GameHandler;
 import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import window.SceneManager;
 
@@ -54,6 +58,7 @@ public class Updater {
 	private static double spaceMonster;
 	private static double height; // item's spawn height
 	private static double distance;
+	private static boolean isBossStage;
 
 	public Updater() {
 		map = SceneManager.getMap();
@@ -63,6 +68,7 @@ public class Updater {
 		spaceMonster = GameMain.MONSTER_SPACE;
 		height = 500;
 		distance = 0;
+		isBossStage = false;
 	}
 
 	public void startGame() {
@@ -92,7 +98,20 @@ public class Updater {
 	}
 
 	private static void generateMap() {
-		distance += GameMain.SPEED;
+		if (distance >= GameMain.STAGE_DISTANCE) {
+			distance = 0;
+			isBossStage = true;
+			showWarning();
+		}
+		if (!isBossStage) {
+			distance += GameMain.SPEED;
+			normalStage();
+		} else {
+			bossStage();
+		}
+	}
+
+	private static void normalStage() {
 		if (distance >= spaceObstacle) {
 			spaceObstacle += GameMain.OBSTACLE_SPACE;
 			Obstacle obstacle;
@@ -123,7 +142,7 @@ public class Updater {
 		}
 		if (distance >= spaceMonster) {
 			spaceMonster += GameMain.MONSTER_SPACE;
-			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(4) + 2);
+			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(5) + 2);
 			Model.getContainer().add(monster);
 		}
 	}
@@ -146,6 +165,35 @@ public class Updater {
 			}
 		}
 		return check;
+	}
+
+	private static void showWarning() {
+		GUIText warning = new GUIText(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT, "WARNING",
+				Color.rgb(0xC0, 0, 0), 150);
+		GUIRectangle warningBackground = new GUIRectangle(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
+				Color.BLACK, 0.5);
+		Model.getContainer().add(warningBackground);
+		Model.getContainer().add(warning);
+		FadeTransition ft1 = new FadeTransition(Duration.millis(200), warningBackground.getCanvas());
+		ft1.setFromValue(0);
+		ft1.setToValue(0.5);
+		ft1.setAutoReverse(true);
+		ft1.setCycleCount(15);
+		ft1.play();
+		FadeTransition ft2 = new FadeTransition(Duration.millis(200), warning.getCanvas());
+		ft2.setFromValue(0);
+		ft2.setToValue(1);
+		ft2.setAutoReverse(true);
+		ft2.setCycleCount(15);
+		ft2.play();
+		ft1.setOnFinished(e -> {
+			Model.getContainer().remove(warning);
+			Model.getContainer().remove(warningBackground);
+		});
+	}
+
+	private static void bossStage() {
+
 	}
 
 	private static void moveAll() {
@@ -237,7 +285,9 @@ public class Updater {
 		player.decreaseCooldown(1 / Updater.FPS);
 		player.addMana(Map.PASSIVE_MANA_REGEN);
 		player.addScore(Map.PASSIVE_SCORE);
-		player.addDistance(GameMain.SPEED);
+		if (!isBossStage)
+			player.addDistance(GameMain.SPEED);
+
 	}
 
 	private static void drawHitbox() {

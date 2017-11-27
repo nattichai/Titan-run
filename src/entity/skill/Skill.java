@@ -39,6 +39,7 @@ public abstract class Skill extends Entity implements Movable, Animatable {
 	}
 
 	public void changeImage() {
+		currentAnimation++;
 		draw();
 	}
 

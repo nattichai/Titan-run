@@ -36,7 +36,7 @@ public class Slashy extends Skill {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
 		currentAnimation %= 20;
-		gc.drawImage(images[currentAnimation++], 0, 0, SKILL_WIDTH, SKILL_HEIGHT);
+		gc.drawImage(images[currentAnimation], 0, 0, SKILL_WIDTH, SKILL_HEIGHT);
 	}
 
 	public boolean isCollision(Entity e) {
@@ -49,7 +49,7 @@ public class Slashy extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || currentAnimation == 20) {
+		if (owner.getHp() == 0.00001 || currentAnimation == 19) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

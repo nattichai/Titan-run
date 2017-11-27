@@ -13,6 +13,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import utility.InvalidInputException;
@@ -30,6 +32,9 @@ public class MainMenu {
 		menus[6] = new GUIText(200, 425, 600, 75, "", Color.BLACK, 40);
 		menus[7] = new GUIText(200, 490, 600, 35, "", Color.BLACK, 20);
 	}
+	private static final Media backgroundMusic = new Media(
+			ClassLoader.getSystemResource("sounds/background music1.mp3").toString());;
+	private static MediaPlayer mediaPlayer = new MediaPlayer(backgroundMusic);
 
 	private static Pane mainMenuPane;
 	private static int selectedMenu;
@@ -55,6 +60,10 @@ public class MainMenu {
 			ft.setToValue(1);
 			ft.play();
 		}
+		if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+			mediaPlayer.play();
+		}
+
 		selectedMenu = 0;
 		selectMenu();
 	}

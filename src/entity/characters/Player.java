@@ -88,7 +88,7 @@ public class Player extends Characters implements Slidable {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
 		currentAnimation %= nImage;
-		gc.drawImage(images[currentAnimation++], 0, 0, width, height);
+		gc.drawImage(images[currentAnimation], 0, 0, width, height);
 	}
 
 	public void move() {
@@ -112,6 +112,8 @@ public class Player extends Characters implements Slidable {
 
 	public void changeImage() {
 		if (state == State.RUNNING) {
+			currentAnimation++;
+			currentAnimation %= nImage;
 			draw();
 		}
 	}
