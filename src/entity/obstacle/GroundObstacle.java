@@ -11,23 +11,23 @@ import javafx.scene.image.Image;
 import window.SceneManager;
 
 public class GroundObstacle extends Obstacle {
-	public static final Image[] images = new Image[3];
+	public static final Image[] images = new Image[89];
 	static {
-		for (int i = 1; i < 4; ++i) {
-			images[i - 1] = new Image("images/obstacle/ground" + i + ".png");
+		for (int i = 0; i < 89; ++i) {
+			images[i] = new Image("images/obstacle/ground" + i + ".png");
 		}
 	}
 
 	public GroundObstacle() {
 		super(SceneManager.SCREEN_WIDTH + 210, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
-		int rnd = new Random().nextInt(3);
+		int rnd = new Random().nextInt(17) + 72;
 		obstacle = images[rnd];
 		width = obstacle.getWidth();
 		height = obstacle.getHeight();
-		hb = new Hitbox(40, Map.FLOOR_HEIGHT - height + 70, width - 90, height - 30);
 
 		if (height < 200) {
+			hb = new Hitbox(40, 510, 120, 120);
 			Jelly jelly = new Jelly(1025, 400);
 			Model.getContainer().add(jelly);
 			jelly = new Jelly(1100, 350);
@@ -39,6 +39,7 @@ public class GroundObstacle extends Obstacle {
 			jelly = new Jelly(1475, 400);
 			Model.getContainer().add(jelly);
 		} else {
+			hb = new Hitbox(40, 420, 60, 220);
 			Jelly jelly = new Jelly(1000, 390);
 			Model.getContainer().add(jelly);
 			jelly = new Jelly(1075, 290);

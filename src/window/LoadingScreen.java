@@ -81,86 +81,86 @@ public class LoadingScreen {
 		for (int i = 1; i < 6; ++i) {
 			for (int j = 0; j < Storage.characters[i].nImage; ++j) {
 				Image image = Storage.characters[i].images[j];
-				gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+				// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 				gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 						(canvas.getHeight() - image.getHeight()) / 2);
 			}
 		}
 
 		for (Image image : HealthPotion.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Jelly.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Map.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : AirObstacle.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : GroundObstacle.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : HoleObstacle.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Darkspear.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Fireball.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Lightning.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Meteor.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Shield.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Slashy.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}
 
 		for (Image image : Thunderbolt.images) {
-			gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			gc.drawImage(image, (canvas.getWidth() - image.getWidth()) / 2,
 					(canvas.getHeight() - image.getHeight()) / 2);
 		}

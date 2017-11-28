@@ -69,6 +69,10 @@ public class GameHandler {
 			player.useSlashy();
 		}
 
+		else if (event.getCode() == KeyCode.K) {
+			player.die();
+		}
+
 		keys.add(event.getCode());
 	}
 

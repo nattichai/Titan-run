@@ -142,7 +142,7 @@ public class Updater {
 		}
 		if (distance >= spaceMonster) {
 			spaceMonster += GameMain.MONSTER_SPACE;
-			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(5) + 2);
+			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(4) + 2);
 			Model.getContainer().add(monster);
 		}
 	}
@@ -287,14 +287,15 @@ public class Updater {
 		player.addScore(Map.PASSIVE_SCORE);
 		if (!isBossStage)
 			player.addDistance(GameMain.SPEED);
-
 	}
 
 	private static void drawHitbox() {
 		Model.getContainer().getItemList().forEach(e -> e.drawHb());
 		Model.getContainer().getMonsterList().forEach(e -> e.drawHb());
 		Model.getContainer().getObstacleList().forEach(e -> e.drawHb());
-		player.drawHb();
+		if (player != null) {
+			player.drawHb();
+		}
 		Model.getContainer().getSkillList().forEach(e -> e.drawHb());
 	}
 
