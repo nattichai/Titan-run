@@ -69,7 +69,8 @@ public class GameHandler {
 			player.useSlashy();
 		}
 
-		else if (event.getCode() == KeyCode.K) {
+		// S = SUICIDE
+		else if (event.getCode() == KeyCode.S) {
 			player.die();
 		}
 

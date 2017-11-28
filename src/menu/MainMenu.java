@@ -60,6 +60,7 @@ public class MainMenu {
 			ft.setToValue(1);
 			ft.play();
 		}
+		mediaPlayer.setAutoPlay(true);
 		if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
 			mediaPlayer.play();
 		}
@@ -125,7 +126,6 @@ public class MainMenu {
 	private static void choose() {
 		if (selectedMenu == 0) {
 			register();
-			// SceneManager.gotoGame();
 		} else if (selectedMenu == 1) {
 			SceneManager.gotoGame();
 		} else if (selectedMenu == 2) {

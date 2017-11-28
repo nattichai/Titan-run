@@ -9,6 +9,7 @@ import entity.skill.Skill;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
 import game.model.Model;
+import game.property.Hitbox;
 import game.property.Side;
 import game.property.UserInterface;
 import game.storage.Storage;
@@ -27,11 +28,10 @@ public class Monster extends Characters {
 	private Timeline timer;
 
 	public Monster(double x, double y, int idx) {
-		super(x, y, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
+		super(x, y, Storage.characters[idx].width, Storage.characters[idx].height);
 
 		Storage monster = Storage.characters[idx];
 		if (monster.side == Side.PLAYER) {
-			monster.side = Side.MONSTER;
 			canvas.setScaleX(-1);
 		}
 		nImage = monster.nImage;
@@ -47,7 +47,7 @@ public class Monster extends Characters {
 		maxHp = monster.maxHp;
 		atk = monster.atk;
 		skill = monster.skill;
-		side = monster.side;
+		side = Side.MONSTER;
 		powerState = monster.powerState;
 		canMove = true;
 		canMoveOut = false;
@@ -61,7 +61,7 @@ public class Monster extends Characters {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
 		currentAnimation %= nImage;
-		gc.drawImage(images[currentAnimation], 0, height - hb.y - hb.h, width, height);
+		gc.drawImage(images[currentAnimation], 0, 0, width, height);
 	}
 
 	public void move() {
@@ -106,14 +106,15 @@ public class Monster extends Characters {
 		}
 		if (skill instanceof Fireball) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				Fireball skill = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH,
-						Fireball.SKILL_HEIGHT);
+				Fireball skill = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH * 5,
+						Fireball.SKILL_HEIGHT * 5);
 				skill.setOwner(this);
+				skill.setHb(new Hitbox(40, 40, 170, 70));
 				skill.getCanvas().setScaleX(-1);
-				skill.setSpeedX(-skill.getSpeedX());
+				skill.setSpeedX(-skill.getSpeedX() * 0.6);
 				Model.getContainer().add(skill);
 			}));
-			timer.setCycleCount(8);
+			timer.setCycleCount(1);
 			timer.play();
 		}
 

@@ -6,19 +6,10 @@ import entity.Entity;
 import entity.characters.Monster;
 import entity.characters.Player;
 import entity.gui.GUI;
-import entity.item.HealthPotion;
 import entity.item.Item;
-import entity.item.Jelly;
 import entity.map.Map;
 import entity.obstacle.Obstacle;
-import entity.skill.Fireball;
-import entity.skill.Lightning;
-import entity.skill.Meteor;
-import entity.skill.Shield;
 import entity.skill.Skill;
-import entity.skill.Slashy;
-import entity.skill.Thunderbolt;
-import game.storage.Storage;
 import input.GameHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
@@ -63,16 +54,6 @@ public class Model {
 		container.add(map);
 		container.add(new Player(90, Map.FLOOR_HEIGHT - 200, 120, 200));
 		GameHandler.setPlayer();
-		new Storage();
-		new Map();
-		new Shield();
-		new Fireball();
-		new Lightning();
-		new Thunderbolt();
-		new Meteor();
-		new Slashy();
-		new Jelly();
-		new HealthPotion();
 	}
 
 	public void add(Object object) {

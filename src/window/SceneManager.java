@@ -3,7 +3,6 @@ package window;
 import entity.map.Map;
 import game.GameMain;
 import game.animations.Animations;
-import game.model.Model;
 import game.updater.Updater;
 import input.GameHandler;
 import input.MainMenuHandler;
@@ -29,7 +28,6 @@ public class SceneManager {
 	private static boolean isTrasitioning;
 
 	public static void initialize(Stage stage) {
-		Model.initialize();
 		oldPane = new Pane();
 		root = new Pane(map.getCanvas(), oldPane);
 		scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);

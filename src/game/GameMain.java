@@ -17,7 +17,6 @@ public class GameMain {
 		gamePane = new Pane();
 		Model.initialize();
 		Model container = Model.getContainer();
-		// gamePane.getChildren().add(container.getMapPane());
 		gamePane.getChildren().add(container.getObstaclePane());
 		gamePane.getChildren().add(container.getItemPane());
 		gamePane.getChildren().add(container.getMonsterPane());

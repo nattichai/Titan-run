@@ -4,8 +4,11 @@ import entity.Entity;
 import game.model.Model;
 import game.property.Hitbox;
 import game.property.Side;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 import window.SceneManager;
 
 public class Thunderbolt extends Skill {
@@ -42,12 +45,22 @@ public class Thunderbolt extends Skill {
 	}
 
 	public boolean isCollision(Entity e) {
-		if (side == e.getSide() || (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
+		if ((isCollided && e.isCollided()) || side == e.getSide()
+				|| (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
 			return false;
-		return positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w
+		if (positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w
 				&& positionX + hb.x + hb.w > e.getPositionX() + e.getHb().x
 				&& positionY + hb.y < e.getPositionY() + e.getHb().y + e.getHb().h
-				&& positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y;
+				&& positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y) {
+			isCollided = true;
+			e.setCollided(true);
+			Timeline timer = new Timeline(new KeyFrame(Duration.millis(100)));
+			timer.setCycleCount(1);
+			timer.setOnFinished(f -> isCollided = false);
+			timer.play();
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isDead() {

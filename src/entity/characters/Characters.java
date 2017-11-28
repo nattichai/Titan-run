@@ -1,6 +1,8 @@
 package entity.characters;
 
 import entity.Entity;
+import entity.gui.GUIDamage;
+import game.model.Model;
 import game.property.Animatable;
 import game.property.Attackable;
 import game.property.Movable;
@@ -51,6 +53,8 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 		}
 		userInterface.updateHp(hp / maxHp);
 		if (d > 1) {
+			GUIDamage damageUI = new GUIDamage(positionX + width / 2, positionY, "" + (int) d);
+			Model.getContainer().add(damageUI);
 			injured();
 		}
 	}

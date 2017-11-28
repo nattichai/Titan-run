@@ -46,7 +46,7 @@ public class Updater {
 			checkAllCollision();
 			removeAllDead();
 			updatePlayer();
-			// drawHitbox();
+			drawHitbox();
 		}));
 		timerUpdate.setCycleCount(Animation.INDEFINITE);
 	}
@@ -233,7 +233,7 @@ public class Updater {
 		ArrayList<Skill> skillList = Model.getContainer().getSkillList();
 
 		checkPairCollision(playerList, obstacleList);
-		checkPairCollision(playerList, monsterList);
+		// checkPairCollision(playerList, monsterList);
 		checkPairCollision(playerList, itemList);
 		checkPairCollision(playerList, skillList);
 		checkPairCollision(monsterList, skillList);

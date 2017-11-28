@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 public class Lightning extends Skill {
 	public static final double SKILL_WIDTH = 100;
 	public static final double SKILL_HEIGHT = Map.FLOOR_HEIGHT;
-	public static final double SKILL_DAMAGE = 1;
+	public static final double SKILL_DAMAGE = 0.65;
 	public static final double SKILL_COOLDOWN = 8;
 
 	public static final Image[] images = new Image[12];

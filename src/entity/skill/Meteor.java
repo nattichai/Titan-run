@@ -27,7 +27,7 @@ public class Meteor extends Skill {
 		speedX = 12;
 		speedY = 9;
 		damage = SKILL_DAMAGE;
-		hb = new Hitbox(0, 530, 270, 270);
+		hb = new Hitbox(0, 250, 270, 270);
 
 		draw();
 	}

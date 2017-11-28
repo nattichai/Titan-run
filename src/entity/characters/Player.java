@@ -52,7 +52,6 @@ public class Player extends Characters implements Slidable {
 
 		Storage player = Storage.characters[1];
 		if (player.side == Side.MONSTER) {
-			player.side = Side.PLAYER;
 			canvas.setScaleX(-1);
 		}
 		nImage = player.nImage;
@@ -67,7 +66,7 @@ public class Player extends Characters implements Slidable {
 		hp = player.hp;
 		maxHp = player.maxHp;
 		atk = player.atk;
-		side = player.side;
+		side = Side.PLAYER;
 		powerState = player.powerState;
 
 		jump = 0;
