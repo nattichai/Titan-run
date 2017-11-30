@@ -8,8 +8,8 @@ import game.property.Movable;
 import javafx.scene.image.Image;
 
 public abstract class Obstacle extends Entity implements Movable {
-	public static final int OBSTACLE_WIDTH = 200;
-	public static final double OBSTACLE_DAMAGE = 10;
+	protected static final int OBSTACLE_WIDTH = 200;
+	protected static final double OBSTACLE_DAMAGE = 10;
 
 	protected Image obstacle;
 	protected double speedX, speedY;

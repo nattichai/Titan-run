@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 import window.SceneManager;
 
 public class AirObstacle extends Obstacle {
-	public static final int AIR_HEIGHT = 500;
-	public static final Image[] images = new Image[4];
+	private static final int AIR_HEIGHT = 500;
+	private static final Image[] images = new Image[4];
 	static {
 		for (int i = 1; i < 5; ++i) {
 			images[i - 1] = new Image("images/obstacle/air" + i + ".png");

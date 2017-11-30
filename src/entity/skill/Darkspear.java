@@ -12,7 +12,7 @@ public class Darkspear extends Skill {
 	public static final double SKILL_DAMAGE = 2;
 	public static final double SKILL_COOLDOWN = 10;
 
-	public static final Image[] images = new Image[16];
+	private static final Image[] images = new Image[16];
 	static {
 		for (int i = 0; i < 16; ++i) {
 			images[i] = new Image("images/skill/darkspear/darkspear" + i + ".png");
@@ -29,7 +29,6 @@ public class Darkspear extends Skill {
 	}
 
 	public Darkspear() {
-
 	}
 
 	public void draw() {
@@ -40,7 +39,7 @@ public class Darkspear extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || positionX < -1000 || positionX >= SceneManager.SCREEN_WIDTH) {
+		if (owner.isDead() || positionX < -1000 || positionX >= SceneManager.SCREEN_WIDTH) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

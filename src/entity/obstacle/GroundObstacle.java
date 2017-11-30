@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import window.SceneManager;
 
 public class GroundObstacle extends Obstacle {
-	public static final Image[] images = new Image[89];
+	private static final Image[] images = new Image[89];
 	static {
 		for (int i = 0; i < 89; ++i) {
 			images[i] = new Image("images/obstacle/ground" + i + ".png");

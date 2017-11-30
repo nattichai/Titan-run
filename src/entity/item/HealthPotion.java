@@ -6,9 +6,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class HealthPotion extends Item {
-	public static final double POTION_WIDTH = 100;
-	public static final double POTION_HEIGHT = 100;
-	public static final Image[] images = new Image[48];
+	private static final double POTION_WIDTH = 100;
+	private static final double POTION_HEIGHT = 100;
+	private static final Image[] images = new Image[48];
 	static {
 		for (int i = 0; i < 48; ++i) {
 			images[i] = new Image("images/item/health potion" + i + ".png");

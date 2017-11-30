@@ -17,7 +17,7 @@ public class Thunderbolt extends Skill {
 	public static final double SKILL_DAMAGE = 1.5;
 	public static final double SKILL_COOLDOWN = 15;
 
-	public static final Image[] images = new Image[38];
+	private static final Image[] images = new Image[38];
 	static {
 		for (int i = 0; i < 38; ++i) {
 			images[i] = new Image("images/skill/thunderbolt/thunderbolt" + i + ".png");
@@ -34,7 +34,7 @@ public class Thunderbolt extends Skill {
 	}
 
 	public Thunderbolt() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public void draw() {
@@ -64,7 +64,7 @@ public class Thunderbolt extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || currentAnimation == 38) {
+		if (owner.isDead()) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

@@ -7,9 +7,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Jelly extends Item {
-	public static final double JELLY_WIDTH = 100;
-	public static final double JELLY_HEIGHT = 100;
-	public static final Image[] images = new Image[24];
+	private static final double JELLY_WIDTH = 100;
+	private static final double JELLY_HEIGHT = 100;
+	private static final Image[] images = new Image[24];
 	static {
 		for (int i = 0; i < 24; ++i) {
 			images[i] = new Image("images/item/jelly" + i + ".png");

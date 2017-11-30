@@ -1,6 +1,7 @@
 package entity.skill;
 
 import entity.Entity;
+import entity.characters.Boss;
 import entity.characters.Characters;
 import entity.characters.Monster;
 import entity.characters.Player;
@@ -45,7 +46,11 @@ public abstract class Skill extends Entity implements Movable, Animatable {
 
 	public void affectTo(Characters character) {
 		// takes damage = atk * skill's damage multipler
-		character.decreaseHp(owner.getAtk() * damage);
+		if (character instanceof Boss) {
+			((Boss) character).decreaseHp(owner.getAtk() * damage);
+		} else {
+			character.decreaseHp(owner.getAtk() * damage);
+		}
 	}
 
 	public abstract boolean isDead();

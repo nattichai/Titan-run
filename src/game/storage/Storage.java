@@ -6,9 +6,9 @@ import entity.skill.Fireball;
 import entity.skill.Meteor;
 import entity.skill.Skill;
 import entity.skill.Thunderbolt;
+import game.property.Direction;
 import game.property.Hitbox;
 import game.property.PowerState;
-import game.property.Side;
 import javafx.scene.image.Image;
 
 public class Storage {
@@ -23,7 +23,7 @@ public class Storage {
 	public double hp, maxHp; // hit point
 	public double atk; // attack
 	public Skill skill; // skill
-	public Side side; // side
+	public Direction imageDirection; // IMAGE DIRECTION
 	public PowerState powerState; // power state
 
 	public static final Storage[] characters = new Storage[20];
@@ -44,7 +44,7 @@ public class Storage {
 		player.hp = 100;
 		player.maxHp = 100;
 		player.atk = 10;
-		player.side = Side.PLAYER;
+		player.imageDirection = Direction.RIGHT;
 		player.powerState = PowerState.NORMAL;
 
 		Storage pikachu = new Storage();
@@ -64,7 +64,7 @@ public class Storage {
 		pikachu.maxHp = 96;
 		pikachu.atk = 12;
 		pikachu.skill = new Thunderbolt();
-		pikachu.side = Side.MONSTER;
+		pikachu.imageDirection = Direction.LEFT;
 		pikachu.powerState = PowerState.NORMAL;
 
 		Storage spearman = new Storage();
@@ -84,7 +84,7 @@ public class Storage {
 		spearman.maxHp = 122;
 		spearman.atk = 8;
 		spearman.skill = new Darkspear();
-		spearman.side = Side.MONSTER;
+		spearman.imageDirection = Direction.LEFT;
 		spearman.powerState = PowerState.NORMAL;
 
 		Storage sorcerer = new Storage();
@@ -104,7 +104,7 @@ public class Storage {
 		sorcerer.maxHp = 76;
 		sorcerer.atk = 17;
 		sorcerer.skill = new Meteor();
-		sorcerer.side = Side.MONSTER;
+		sorcerer.imageDirection = Direction.LEFT;
 		sorcerer.powerState = PowerState.NORMAL;
 
 		Storage shaman = new Storage();
@@ -116,7 +116,7 @@ public class Storage {
 		shaman.width = 300;
 		shaman.height = 300;
 		shaman.hb = new Hitbox(120, 90, 60, 160);
-		shaman.speedX = -18;
+		shaman.speedX = -16;
 		shaman.speedY = 0;
 		shaman.accelX = 0.19;
 		shaman.accelY = Map.GRAVITY;
@@ -124,7 +124,7 @@ public class Storage {
 		shaman.maxHp = 104;
 		shaman.atk = 68;
 		shaman.skill = new Fireball();
-		shaman.side = Side.MONSTER;
+		shaman.imageDirection = Direction.LEFT;
 		shaman.powerState = PowerState.NORMAL;
 
 		Storage slime = new Storage();
@@ -136,7 +136,7 @@ public class Storage {
 		slime.width = 195;
 		slime.height = 225;
 		slime.hb = new Hitbox(10, 75, 100, 150);
-		slime.speedX = -18;
+		slime.speedX = -17;
 		slime.speedY = 0;
 		slime.accelX = 0.19;
 		slime.accelY = Map.GRAVITY;
@@ -144,8 +144,28 @@ public class Storage {
 		slime.maxHp = 199;
 		slime.atk = 8;
 		slime.skill = new Fireball();
-		slime.side = Side.MONSTER;
+		slime.imageDirection = Direction.LEFT;
 		slime.powerState = PowerState.NORMAL;
+
+		Storage robotek = new Storage();
+		robotek.nImage = 96;
+		robotek.images = new Image[robotek.nImage];
+		for (int i = 0; i < robotek.nImage; ++i) {
+			robotek.images[i] = new Image("images/boss/boss1_" + i + ".png");
+		}
+		robotek.width = 400;
+		robotek.height = 164;
+		robotek.hb = new Hitbox(160, 32, 80, 100);
+		robotek.speedX = 0;
+		robotek.speedY = 0;
+		robotek.accelX = 0;
+		robotek.accelY = 0;
+		robotek.hp = 1000;
+		robotek.maxHp = 1000;
+		robotek.atk = 24;
+		robotek.skill = new Fireball();
+		robotek.imageDirection = Direction.LEFT;
+		robotek.powerState = PowerState.NORMAL;
 
 		characters[1] = player;
 		characters[2] = pikachu;
@@ -153,5 +173,6 @@ public class Storage {
 		characters[4] = sorcerer;
 		characters[5] = shaman;
 		characters[6] = slime;
+		characters[7] = robotek;
 	}
 }

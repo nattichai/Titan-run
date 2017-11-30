@@ -12,10 +12,10 @@ import window.SceneManager;
 public class Map extends Entity implements Movable {
 	public static final double FLOOR_HEIGHT = 600;
 	public static final double GRAVITY = 0.8;
-	public static final double PASSIVE_DAMAGE = 0.045;
-	public static final double PASSIVE_SCORE = 1;
+	public static final double PASSIVE_DAMAGE = 0.01; // 0.045
+	public static final double PASSIVE_SCORE = 0; // 1
 	public static final double PASSIVE_MANA_REGEN = 0.1;
-	public static final Image[] images = new Image[2];
+	private static final Image[] images = new Image[2];
 	static {
 		for (int i = 1; i < 3; ++i) {
 			images[i - 1] = new Image("images/map/map" + i + ".jpg");

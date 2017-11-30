@@ -8,9 +8,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class GUIText extends GUI {
-	protected String text;
-	protected Paint paint;
-	protected Font font;
+	private String text;
+	private Paint paint;
+	private Font font;
 
 	public GUIText(double x, double y, double w, double h, String s, Paint p, double fs) {
 		super(x, y, w, h);

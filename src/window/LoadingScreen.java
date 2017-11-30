@@ -1,12 +1,15 @@
 package window;
 
+import entity.effect.Charge;
 import entity.item.HealthPotion;
 import entity.item.Jelly;
 import entity.map.Map;
 import entity.obstacle.AirObstacle;
 import entity.obstacle.GroundObstacle;
 import entity.obstacle.HoleObstacle;
+import entity.skill.Beam;
 import entity.skill.Darkspear;
+import entity.skill.Drill;
 import entity.skill.Fireball;
 import entity.skill.Lightning;
 import entity.skill.Meteor;
@@ -19,6 +22,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -47,7 +51,7 @@ public class LoadingScreen {
 		bar.relocate(100, 700);
 		bar.setPrefSize(800, 20);
 
-		pane = new Pane(new ImageView(Map.images[1]), bar);
+		pane = new Pane(new ImageView(new Image("images/map/map2.jpg")), bar);
 
 		scene = new Scene(pane, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("utility/style.css").toExternalForm());
@@ -81,6 +85,9 @@ public class LoadingScreen {
 		new Shield();
 		new Slashy();
 		new Thunderbolt();
+		new Drill();
+		new Charge();
+		new Beam();
 
 		timer.stop();
 		timer.setCycleCount(1);

@@ -8,8 +8,6 @@ public class Main extends Application {
 
 	public void start(Stage primaryStage) throws Exception {
 		LoadingScreen.load(primaryStage);
-		// SceneManager.initialize(primaryStage);
-		// SceneManager.gotoMainMenu();
 		primaryStage.setTitle("Titan Run");
 		primaryStage.setResizable(false);
 		primaryStage.centerOnScreen();

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import entity.Entity;
 import entity.characters.Monster;
 import entity.characters.Player;
+import entity.effect.Effect;
 import entity.gui.GUI;
 import entity.item.Item;
 import entity.map.Map;
@@ -24,6 +25,7 @@ public class Model {
 	private Pane guiPane;
 	private Pane itemPane;
 	private Pane monsterPane;
+	private Pane effectPane;
 
 	private static Map map;
 	private Player player;
@@ -32,6 +34,7 @@ public class Model {
 	private ArrayList<GUI> guiList;
 	private ArrayList<Item> itemList;
 	private ArrayList<Monster> monsterList;
+	private ArrayList<Effect> effectList;
 
 	public Model() {
 		mapPane = new Pane();
@@ -41,12 +44,14 @@ public class Model {
 		guiPane = new Pane();
 		itemPane = new Pane();
 		monsterPane = new Pane();
+		effectPane = new Pane();
 
 		obstacleList = new ArrayList<>();
 		skillList = new ArrayList<>();
 		guiList = new ArrayList<>();
 		itemList = new ArrayList<>();
 		monsterList = new ArrayList<>();
+		effectList = new ArrayList<>();
 	}
 
 	public static void initialize() {
@@ -96,6 +101,11 @@ public class Model {
 			monsterList.add((Monster) object);
 			monsterPane.getChildren().addAll(canvas, ((Monster) object).getUserInterface().getHpBar());
 		}
+
+		else if (object instanceof Effect) {
+			effectList.add((Effect) object);
+			effectPane.getChildren().add(canvas);
+		}
 	}
 
 	public void remove(Object object) {
@@ -131,8 +141,13 @@ public class Model {
 		}
 
 		else if (object instanceof Monster) {
-			monsterList.add((Monster) object);
-			monsterPane.getChildren().addAll(canvas, ((Monster) object).getUserInterface().getHpBar());
+			monsterList.remove((Monster) object);
+			monsterPane.getChildren().removeAll(canvas, ((Monster) object).getUserInterface().getHpBar());
+		}
+
+		else if (object instanceof Effect) {
+			effectList.remove((Effect) object);
+			effectPane.getChildren().remove(canvas);
 		}
 	}
 
@@ -199,6 +214,14 @@ public class Model {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public Pane getEffectPane() {
+		return effectPane;
+	}
+
+	public ArrayList<Effect> getEffectList() {
+		return effectList;
 	}
 
 }

@@ -11,10 +11,10 @@ import window.SceneManager;
 public class Shield extends Skill {
 	public static final double SKILL_WIDTH = 400;
 	public static final double SKILL_HEIGHT = 300;
-	public static final double SKILL_DAMAGE = 100;
+	public static final double SKILL_DAMAGE = 0;
 	public static final double SKILL_COOLDOWN = 0.10;
 
-	public static final Image[] images = new Image[63];
+	private static final Image[] images = new Image[63];
 	static {
 		for (int i = 0; i < 63; ++i) {
 			images[i] = new Image("images/skill/shield/shield" + i + ".png");
@@ -34,6 +34,7 @@ public class Shield extends Skill {
 	}
 
 	public void updatePosition() {
+		positionX = owner.getPositionX() - 150;
 		positionY = owner.getPositionY() - 50;
 		canvas.setTranslateX(positionX);
 		canvas.setTranslateY(positionY);
@@ -52,7 +53,7 @@ public class Shield extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || !GameHandler.getKeys().contains(KeyCode.SPACE)
+		if (owner.isDead() || !GameHandler.getKeys().contains(KeyCode.SPACE)
 				|| positionX >= SceneManager.SCREEN_WIDTH) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import entity.Entity;
+import entity.characters.Boss;
 import entity.characters.Characters;
 import entity.characters.Monster;
 import entity.characters.Player;
@@ -17,13 +18,16 @@ import entity.obstacle.AirObstacle;
 import entity.obstacle.GroundObstacle;
 import entity.obstacle.HoleObstacle;
 import entity.obstacle.Obstacle;
+import entity.skill.Beam;
 import entity.skill.Darkspear;
+import entity.skill.Drill;
 import entity.skill.Meteor;
 import entity.skill.Shield;
 import entity.skill.Skill;
 import entity.skill.Thunderbolt;
 import game.GameMain;
 import game.model.Model;
+import game.property.State;
 import input.GameHandler;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -46,7 +50,7 @@ public class Updater {
 			checkAllCollision();
 			removeAllDead();
 			updatePlayer();
-			drawHitbox();
+			// drawHitbox();
 		}));
 		timerUpdate.setCycleCount(Animation.INDEFINITE);
 	}
@@ -100,14 +104,11 @@ public class Updater {
 	private static void generateMap() {
 		if (distance >= GameMain.STAGE_DISTANCE) {
 			distance = 0;
-			isBossStage = true;
 			showWarning();
 		}
 		if (!isBossStage) {
 			distance += GameMain.SPEED;
 			normalStage();
-		} else {
-			bossStage();
 		}
 	}
 
@@ -189,11 +190,78 @@ public class Updater {
 		ft1.setOnFinished(e -> {
 			Model.getContainer().remove(warning);
 			Model.getContainer().remove(warningBackground);
+			bossStage();
 		});
 	}
 
 	private static void bossStage() {
+		isBossStage = true;
+		SceneManager.setTrasitioning(true);
 
+		Boss robotek = new Boss(SceneManager.SCREEN_WIDTH + 100, 150, 7);
+		robotek.moveTo(600, 150, 3000);
+		Model.getContainer().add(robotek);
+
+		if (player != null) {
+			player.setSpeedX(0.5);
+			if (player.getState() == State.SLIDING) {
+				player.getCanvas().setRotate(0);
+				player.setState(State.RUNNING);
+			}
+		}
+
+		map.getCanvas().setScaleY(1.04);
+		Random rnd = new Random();
+		Timeline shake = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
+			map.getCanvas().setTranslateX(map.getPositionX() + rnd.nextInt(31) - 15);
+			map.getCanvas().setTranslateY(map.getPositionY() + rnd.nextInt(31) - 15);
+		}));
+		shake.setCycleCount((int) (FPS * 3));
+		shake.play();
+		shake.setOnFinished(e -> {
+			map.getCanvas().setScaleY(1);
+		});
+
+		double damp = GameMain.SPEED / (FPS * 3);
+		Timeline slowDown = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
+			GameMain.setSpeed(GameMain.SPEED - damp);
+		}));
+		slowDown.setCycleCount((int) (FPS * 3));
+		slowDown.play();
+		slowDown.setOnFinished(e -> {
+			GameMain.setSpeed(0);
+			SceneManager.setTrasitioning(false);
+			if (player != null) {
+				player.setSpeedX(0);
+				player.setState(State.STILL);
+				robotek.setReady(true);
+			}
+		});
+	}
+
+	public static void victory() {
+		SceneManager.setTrasitioning(true);
+
+		if (player != null) {
+			player.setSpeedX((90 - player.getPositionX()) / FPS);
+		}
+
+		double accel = 10 / (FPS * 3);
+		Timeline speedUp = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
+			GameMain.setSpeed(GameMain.SPEED + accel);
+			if (player != null) {
+				if (player.getPositionX() < 90) {
+					player.backToRunningPosition();
+				}
+			}
+		}));
+		speedUp.setCycleCount((int) (FPS * 3));
+		speedUp.play();
+		speedUp.setOnFinished(e -> {
+			new Updater();
+			GameMain.setSpeed(10);
+			SceneManager.setTrasitioning(false);
+		});
 	}
 
 	private static void moveAll() {
@@ -216,7 +284,11 @@ public class Updater {
 		}
 
 		for (Monster monster : Model.getContainer().getMonsterList()) {
-			monster.move();
+			if (!(monster instanceof Boss)) {
+				monster.move();
+			} else if (((Boss) monster).isReady()) {
+				((Boss) monster).update();
+			}
 		}
 
 	}
@@ -233,7 +305,7 @@ public class Updater {
 		ArrayList<Skill> skillList = Model.getContainer().getSkillList();
 
 		checkPairCollision(playerList, obstacleList);
-		// checkPairCollision(playerList, monsterList);
+		checkPairCollision(playerList, monsterList);
 		checkPairCollision(playerList, itemList);
 		checkPairCollision(playerList, skillList);
 		checkPairCollision(monsterList, skillList);
@@ -255,7 +327,8 @@ public class Updater {
 
 				else if (firstEntity instanceof Skill) {
 					if (firstEntity instanceof Shield && !(secondEntity instanceof Darkspear)
-							&& !(secondEntity instanceof Meteor) && !(secondEntity instanceof Thunderbolt)) {
+							&& !(secondEntity instanceof Meteor) && !(secondEntity instanceof Thunderbolt)
+							&& !(secondEntity instanceof Drill) && !(secondEntity instanceof Beam)) {
 						if (secondEntity.isCollision(firstEntity)) {
 							((Shield) firstEntity).affectTo((Skill) secondEntity);
 						}
@@ -272,21 +345,20 @@ public class Updater {
 		Model.getContainer().getSkillList().removeIf(f -> f.isDead());
 		Model.getContainer().getItemList().removeIf(i -> i.isDead());
 		Model.getContainer().getMonsterList().removeIf(m -> m.isDead());
+		Model.getContainer().getEffectList().removeIf(e -> e.isDead());
 	}
 
 	private static void updatePlayer() {
 		if (player == null) {
 			return;
 		}
-		player.decreaseHp(Map.PASSIVE_DAMAGE);
-		if (player == null) {
-			return;
-		}
 		player.decreaseCooldown(1 / Updater.FPS);
 		player.addMana(Map.PASSIVE_MANA_REGEN);
 		player.addScore(Map.PASSIVE_SCORE);
-		if (!isBossStage)
+		if (!isBossStage) {
 			player.addDistance(GameMain.SPEED);
+			player.decreaseHp(Map.PASSIVE_DAMAGE);
+		}
 	}
 
 	private static void drawHitbox() {
@@ -301,5 +373,13 @@ public class Updater {
 
 	public static void playerDead() {
 		player = null;
+	}
+
+	public static boolean isBossStage() {
+		return isBossStage;
+	}
+
+	public static void setBossStage(boolean isBossStage) {
+		Updater.isBossStage = isBossStage;
 	}
 }

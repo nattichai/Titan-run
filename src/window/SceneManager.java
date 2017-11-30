@@ -2,7 +2,6 @@ package window;
 
 import entity.map.Map;
 import game.GameMain;
-import game.animations.Animations;
 import game.updater.Updater;
 import input.GameHandler;
 import input.MainMenuHandler;
@@ -23,8 +22,6 @@ public class SceneManager {
 	private static Scene scene;
 	private static Pane oldPane;
 	private static Pane newPane;
-	private static Updater updater;
-	private static Animations animations;
 	private static boolean isTrasitioning;
 
 	public static void initialize(Stage stage) {
@@ -78,10 +75,10 @@ public class SceneManager {
 			oldPane = pane;
 		});
 
-		startGame();
+		GameMain.startGame();
 
 		primaryStage.setOnCloseRequest(e -> {
-			stopGame();
+			GameMain.stopGame();
 		});
 	}
 
@@ -89,29 +86,11 @@ public class SceneManager {
 		return map;
 	}
 
-	public static void startGame() {
-		updater = new Updater();
-		animations = new Animations();
-		updater.startGame();
-		animations.startAnimation();
-	}
-
-	public static void pauseGame() {
-		updater.pauseGame();
-		animations.pauseAnimation();
-	}
-
-	public static void continueGame() {
-		updater.continueGame();
-		animations.continueAnimation();
-	}
-
-	public static void stopGame() {
-		updater.stopGame();
-		animations.stopAnimation();
-	}
-
 	public static boolean isTrasitioning() {
 		return isTrasitioning;
+	}
+
+	public static void setTrasitioning(boolean isTrasitioning) {
+		SceneManager.isTrasitioning = isTrasitioning;
 	}
 }

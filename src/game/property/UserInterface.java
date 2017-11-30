@@ -124,8 +124,15 @@ public class UserInterface {
 	}
 
 	public void updateDistance(double progress) {
-		distanceBar.setProgress(progress);
-		playerIcon.getCanvas().setTranslateX(200 + 600 * progress);
+		if (progress < 1) {
+			distanceBar.setVisible(true);
+			playerIcon.getCanvas().setVisible(true);
+			distanceBar.setProgress(progress);
+			playerIcon.getCanvas().setTranslateX(200 + 600 * progress);
+		} else {
+			distanceBar.setVisible(false);
+			playerIcon.getCanvas().setVisible(false);
+		}
 	}
 
 	public ProgressBar getHpBar() {
@@ -158,6 +165,10 @@ public class UserInterface {
 
 	public void updateMana(double progress) {
 		manaBar.setProgress(progress);
+	}
+
+	public ProgressBar getDistanceBar() {
+		return distanceBar;
 	}
 
 	public void dead() {

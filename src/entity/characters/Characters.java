@@ -5,6 +5,7 @@ import entity.gui.GUIDamage;
 import game.model.Model;
 import game.property.Animatable;
 import game.property.Attackable;
+import game.property.Direction;
 import game.property.Movable;
 import game.property.PowerState;
 import game.property.UserInterface;
@@ -18,6 +19,8 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	protected int currentAnimation;
 	protected double hp, maxHp;
 	protected double atk;
+	protected Direction direction;
+	protected Direction imageDirection;
 	protected PowerState powerState;
 	protected UserInterface userInterface;
 
@@ -113,6 +116,14 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 
 	public void setAtk(double atk) {
 		this.atk = atk;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
 	}
 
 	public PowerState getPowerState() {

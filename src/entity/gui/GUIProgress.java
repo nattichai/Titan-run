@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 public class GUIProgress extends GUI {
-	protected double progress;
+	private double progress;
 
 	public GUIProgress(double x, double y, double w, double h, Double d) {
 		super(x, y, w, h);

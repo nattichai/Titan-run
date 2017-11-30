@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class GUIImage extends GUI {
-	Image image;
+	private Image image;
 
 	public GUIImage(double x, double y, double w, double h, Image i) {
 		super(x, y, w, h);

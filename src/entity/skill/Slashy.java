@@ -16,7 +16,7 @@ public class Slashy extends Skill {
 	public static final double SKILL_DAMAGE = 3;
 	public static final double SKILL_COOLDOWN = 24;
 
-	public static final Image[] images = new Image[20];
+	private static final Image[] images = new Image[20];
 	static {
 		for (int i = 0; i < 20; ++i) {
 			images[i] = new Image("images/skill/slashy/slashy" + i + ".png");
@@ -62,7 +62,7 @@ public class Slashy extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || currentAnimation == 19) {
+		if (owner.isDead() || currentAnimation == 19) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

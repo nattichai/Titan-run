@@ -13,8 +13,8 @@ import javafx.scene.image.Image;
 import window.SceneManager;
 
 public class HoleObstacle extends Obstacle {
-	public static final double HOLE_WIDTH = 300;
-	public static final Image[] images = new Image[1];
+	private static final double HOLE_WIDTH = 300;
+	private static final Image[] images = new Image[1];
 	static {
 		for (int i = 1; i < 2; ++i) {
 			images[i - 1] = new Image("images/obstacle/hole" + i + ".png");

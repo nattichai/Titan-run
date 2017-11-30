@@ -4,8 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
 public class GUIRectangle extends GUI {
-	Paint paint;
-	double opacity;
+	private Paint paint;
+	private double opacity;
 
 	public GUIRectangle(double x, double y, double w, double h, Paint p, double o) {
 		super(x, y, w, h);

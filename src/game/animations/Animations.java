@@ -2,9 +2,11 @@ package game.animations;
 
 import entity.characters.Monster;
 import entity.characters.Player;
+import entity.effect.Effect;
 import entity.item.Item;
 import entity.skill.Skill;
 import game.model.Model;
+import game.property.State;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -54,7 +56,15 @@ public class Animations {
 
 	private static void animateAll() {
 		if (player != null) {
-			player.changeImage();
+			if (player.getState() == State.RUNNING) {
+				player.changeImage();
+			} else if (player.getState() == State.STILL) {
+				player.setCurrentAnimation(5);
+				player.draw();
+			} else if (player.getState() == State.JUMPING || player.getState() == State.SLIDING) {
+				player.setCurrentAnimation(8);
+				player.draw();
+			}
 		}
 
 		for (Skill skill : Model.getContainer().getSkillList()) {
@@ -69,11 +79,9 @@ public class Animations {
 			monster.changeImage();
 		}
 
-		// for (GUI gui : Model.getContainer().getGuiList()) {
-		// if (gui instanceof GUIGif) {
-		// ((GUIGif) gui).changeImage();
-		// }
-		// }
+		for (Effect effect : Model.getContainer().getEffectList()) {
+			effect.changeImage();
+		}
 	}
 
 	public static Timeline getTimerAnimation() {

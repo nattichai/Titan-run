@@ -13,7 +13,7 @@ public class Fireball extends Skill {
 	public static final double SKILL_DAMAGE = 0.5;
 	public static final double SKILL_COOLDOWN = 0.20;
 
-	public static final Image[] images = new Image[10];
+	private static final Image[] images = new Image[10];
 	static {
 		for (int i = 0; i < 10; ++i) {
 			images[i] = new Image("images/skill/fireball/fireball" + i + ".png");
@@ -41,7 +41,7 @@ public class Fireball extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || isCollided || positionX < -100 || positionX >= SceneManager.SCREEN_WIDTH) {
+		if (owner.isDead() || isCollided || positionX < -100 || positionX >= SceneManager.SCREEN_WIDTH) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

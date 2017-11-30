@@ -8,6 +8,7 @@ import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
 import game.GameMain;
 import game.model.Model;
+import game.property.Direction;
 import game.property.Hitbox;
 import game.property.PowerState;
 import game.property.Side;
@@ -51,9 +52,6 @@ public class Player extends Characters implements Slidable {
 		super(x, y, w, h);
 
 		Storage player = Storage.characters[1];
-		if (player.side == Side.MONSTER) {
-			canvas.setScaleX(-1);
-		}
 		nImage = player.nImage;
 		images = player.images;
 		width = 120;
@@ -67,6 +65,8 @@ public class Player extends Characters implements Slidable {
 		maxHp = player.maxHp;
 		atk = player.atk;
 		side = Side.PLAYER;
+		direction = Direction.RIGHT;
+		imageDirection = player.imageDirection;
 		powerState = player.powerState;
 
 		jump = 0;
@@ -84,6 +84,18 @@ public class Player extends Characters implements Slidable {
 	}
 
 	public void draw() {
+		if (direction != imageDirection) {
+			if (state == State.SLIDING) {
+				canvas.setScaleX(1);
+				canvas.setScaleY(-1);
+			} else {
+				canvas.setScaleX(-1);
+				canvas.setScaleY(1);
+			}
+		} else {
+			canvas.setScaleX(1);
+			canvas.setScaleY(1);
+		}
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
 		currentAnimation %= nImage;
@@ -92,11 +104,19 @@ public class Player extends Characters implements Slidable {
 
 	public void move() {
 		changeSpeed(accelX, accelY);
+		if (speedX < 0) {
+			direction = Direction.LEFT;
+		} else if (speedX > 0) {
+			direction = Direction.RIGHT;
+		}
+
 		positionX += speedX;
 		positionY += speedY;
-		userInterface.updateHp(positionX - 25, positionY - 50);
-		userInterface.updateMana(positionX - 25, positionY - 32);
-		userInterface.updateNamePos(positionX - 25, positionY - 80);
+		if (positionX < 0) {
+			positionX = 0;
+		} else if (positionX > SceneManager.SCREEN_WIDTH - width) {
+			positionX = SceneManager.SCREEN_WIDTH - width;
+		}
 
 		if (state == State.SLIDING) {
 			positionY = Map.FLOOR_HEIGHT - width;
@@ -104,17 +124,23 @@ public class Player extends Characters implements Slidable {
 		} else if (positionY >= Map.FLOOR_HEIGHT - height) {
 			positionY = Map.FLOOR_HEIGHT - height;
 			speedY = 0;
-			state = State.RUNNING;
+			if (GameMain.SPEED != 0 || speedX != 0) {
+				state = State.RUNNING;
+			} else {
+				state = State.STILL;
+			}
 		}
+
+		userInterface.updateHp(positionX - 25, positionY - 50);
+		userInterface.updateMana(positionX - 25, positionY - 32);
+		userInterface.updateNamePos(positionX - 25, positionY - 80);
 		updatePosition();
 	}
 
 	public void changeImage() {
-		if (state == State.RUNNING) {
-			currentAnimation++;
-			currentAnimation %= nImage;
-			draw();
-		}
+		currentAnimation++;
+		currentAnimation %= nImage;
+		draw();
 	}
 
 	public void affectTo(Characters e) {
@@ -124,14 +150,13 @@ public class Player extends Characters implements Slidable {
 
 	public void jump() {
 		// first jump
-		if (state == State.RUNNING) {
+		if (state == State.RUNNING || state == State.STILL) {
 			state = State.JUMPING;
 			jump = 1;
-			currentAnimation = 8;
-			speedY = -18;
+			speedY = -18.5;
 		}
 		// other jumps
-		else if (state == State.JUMPING && jump < Player.MAX_JUMP) {
+		else if (jump < Player.MAX_JUMP) {
 			jump++;
 			speedY = -15;
 		}
@@ -149,7 +174,6 @@ public class Player extends Characters implements Slidable {
 		state = State.SLIDING;
 		canvas.setRotate(-90);
 		speedY = 0;
-		currentAnimation = 8;
 		draw();
 	}
 
@@ -177,6 +201,10 @@ public class Player extends Characters implements Slidable {
 			Fireball fireball = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH,
 					Fireball.SKILL_HEIGHT);
 			fireball.setOwner(this);
+			if (direction != imageDirection) {
+				fireball.getCanvas().setScaleX(-1);
+				fireball.setSpeedX(-fireball.getSpeedX());
+			}
 			Model.getContainer().add(fireball);
 		}
 	}
@@ -188,6 +216,10 @@ public class Player extends Characters implements Slidable {
 				Lightning lightning = new Lightning(nearestMonsterPosition(), 0, Lightning.SKILL_WIDTH,
 						Lightning.SKILL_HEIGHT);
 				lightning.setOwner(this);
+				if (direction != imageDirection) {
+					lightning.getCanvas().setScaleX(-1);
+					lightning.setSpeedX(-lightning.getSpeedX());
+				}
 				Model.getContainer().add(lightning);
 			}));
 			timerLightning.setCycleCount(10);
@@ -195,10 +227,18 @@ public class Player extends Characters implements Slidable {
 		}
 	}
 
-	public static double nearestMonsterPosition() {
+	public double nearestMonsterPosition() {
 		double pos = 800;
+		double minDistance = 1000;
+		if (direction != imageDirection) {
+			pos = 200;
+		}
 		for (Monster monster : Model.getContainer().getMonsterList()) {
-			pos = Math.min(pos, monster.getPositionX() + 50);
+			double distance = Math.abs(monster.getPositionX() - positionX);
+			if (distance < minDistance) {
+				minDistance = distance;
+				pos = monster.getPositionX() + monster.getWidth() / 2;
+			}
 		}
 		return pos;
 	}
@@ -206,8 +246,12 @@ public class Player extends Characters implements Slidable {
 	public void useThunderbolt() {
 		if (state != State.SLIDING && cooldown[2] <= 0) {
 			resetCooldown(2);
-			Thunderbolt thunderbolt = new Thunderbolt(0, 0, Thunderbolt.SKILL_WIDTH, Thunderbolt.SKILL_HEIGHT);
+			Thunderbolt thunderbolt = new Thunderbolt(positionX, 0, Thunderbolt.SKILL_WIDTH, Thunderbolt.SKILL_HEIGHT);
 			thunderbolt.setOwner(this);
+			if (direction != imageDirection) {
+				thunderbolt.getCanvas().setScaleX(-1);
+				thunderbolt.setSpeedX(-thunderbolt.getSpeedX());
+			}
 			Model.getContainer().add(thunderbolt);
 		}
 	}
@@ -218,6 +262,17 @@ public class Player extends Characters implements Slidable {
 			Slashy slashy = new Slashy(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
 			slashy.setOwner(this);
 			Model.getContainer().add(slashy);
+		}
+	}
+
+	public void backToRunningPosition() {
+		setDistance(0);
+		speedX = 0;
+		positionX = 90;
+		direction = Direction.RIGHT;
+		if (state == State.SLIDING) {
+			canvas.setRotate(0);
+			state = State.RUNNING;
 		}
 	}
 
@@ -233,13 +288,14 @@ public class Player extends Characters implements Slidable {
 		timeline.play();
 		timeline.setOnFinished(e -> {
 			powerState = PowerState.NORMAL;
+			isCollided = false;
 		});
 	}
 
 	public void die() {
 		hp = 0.00001;
 		Updater.playerDead();
-		SceneManager.pauseGame();
+		GameMain.pauseGame();
 		// GameMain.setSpeed(2);
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
 			positionY += 10;
@@ -249,14 +305,14 @@ public class Player extends Characters implements Slidable {
 		timeline.setCycleCount((int) Updater.FPS / 2);
 		timeline.play();
 		timeline.setOnFinished(e -> {
-			SceneManager.continueGame();
+			GameMain.continueGame();
 			userInterface.dead();
 			Model.getContainer().remove(this);
 		});
 	}
 
 	public boolean isDead() {
-		return hp == 0.00001;
+		return hp == 0.00001 || canvas.getOpacity() == 0;
 	}
 
 	public int getJump() {
@@ -326,6 +382,11 @@ public class Player extends Characters implements Slidable {
 
 	public double getDistance() {
 		return distance;
+	}
+
+	public void setDistance(double d) {
+		distance = d;
+		userInterface.updateDistance(d / GameMain.STAGE_DISTANCE);
 	}
 
 	public void addDistance(double d) {

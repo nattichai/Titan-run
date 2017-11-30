@@ -1,5 +1,6 @@
 package entity.characters;
 
+import entity.Entity;
 import entity.map.Map;
 import entity.skill.Darkspear;
 import entity.skill.Fireball;
@@ -9,6 +10,7 @@ import entity.skill.Skill;
 import entity.skill.Slashy;
 import entity.skill.Thunderbolt;
 import game.model.Model;
+import game.property.Direction;
 import game.property.Hitbox;
 import game.property.Side;
 import game.property.UserInterface;
@@ -31,9 +33,6 @@ public class Monster extends Characters {
 		super(x, y, Storage.characters[idx].width, Storage.characters[idx].height);
 
 		Storage monster = Storage.characters[idx];
-		if (monster.side == Side.PLAYER) {
-			canvas.setScaleX(-1);
-		}
 		nImage = monster.nImage;
 		images = monster.images;
 		width = monster.width;
@@ -48,6 +47,8 @@ public class Monster extends Characters {
 		atk = monster.atk;
 		skill = monster.skill;
 		side = Side.MONSTER;
+		direction = Direction.LEFT;
+		imageDirection = monster.imageDirection;
 		powerState = monster.powerState;
 		canMove = true;
 		canMoveOut = false;
@@ -58,6 +59,11 @@ public class Monster extends Characters {
 	}
 
 	public void draw() {
+		if (direction != imageDirection) {
+			canvas.setScaleX(-1);
+		} else {
+			canvas.setScaleX(1);
+		}
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
 		currentAnimation %= nImage;
@@ -188,6 +194,18 @@ public class Monster extends Characters {
 		draw();
 	}
 
+	public boolean isCollision(Entity e) {
+		if (side == e.getSide() || (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
+			return false;
+		if (positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w
+				&& positionX + hb.x + hb.w > e.getPositionX() + e.getHb().x
+				&& positionY + hb.y < e.getPositionY() + e.getHb().y + e.getHb().h
+				&& positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y == true) {
+			return true;
+		}
+		return false;
+	}
+
 	public void affectTo(Characters player) {
 		// takes damage to player = atk
 		player.decreaseHp(atk);
@@ -214,12 +232,14 @@ public class Monster extends Characters {
 		ft.setToValue(0);
 		ft.play();
 		// stop skill animation if it not stop yet
-		if (timer != null)
+		if (timer != null) {
 			timer.stop();
+		}
 	}
 
 	public boolean isDead() {
-		if (canvas.getOpacity() == 0 || positionX >= SceneManager.SCREEN_WIDTH + 150) {
+		if (canvas.getOpacity() == 0 || hp == 0.00001 || positionX <= -150
+				|| positionX >= SceneManager.SCREEN_WIDTH + 150) {
 			Model.getContainer().getMonsterPane().getChildren().removeAll(canvas, userInterface.getHpBar());
 			return true;
 		}

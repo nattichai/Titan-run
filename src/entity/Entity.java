@@ -50,8 +50,6 @@ public abstract class Entity {
 
 	public abstract void affectTo(Characters e);
 
-	public abstract boolean isDead();
-
 	public Canvas getCanvas() {
 		return canvas;
 	}

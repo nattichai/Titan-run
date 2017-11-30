@@ -11,7 +11,7 @@ public class Lightning extends Skill {
 	public static final double SKILL_DAMAGE = 0.65;
 	public static final double SKILL_COOLDOWN = 8;
 
-	public static final Image[] images = new Image[12];
+	private static final Image[] images = new Image[12];
 	static {
 		for (int i = 0; i < 12; ++i) {
 			images[i] = new Image("images/skill/lightning/lightning" + i + ".png");
@@ -37,7 +37,7 @@ public class Lightning extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || currentAnimation == 11) {
+		if (owner.isDead() || currentAnimation == 11) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

@@ -14,7 +14,7 @@ public class Meteor extends Skill {
 	public static final double SKILL_DAMAGE = 2.5;
 	public static final double SKILL_COOLDOWN = 15;
 
-	public static final Image[] images = new Image[60];
+	private static final Image[] images = new Image[60];
 	static {
 		for (int i = 0; i < 60; ++i) {
 			images[i] = new Image("images/skill/meteor/meteor" + i + ".png");
@@ -53,8 +53,7 @@ public class Meteor extends Skill {
 	}
 
 	public boolean isDead() {
-		if (owner.getHp() == 0.00001 || positionX >= SceneManager.SCREEN_WIDTH
-				|| positionY >= SceneManager.SCREEN_HEIGHT) {
+		if (owner.isDead() || positionX >= SceneManager.SCREEN_WIDTH || positionY >= SceneManager.SCREEN_HEIGHT) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

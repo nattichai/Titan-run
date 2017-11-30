@@ -3,10 +3,13 @@ package input;
 import java.util.HashSet;
 
 import entity.characters.Player;
+import game.GameMain;
 import game.animations.Animations;
 import game.model.Model;
+import game.property.Direction;
 import game.property.PowerState;
 import game.property.State;
+import game.updater.Updater;
 import javafx.animation.Animation.Status;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,16 +28,16 @@ public class GameHandler {
 		// P = PAUSE & UNPAUSE
 		if (event.getCode() == KeyCode.P) {
 			if (Animations.getTimerAnimation().getStatus() == Status.PAUSED) {
-				SceneManager.continueGame();
+				GameMain.continueGame();
 			} else {
-				SceneManager.pauseGame();
+				GameMain.pauseGame();
 			}
 		}
 
 		// ENTER = RESTART
 		else if (event.getCode() == KeyCode.ENTER && Model.getContainer().getPlayerPane().getChildren().isEmpty()) {
 			Model.getContainer().clearAllData();
-			SceneManager.stopGame();
+			GameMain.stopGame();
 			SceneManager.gotoMainMenu();
 		}
 
@@ -78,10 +81,20 @@ public class GameHandler {
 	}
 
 	public static void keyReleased(KeyEvent event) {
+		if (SceneManager.isTrasitioning()) {
+			keys.clear();
+			return;
+		}
+
 		// NORMAL WALKING
 		if (event.getCode() == KeyCode.DOWN) {
 			player.getCanvas().setRotate(0);
 			player.setState(saveState);
+		}
+
+		// STAND STILL
+		else if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT) {
+			player.setSpeedX(0);
 		}
 
 		// NORMAL STATE
@@ -93,9 +106,25 @@ public class GameHandler {
 	}
 
 	public static void keyHeld() {
+		if (SceneManager.isTrasitioning()) {
+			return;
+		}
+
 		// DOWN ARROW = SLIDE & FAST FALL
 		if (keys.contains(KeyCode.DOWN)) {
 			player.goDown();
+		}
+
+		// RIGHT ARROW = RIGHT WALK
+		if (keys.contains(KeyCode.RIGHT) && Updater.isBossStage()) {
+			player.setDirection(Direction.RIGHT);
+			player.setSpeedX(10);
+		}
+
+		// LEFT ARROW = LEFT WALK
+		if (keys.contains(KeyCode.LEFT) && Updater.isBossStage()) {
+			player.setDirection(Direction.LEFT);
+			player.setSpeedX(-10);
 		}
 
 		// USE SHIELD = SPEND MANA & GET IMMORTAL
