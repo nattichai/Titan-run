@@ -27,7 +27,7 @@ public class Thunderbolt extends Skill {
 	public Thunderbolt(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = 10;
+		speedX = 8;
 		speedY = 0;
 		damage = SKILL_DAMAGE;
 		hb = new Hitbox(200, 0, SKILL_WIDTH - 400, SKILL_HEIGHT);

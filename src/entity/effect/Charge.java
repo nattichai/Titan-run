@@ -3,8 +3,8 @@ package entity.effect;
 import javafx.scene.image.Image;
 
 public class Charge extends Effect {
-	private static final double EFFECT_WIDTH = 200;
-	private static final double EFFECT_HEIGHT = 150;
+	private static final double EFFECT_WIDTH = 240;
+	private static final double EFFECT_HEIGHT = 180;
 	private static final Image[] charges = new Image[35];
 	static {
 		for (int i = 0; i < 35; ++i) {

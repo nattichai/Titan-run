@@ -15,10 +15,13 @@ import javafx.scene.text.TextAlignment;
 import window.SceneManager;
 
 public class UserInterface {
+	private Model container;
+
 	private GUIText name;
 	private GUIText scoreText;
 	private GUIText[] cooldownText;
 	private GUIProgress[] cooldownProgress;
+	private GUIImage[] cooldownIcon;
 	private GUIRectangle cooldownArea;
 	private ProgressBar distanceBar;
 	private ProgressBar hpBar;
@@ -27,53 +30,64 @@ public class UserInterface {
 	private GUIImage youAreDead;
 
 	public UserInterface(Characters character) {
+		container = Model.getContainer();
+
 		hpBar = new ProgressBar(1);
 		hpBar.setOpacity(0.8);
 
 		if (character instanceof Player) {
 			name = new GUIText(0, 0, 200, 30, "Po", Color.WHITE, 15);
 			name.getCanvas().setOpacity(0.5);
-			Model.getContainer().add(name);
+			container.add(name);
 
-			scoreText = new GUIText(-375, -75, 800, 200, "Score: " + 0, Color.WHITE, 30);
+			scoreText = new GUIText(-360, -75, 800, 200, "Score: " + 0, Color.WHITE, 30);
 			scoreText.getCanvas().getGraphicsContext2D().setTextAlign(TextAlignment.LEFT);
 			scoreText.getCanvas().getGraphicsContext2D().setTextBaseline(VPos.TOP);
-			Model.getContainer().add(scoreText);
+			container.add(scoreText);
 
-			cooldownArea = new GUIRectangle(335, 645, 325, 85, Color.BLACK, 0.1);
-			Model.getContainer().add(cooldownArea);
+			cooldownArea = new GUIRectangle(365, 640, 265, 90, Color.BLACK, 0.2);
+			container.add(cooldownArea);
 
+			cooldownIcon = new GUIImage[5];
+			cooldownIcon[0] = new GUIImage(370, 645, 60, 60, new Image("images/skill/icon/fireball icon.png"), 60, 60);
+			cooldownIcon[1] = new GUIImage(435, 645, 60, 60, new Image("images/skill/icon/lightning icon.png"), 60, 60);
+			cooldownIcon[2] = new GUIImage(500, 645, 60, 60, new Image("images/skill/icon/thunderbolt icon.png"), 60, 60);
+			cooldownIcon[3] = new GUIImage(565, 645, 60, 60, new Image("images/skill/icon/slashy icon.png"), 60, 60);
 			cooldownProgress = new GUIProgress[5];
-			cooldownProgress[0] = new GUIProgress(340, 650, 75, 75, 0.0);
-			cooldownProgress[1] = new GUIProgress(420, 650, 75, 75, 0.0);
-			cooldownProgress[2] = new GUIProgress(500, 650, 75, 75, 0.0);
-			cooldownProgress[3] = new GUIProgress(580, 650, 75, 75, 0.0);
+			cooldownProgress[0] = new GUIProgress(370, 645, 60, 60, 0.0);
+			cooldownProgress[1] = new GUIProgress(435, 645, 60, 60, 0.0);
+			cooldownProgress[2] = new GUIProgress(500, 645, 60, 60, 0.0);
+			cooldownProgress[3] = new GUIProgress(565, 645, 60, 60, 0.0);
 			cooldownText = new GUIText[5];
-			cooldownText[0] = new GUIText(340, 650, 75, 75, "Q", Color.BLACK, 40);
-			cooldownText[1] = new GUIText(420, 650, 75, 75, "W", Color.BLACK, 40);
-			cooldownText[2] = new GUIText(500, 650, 75, 75, "E", Color.BLACK, 40);
-			cooldownText[3] = new GUIText(580, 650, 75, 75, "R", Color.BLACK, 40);
-			Model.getContainer().add(cooldownProgress[0]);
-			Model.getContainer().add(cooldownProgress[1]);
-			Model.getContainer().add(cooldownProgress[2]);
-			Model.getContainer().add(cooldownProgress[3]);
-			Model.getContainer().add(cooldownText[0]);
-			Model.getContainer().add(cooldownText[1]);
-			Model.getContainer().add(cooldownText[2]);
-			Model.getContainer().add(cooldownText[3]);
+			cooldownText[0] = new GUIText(370, 710, 60, 15, "Q", Color.WHITE, 15);
+			cooldownText[1] = new GUIText(435, 710, 60, 15, "W", Color.WHITE, 15);
+			cooldownText[2] = new GUIText(500, 710, 60, 15, "E", Color.WHITE, 15);
+			cooldownText[3] = new GUIText(565, 710, 60, 15, "R", Color.WHITE, 15);
+			container.add(cooldownIcon[0]);
+			container.add(cooldownIcon[1]);
+			container.add(cooldownIcon[2]);
+			container.add(cooldownIcon[3]);
+			container.add(cooldownProgress[0]);
+			container.add(cooldownProgress[1]);
+			container.add(cooldownProgress[2]);
+			container.add(cooldownProgress[3]);
+			container.add(cooldownText[0]);
+			container.add(cooldownText[1]);
+			container.add(cooldownText[2]);
+			container.add(cooldownText[3]);
 
 			distanceBar = new ProgressBar(1);
 			distanceBar.setOpacity(0.8);
 			distanceBar.relocate(200, 100);
 			distanceBar.setPrefSize(600, 10);
-			Model.getContainer().getGuiPane().getChildren().add(distanceBar);
+			container.getGuiPane().getChildren().add(distanceBar);
 
 			manaBar = new ProgressBar(1);
 			manaBar.setPrefSize(200, 7);
 			manaBar.setOpacity(0.8);
 
-			playerIcon = new GUIImage(175, 80, 50, 50, new Image("images/cutscene/player icon.png"), 50, 50);
-			Model.getContainer().add(playerIcon);
+			playerIcon = new GUIImage(160, 80, 50, 50, new Image("images/cutscene/player icon.png"), 50, 50);
+			container.add(playerIcon);
 
 			youAreDead = new GUIImage(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
 					new Image("images/cutscene/you died.png"));
@@ -172,8 +186,8 @@ public class UserInterface {
 	}
 
 	public void dead() {
-		Model.getContainer().getGuiPane().getChildren().clear();
-		Model.getContainer().getGuiList().clear();
-		Model.getContainer().add(youAreDead);
+		container.getGuiPane().getChildren().clear();
+		container.getGuiList().clear();
+		container.add(youAreDead);
 	}
 }

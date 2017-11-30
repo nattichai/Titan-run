@@ -11,7 +11,7 @@ public class GUIProgress extends GUI {
 		super(x, y, w, h);
 
 		progress = d;
-		canvas.setOpacity(0.3);
+		canvas.setOpacity(0.8);
 
 		draw();
 	}
@@ -19,8 +19,8 @@ public class GUIProgress extends GUI {
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		gc.setFill(Color.WHITE);
-		gc.fillArc(0, 0, 75, 75, 90, (int) (360 * progress), ArcType.ROUND);
+		gc.setFill(Color.BLACK);
+		gc.fillArc(0, 0, canvas.getWidth(), canvas.getHeight(), 90, (int) (360 * progress), ArcType.ROUND);
 	}
 
 	public void setProgress(double progress) {

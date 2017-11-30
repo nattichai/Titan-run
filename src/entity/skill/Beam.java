@@ -7,8 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Beam extends Skill {
-	public static final double SKILL_WIDTH = 800;
-	public static final double SKILL_HEIGHT = 150;
+	public static final double SKILL_WIDTH = 150;
+	public static final double SKILL_HEIGHT = 600;
 	public static final double SKILL_DAMAGE = 2;
 	public static final double SKILL_COOLDOWN = 10;
 
@@ -19,8 +19,8 @@ public class Beam extends Skill {
 		}
 	}
 
-	public Beam(double x, double y, double w, double h) {
-		super(x, y, w, h);
+	public Beam(double x, double y) {
+		super(x, y, SKILL_WIDTH, SKILL_HEIGHT);
 
 		speedX = 0;
 		speedY = 0;

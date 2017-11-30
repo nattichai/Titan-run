@@ -9,7 +9,7 @@ import window.SceneManager;
 public class Drill extends Skill {
 	public static final double SKILL_WIDTH = 150;
 	public static final double SKILL_HEIGHT = 75;
-	public static final double SKILL_DAMAGE = 0.6;
+	public static final double SKILL_DAMAGE = 0.8;
 	public static final double SKILL_COOLDOWN = 10;
 
 	private static final Image[] images = new Image[3];
@@ -22,7 +22,7 @@ public class Drill extends Skill {
 	public Drill(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = 10;
+		speedX = 15;
 		speedY = 0;
 		damage = SKILL_DAMAGE;
 		hb = new Hitbox(w / 4, h * 3 / 10, w / 2, h * 2 / 5);

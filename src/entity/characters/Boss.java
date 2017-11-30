@@ -16,6 +16,8 @@ import javafx.util.Duration;
 import window.SceneManager;
 
 public class Boss extends Monster {
+	private final double BOSS_SPEED = 1000;
+
 	private Timeline moveTo;
 	private Timeline goAroundTimeline;
 	private Timeline attackTimeline;
@@ -85,16 +87,17 @@ public class Boss extends Monster {
 	}
 
 	private void goAround() {
-		goAroundTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> moveTo(10, 150, 1000)),
-				new KeyFrame(Duration.millis(1000), e -> moveTo(10, 450, 1000)),
-				new KeyFrame(Duration.millis(2000), e -> moveTo(600, 450, 1000)),
-				new KeyFrame(Duration.millis(3000), e -> moveTo(600, 150, 1000)), new KeyFrame(Duration.millis(4000)));
+		goAroundTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> moveTo(10, 150, BOSS_SPEED)),
+				new KeyFrame(Duration.millis(BOSS_SPEED), e -> moveTo(10, 450, BOSS_SPEED)),
+				new KeyFrame(Duration.millis(2 * BOSS_SPEED), e -> moveTo(600, 450, BOSS_SPEED)),
+				new KeyFrame(Duration.millis(3 * BOSS_SPEED), e -> moveTo(600, 150, BOSS_SPEED)),
+				new KeyFrame(Duration.millis(4 * BOSS_SPEED)));
 		goAroundTimeline.setOnFinished(e -> isAttack = false);
 		goAroundTimeline.play();
 	}
 
 	private void attack() {
-		attackTimeline = new Timeline(new KeyFrame(Duration.millis(1200), e -> {
+		attackTimeline = new Timeline(new KeyFrame(Duration.millis(1.2 * BOSS_SPEED), e -> {
 			Drill skill = new Drill(positionX, positionY + height / 2, Drill.SKILL_WIDTH, Drill.SKILL_HEIGHT);
 			skill.setOwner(this);
 			skill.getCanvas().setScaleX(-1);
@@ -104,24 +107,35 @@ public class Boss extends Monster {
 		attackTimeline.setCycleCount(5);
 		attackTimeline.play();
 
-		moveTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> moveTo(600, 450, 1000)),
-				new KeyFrame(Duration.millis(1000), e -> moveTo(600, 150, 1000)), new KeyFrame(Duration.millis(2000)));
+		moveTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> moveTo(600, 450, BOSS_SPEED)),
+				new KeyFrame(Duration.millis(BOSS_SPEED), e -> moveTo(600, 150, BOSS_SPEED)),
+				new KeyFrame(Duration.millis(2 * BOSS_SPEED)));
 		moveTimeline.setCycleCount(3);
 		moveTimeline.setOnFinished(e -> isAttack = false);
 		moveTimeline.play();
 	}
 
 	private void beam() {
-		Charge charge = new Charge(675, 450, 1);
-		Beam beam = new Beam(600 + width / 2 - Beam.SKILL_WIDTH, 450 + (height - Beam.SKILL_HEIGHT) / 2,
-				Beam.SKILL_WIDTH, Beam.SKILL_HEIGHT);
+		Charge charge = new Charge(0, 0, 1);
+		Beam beam = new Beam(0, 0);
 		beam.setOwner(this);
-		beamTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> moveTo(600, 450, 1000)),
-				new KeyFrame(Duration.millis(1000), e -> Model.getContainer().add(charge)),
-				new KeyFrame(Duration.millis(3000), e -> Model.getContainer().add(beam)),
-				new KeyFrame(Duration.millis(6000), e -> Model.getContainer().remove(beam)));
-		beamTimeline.setOnFinished(e -> isAttack = false);
+
+		beamTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+			double pos = new Random().nextDouble() * 590 + 10;
+			charge.getCanvas().relocate(pos + 75, positionY);
+			beam.setPositionX(pos + (width - Beam.SKILL_WIDTH) / 2);
+			beam.setPositionY(positionY + 25);
+			beam.updatePosition();
+			moveTo(pos, 150, BOSS_SPEED);
+		}), new KeyFrame(Duration.millis(BOSS_SPEED), e -> Model.getContainer().add(charge)),
+				new KeyFrame(Duration.millis(1.5 * BOSS_SPEED), e -> Model.getContainer().add(beam)),
+				new KeyFrame(Duration.millis(2 * BOSS_SPEED), e -> {
+					Model.getContainer().remove(charge);
+					Model.getContainer().remove(beam);
+				}));
+		beamTimeline.setCycleCount(5);
 		beamTimeline.play();
+		beamTimeline.setOnFinished(e -> isAttack = false);
 	}
 
 	public void decreaseHp(double d) {
