@@ -18,6 +18,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 import scene.GameMain;
 import scene.MainMenu;
@@ -141,11 +142,13 @@ public class Player extends Characters {
 			state = State.JUMPING;
 			jump = 1;
 			speedY = -18.5;
+			new AudioClip(ClassLoader.getSystemResource("sounds/Skillfx/Jump.wav").toString()).play();
 		}
 		// other jumps
 		else if (jump < Player.MAX_JUMP) {
 			jump++;
 			speedY = -15;
+			new AudioClip(ClassLoader.getSystemResource("sounds/Skillfx/Jump.wav").toString()).play();
 		}
 	}
 
@@ -158,10 +161,14 @@ public class Player extends Characters {
 	}
 
 	public void slide() {
+		if(state!=State.SLIDING){
+			new AudioClip(ClassLoader.getSystemResource("sounds/Skillfx/Slide.wav").toString()).play();
+		}
 		state = State.SLIDING;
 		canvas.setRotate(-90);
 		speedY = 0;
 		draw();
+		
 	}
 
 	public void makeShield() {
@@ -270,6 +277,7 @@ public class Player extends Characters {
 			powerState = PowerState.NORMAL;
 			isCollided = false;
 		});
+		new AudioClip(ClassLoader.getSystemResource("sounds/otherfx/Gethit.wav").toString()).play();
 	}
 
 	public void die() {
