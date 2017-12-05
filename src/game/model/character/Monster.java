@@ -1,9 +1,10 @@
-package entity.characters;
+package game.model.character;
 
-import entity.Entity;
-import entity.map.Map;
-import entity.skill.Skill;
+import game.model.Characters;
+import game.model.Entity;
+import game.model.Map;
 import game.model.Model;
+import game.model.Skill;
 import game.property.Hitbox;
 import game.property.Side;
 import game.storage.SkillsData;

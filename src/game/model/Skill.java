@@ -1,11 +1,8 @@
-package entity.skill;
+package game.model;
 
-import entity.Entity;
-import entity.characters.Boss;
-import entity.characters.Characters;
-import entity.characters.Monster;
-import entity.characters.Player;
-import game.model.Model;
+import game.model.character.Boss;
+import game.model.character.Monster;
+import game.model.character.Player;
 import game.property.Animatable;
 import game.property.Movable;
 import game.property.Side;

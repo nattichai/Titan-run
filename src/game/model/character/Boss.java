@@ -1,11 +1,11 @@
-package entity.characters;
+package game.model.character;
 
 import java.util.Random;
 
-import entity.effect.Effect;
-import entity.gui.GUIDamage;
-import entity.skill.Skill;
+import game.model.Effect;
 import game.model.Model;
+import game.model.Skill;
+import game.model.gui.GUIDamage;
 import game.property.Direction;
 import game.property.PowerState;
 import game.updater.Updater;

@@ -1,6 +1,6 @@
 package scene;
 
-import entity.map.Map;
+import game.model.Map;
 import game.updater.Updater;
 import input.GameHandler;
 import input.MainMenuHandler;

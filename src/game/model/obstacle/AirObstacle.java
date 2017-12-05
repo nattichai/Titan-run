@@ -1,8 +1,9 @@
-package entity.obstacle;
+package game.model.obstacle;
 
 import java.util.Random;
 
-import entity.characters.Player;
+import game.model.Obstacle;
+import game.model.character.Player;
 import game.property.Hitbox;
 import game.property.State;
 import javafx.scene.canvas.GraphicsContext;

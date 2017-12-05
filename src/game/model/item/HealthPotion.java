@@ -1,6 +1,7 @@
-package entity.item;
+package game.model.item;
 
-import entity.characters.Characters;
+import game.model.Characters;
+import game.model.Item;
 import game.model.Model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

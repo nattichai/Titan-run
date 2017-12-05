@@ -5,7 +5,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import scene.MainMenu;
 import scene.SceneManager;
-import utility.InvalidInputException;
 
 public class MainMenuHandler {
 
@@ -34,23 +33,20 @@ public class MainMenuHandler {
 		MainMenu.chooseEffect();
 	}
 
-	public static void registerKeyPressed(KeyEvent event) throws InvalidInputException {
+	public static void registerKeyPressed(KeyEvent event) {
 		if (SceneManager.isTrasitioning()) {
 			return;
 		}
-		if (event.getCode().isLetterKey()) {
-			if ((event.getText().charAt(0) >= 'a' && event.getText().charAt(0) <= 'z')
-					|| (event.getText().charAt(0) >= 'A' && event.getText().charAt(0) <= 'Z')) {
-				MainMenu.typeRegisterName(event.getText().charAt(0));
+		try {
+			if (event.getCode() == KeyCode.ENTER) {
+				MainMenu.comfirmName();
+			} else if (event.getCode() == KeyCode.BACK_SPACE) {
+				MainMenu.deleteRegisterName();
 			} else {
-				throw new InvalidInputException(-1);
+				MainMenu.addRegisterName(event);
 			}
-		} else if (event.getCode() == KeyCode.BACK_SPACE) {
-			MainMenu.deleteRegisterName();
-		} else if (event.getCode() == KeyCode.ENTER) {
-			MainMenu.comfirmName();
-		} else {
-			throw new InvalidInputException(-1);
+		} catch (Exception e) {
+			MainMenu.setErrorMessage(e.getMessage());
 		}
 	}
 }

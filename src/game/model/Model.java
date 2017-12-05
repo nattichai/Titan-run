@@ -2,15 +2,8 @@ package game.model;
 
 import java.util.ArrayList;
 
-import entity.Entity;
-import entity.characters.Monster;
-import entity.characters.Player;
-import entity.effect.Effect;
-import entity.gui.GUI;
-import entity.item.Item;
-import entity.map.Map;
-import entity.obstacle.Obstacle;
-import entity.skill.Skill;
+import game.model.character.Monster;
+import game.model.character.Player;
 import input.GameHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;

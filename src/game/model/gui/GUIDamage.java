@@ -1,4 +1,4 @@
-package entity.gui;
+package game.model.gui;
 
 import com.sun.javafx.tk.Toolkit;
 

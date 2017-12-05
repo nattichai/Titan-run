@@ -1,7 +1,5 @@
-package entity.item;
+package game.model;
 
-import entity.Entity;
-import game.model.Model;
 import game.property.Animatable;
 import game.property.Movable;
 import scene.GameMain;

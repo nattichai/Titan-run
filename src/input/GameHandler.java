@@ -2,9 +2,9 @@ package input;
 
 import java.util.HashSet;
 
-import entity.characters.Player;
-import entity.skill.Skill;
 import game.model.Model;
+import game.model.Skill;
+import game.model.character.Player;
 import game.property.Direction;
 import game.property.PowerState;
 import game.property.State;
@@ -103,10 +103,11 @@ public class GameHandler {
 			player.setPowerState(PowerState.NORMAL);
 			for (Skill skill : Model.getContainer().getSkillList()) {
 				if (skill.getIndex() == 4) {
-					skill.setPositionX(-1000);	//delete shield
+					skill.setPositionX(-1000); // delete shield
 					break;
 				}
-			};
+			}
+			;
 			Model.getContainer().getSkillList().removeIf(e -> e.isDead());
 		}
 

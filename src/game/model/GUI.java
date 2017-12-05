@@ -1,7 +1,4 @@
-package entity.gui;
-
-import entity.Entity;
-import entity.characters.Characters;
+package game.model;
 
 public abstract class GUI extends Entity {
 

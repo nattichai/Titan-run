@@ -14,7 +14,7 @@ public class GameMain {
 	private static Pane gamePane;
 	private static Updater updater;
 	private static Animations animations;
-	
+
 	private static double speed = 2;
 
 	public static void initialize() {
@@ -55,7 +55,7 @@ public class GameMain {
 		updater.stopGame();
 		animations.stopAnimation();
 	}
-	
+
 	public static double getSpeed() {
 		return speed;
 	}

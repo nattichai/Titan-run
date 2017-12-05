@@ -1,11 +1,11 @@
 package game.updater;
 
-import entity.characters.Monster;
-import entity.characters.Player;
-import entity.effect.Effect;
-import entity.item.Item;
-import entity.skill.Skill;
+import game.model.Effect;
+import game.model.Item;
 import game.model.Model;
+import game.model.Skill;
+import game.model.character.Monster;
+import game.model.character.Player;
 import game.property.State;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

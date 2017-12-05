@@ -1,11 +1,12 @@
-package entity.obstacle;
+package game.model.obstacle;
 
 import java.util.Random;
 
-import entity.characters.Player;
-import entity.item.Jelly;
-import entity.map.Map;
+import game.model.Map;
 import game.model.Model;
+import game.model.Obstacle;
+import game.model.character.Player;
+import game.model.item.Jelly;
 import game.property.Hitbox;
 import game.property.State;
 import javafx.scene.canvas.GraphicsContext;

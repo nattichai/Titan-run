@@ -1,8 +1,6 @@
-package entity.obstacle;
+package game.model;
 
-import entity.Entity;
-import entity.characters.Characters;
-import game.model.Model;
+import game.model.obstacle.HoleObstacle;
 import game.property.Movable;
 import javafx.scene.image.Image;
 import scene.GameMain;

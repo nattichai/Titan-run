@@ -1,6 +1,5 @@
-package entity;
+package game.model;
 
-import entity.characters.Characters;
 import game.property.Hitbox;
 import game.property.Side;
 import javafx.scene.canvas.Canvas;

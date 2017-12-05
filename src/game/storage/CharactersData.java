@@ -1,6 +1,6 @@
 package game.storage;
 
-import entity.map.Map;
+import game.model.Map;
 import game.property.Direction;
 import game.property.Hitbox;
 import game.property.PowerState;

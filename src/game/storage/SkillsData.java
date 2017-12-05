@@ -2,7 +2,7 @@ package game.storage;
 
 import java.util.Random;
 
-import entity.map.Map;
+import game.model.Map;
 import game.property.Hitbox;
 import javafx.scene.image.Image;
 import scene.SceneManager;
@@ -21,7 +21,7 @@ public class SkillsData {
 	private int lastAnimation;
 	private boolean isStickToOwner;
 	private boolean isOnceCollision;
-	
+
 	// default's skill
 	public SkillsData() {
 		hb = null;
@@ -90,7 +90,7 @@ public class SkillsData {
 		slashy.cooldown = 24;
 		slashy.collisionDelay = 60;
 		slashy.lastAnimation = 19;
-		
+
 		SkillsData shield = new SkillsData();
 		shield.nImage = 63;
 		shield.images = new Image[shield.nImage];
@@ -102,7 +102,7 @@ public class SkillsData {
 		shield.hb = new Hitbox(50, 0, 300, 300);
 		shield.cooldown = 0.1;
 		shield.isStickToOwner = true;
-		
+
 		SkillsData meteor = new SkillsData();
 		meteor.nImage = 60;
 		meteor.images = new Image[meteor.nImage];
@@ -116,7 +116,7 @@ public class SkillsData {
 		meteor.speedY = 9;
 		meteor.damage = 2.5;
 		meteor.cooldown = 25;
-		
+
 		SkillsData darkspear = new SkillsData();
 		darkspear.nImage = 16;
 		darkspear.images = new Image[darkspear.nImage];
@@ -129,7 +129,7 @@ public class SkillsData {
 		darkspear.speedX = 20;
 		darkspear.damage = 2;
 		darkspear.cooldown = 12;
-		
+
 		SkillsData drill = new SkillsData();
 		drill.nImage = 3;
 		drill.images = new Image[drill.nImage];
@@ -212,11 +212,11 @@ public class SkillsData {
 	public double getCollisionDelay() {
 		return collisionDelay;
 	}
-	
+
 	public int getCurrentAnimation() {
 		return currentAnimation;
 	}
-	
+
 	public int getLastAnimation() {
 		return lastAnimation;
 	}

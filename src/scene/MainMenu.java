@@ -1,9 +1,9 @@
 package scene;
 
-import entity.gui.GUI;
-import entity.gui.GUIImage;
-import entity.gui.GUIRectangle;
-import entity.gui.GUIText;
+import game.model.GUI;
+import game.model.gui.GUIImage;
+import game.model.gui.GUIRectangle;
+import game.model.gui.GUIText;
 import input.MainMenuHandler;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -12,12 +12,16 @@ import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import utility.InvalidInputException;
+import utility.DeleteEmptyInputExeption;
+import utility.LongInputException;
+import utility.ShortInputException;
+import utility.WrongInputException;
 
 public class MainMenu {
 	private static final GUI[] menus = new GUI[10];
@@ -154,14 +158,7 @@ public class MainMenu {
 		tt.setOnFinished(e -> {
 			isTransitioning = false;
 			mainMenuPane.getChildren().remove(1, 4);
-			mainMenuPane.setOnKeyPressed(f -> {
-				try {
-					MainMenuHandler.registerKeyPressed(f);
-				} catch (InvalidInputException i) {
-					((GUIText) menus[7]).setText(i.getInvalidText());
-					menus[7].draw();
-				}
-			});
+			mainMenuPane.setOnKeyPressed(f -> MainMenuHandler.registerKeyPressed(f));
 		});
 		for (int i = 4; i < 8; ++i) {
 			ft = new FadeTransition(Duration.millis(1000), menus[i].getCanvas());
@@ -176,34 +173,61 @@ public class MainMenu {
 		}
 	}
 
-	public static void typeRegisterName(char c) throws InvalidInputException {
+	public static void addRegisterName(KeyEvent event) throws Exception {
 		GUIText registerName = getRegisterName();
-		if (registerName.getText().length() < 12) {
-			registerName.setText(registerName.getText() + c);
-			registerName.draw();
-			throw new InvalidInputException(registerName.getText().length());
+		if (event.getText().matches("[A-Za-z]{1}")) {
+			if (registerName.getText().length() < 12) {
+				registerName.setText(registerName.getText() + event.getText().charAt(0));
+				registerName.draw();
+				if (registerName.getText().length() >= 2) {
+					setValidMessage();
+				} else {
+					throw new ShortInputException();
+				}
+			} else {
+				throw new LongInputException();
+			}
 		} else {
-			throw new InvalidInputException(registerName.getText().length() + 1);
+			throw new WrongInputException();
 		}
 	}
 
-	public static void deleteRegisterName() throws InvalidInputException {
+	public static void deleteRegisterName() throws Exception {
 		GUIText registerName = getRegisterName();
 		if (registerName.getText().length() > 0) {
 			registerName.setText(registerName.getText().substring(0, registerName.getText().length() - 1));
 			registerName.draw();
+			if (registerName.getText().length() >= 2) {
+				setValidMessage();
+			} else {
+				throw new ShortInputException();
+			}
+		} else {
+			throw new DeleteEmptyInputExeption();
 		}
-		throw new InvalidInputException(registerName.getText().length());
+	}
+
+	public static void comfirmName() throws Exception {
+		GUIText registerName = getRegisterName();
+		if (registerName.getText().length() >= 2) {
+			SceneManager.gotoGame();
+		} else {
+			throw new ShortInputException();
+		}
+	}
+
+	public static void setValidMessage() {
+		((GUIText) menus[7]).setText("press enter to confirm");
+		menus[7].draw();
+	}
+
+	public static void setErrorMessage(String errorMessage) {
+		((GUIText) menus[7]).setText(errorMessage);
+		menus[7].draw();
 	}
 
 	public static GUIText getRegisterName() {
 		return (GUIText) menus[6];
-	}
-
-	public static void comfirmName() {
-		if (((GUIText) menus[7]).getText() == InvalidInputException.validInput) {
-			SceneManager.gotoGame();
-		}
 	}
 
 	public static boolean isTransitioning() {

@@ -1,12 +1,12 @@
 package game.property;
 
-import entity.characters.Characters;
-import entity.characters.Player;
-import entity.gui.GUIImage;
-import entity.gui.GUIProgress;
-import entity.gui.GUIRectangle;
-import entity.gui.GUIText;
+import game.model.Characters;
 import game.model.Model;
+import game.model.character.Player;
+import game.model.gui.GUIImage;
+import game.model.gui.GUIProgress;
+import game.model.gui.GUIRectangle;
+import game.model.gui.GUIText;
 import javafx.geometry.VPos;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -32,7 +32,7 @@ public class UserInterface {
 	public UserInterface(Characters character) {
 		// Load container
 		container = Model.getContainer();
-		
+
 		// Player & Monster
 		hpBar = new ProgressBar(1);
 		hpBar.setOpacity(0.8);
@@ -54,7 +54,8 @@ public class UserInterface {
 			cooldownIcon = new GUIImage[5];
 			cooldownIcon[0] = new GUIImage(370, 645, 60, 60, new Image("images/skill/icon/fireball icon.png"), 60, 60);
 			cooldownIcon[1] = new GUIImage(435, 645, 60, 60, new Image("images/skill/icon/lightning icon.png"), 60, 60);
-			cooldownIcon[2] = new GUIImage(500, 645, 60, 60, new Image("images/skill/icon/thunderbolt icon.png"), 60, 60);
+			cooldownIcon[2] = new GUIImage(500, 645, 60, 60, new Image("images/skill/icon/thunderbolt icon.png"), 60,
+					60);
 			cooldownIcon[3] = new GUIImage(565, 645, 60, 60, new Image("images/skill/icon/slashy icon.png"), 60, 60);
 			cooldownProgress = new GUIProgress[5];
 			cooldownProgress[0] = new GUIProgress(370, 645, 60, 60, 0.0);

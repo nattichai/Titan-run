@@ -1,5 +1,6 @@
-package entity.gui;
+package game.model.gui;
 
+import game.model.GUI;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 

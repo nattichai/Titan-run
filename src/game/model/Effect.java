@@ -1,8 +1,5 @@
-package entity.effect;
+package game.model;
 
-import entity.Entity;
-import entity.characters.Characters;
-import game.model.Model;
 import game.property.Animatable;
 import game.property.Hitbox;
 import game.storage.EffectsData;

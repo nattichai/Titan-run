@@ -1,7 +1,5 @@
-package entity.map;
+package game.model;
 
-import entity.Entity;
-import entity.characters.Characters;
 import game.property.Movable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

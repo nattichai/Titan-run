@@ -1,8 +1,7 @@
-package entity.characters;
+package game.model;
 
-import entity.Entity;
-import entity.gui.GUIDamage;
-import game.model.Model;
+import game.model.character.Player;
+import game.model.gui.GUIDamage;
 import game.property.Animatable;
 import game.property.Attackable;
 import game.property.Direction;
@@ -29,8 +28,8 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 
 	public Characters(double x, double y, int idx) {
 		super(x, y, CharactersData.data[idx].getWidth(), CharactersData.data[idx].getHeight());
-		
-		CharactersData character= CharactersData.data[idx];
+
+		CharactersData character = CharactersData.data[idx];
 		nImage = character.getnImage();
 		images = character.getImages();
 		width = character.getWidth();
@@ -67,7 +66,7 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	}
 
 	public abstract void changeImage();
-	
+
 	public void increaseHp(double d) {
 		hp += d;
 		if (hp >= maxHp) {

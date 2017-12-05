@@ -1,12 +1,12 @@
 package scene;
 
-import entity.item.HealthPotion;
-import entity.item.Jelly;
-import entity.map.Map;
-import entity.obstacle.AirObstacle;
-import entity.obstacle.GroundObstacle;
-import entity.obstacle.HoleObstacle;
+import game.model.Map;
 import game.model.Model;
+import game.model.item.HealthPotion;
+import game.model.item.Jelly;
+import game.model.obstacle.AirObstacle;
+import game.model.obstacle.GroundObstacle;
+import game.model.obstacle.HoleObstacle;
 import game.storage.CharactersData;
 import game.storage.EffectsData;
 import game.storage.SkillsData;
@@ -60,7 +60,7 @@ public class LoadingScreen {
 		}));
 		timer.setCycleCount(250);
 		timer.play();
-		
+
 	}
 
 	public static void loadResource() {
@@ -77,7 +77,7 @@ public class LoadingScreen {
 		new AirObstacle();
 		new GroundObstacle();
 		new HoleObstacle();
-		
+
 		bar.setProgress(1);
 		timer.stop();
 		timer.setCycleCount(1);
