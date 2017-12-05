@@ -11,7 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 import scene.SceneManager;
 
@@ -29,6 +29,7 @@ public class Skill extends Entity implements Movable, Animatable {
 	protected Characters owner;
 	protected boolean isStickToOwner;
 	protected boolean isOnceCollision;
+	protected AudioClip audioClip;
 
 	public Skill(double x, double y, int idx, Characters owner) {
 		super(x, y, SkillsData.data[idx].getWidth(), SkillsData.data[idx].getHeight());
@@ -54,8 +55,8 @@ public class Skill extends Entity implements Movable, Animatable {
 		isStickToOwner = skill.isStickToOwner();
 		isOnceCollision = skill.isOnceCollision();
 		setOwner(owner);
+		audioClip = skill.getAudioClip();
 		
-		new MediaPlayer(skill.getMedia()).play();
 	}
 
 	public void draw() {
@@ -181,5 +182,11 @@ public class Skill extends Entity implements Movable, Animatable {
 	public int getIndex() {
 		return index;
 	}
+
+	public AudioClip getAudioClip() {
+		return audioClip;
+	}
+	
+	
 
 }

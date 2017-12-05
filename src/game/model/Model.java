@@ -79,6 +79,7 @@ public class Model {
 		else if (object instanceof Skill) {
 			skillList.add((Skill) object);
 			skillPane.getChildren().add(canvas);
+			((Skill) object).getAudioClip().play();
 		}
 
 		else if (object instanceof GUI) {
