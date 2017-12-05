@@ -161,14 +161,14 @@ public class Player extends Characters {
 	}
 
 	public void slide() {
-		if(state!=State.SLIDING){
+		if (state != State.SLIDING) {
 			new AudioClip(ClassLoader.getSystemResource("sounds/Skillfx/Slide.wav").toString()).play();
 		}
 		state = State.SLIDING;
 		canvas.setRotate(-90);
 		speedY = 0;
 		draw();
-		
+
 	}
 
 	public void makeShield() {
@@ -367,11 +367,11 @@ public class Player extends Characters {
 			userInterface.updateCooldown(i, cooldown[i] / fullCooldown[i]);
 		}
 	}
-	
+
 	public int getStage() {
 		return stage;
 	}
-	
+
 	public void addStage(int s) {
 		stage += s;
 		userInterface.updateStage(stage);

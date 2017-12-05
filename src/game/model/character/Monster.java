@@ -8,7 +8,6 @@ import game.model.Skill;
 import game.property.Hitbox;
 import game.property.Side;
 import game.storage.SkillsData;
-import game.updater.Updater;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -45,11 +44,7 @@ public class Monster extends Characters {
 
 	public void move() {
 		changeSpeed(accelX, accelY);
-		if (Updater.isBossStage()) {
-			canMove = true;
-			canMoveOut = true;
-		}
-		
+
 		if (canMove) {
 			positionX += speedX;
 			positionY += speedY;
@@ -215,6 +210,14 @@ public class Monster extends Characters {
 			return true;
 		}
 		return false;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+
+	public void setCanMoveOut(boolean canMoveOut) {
+		this.canMoveOut = canMoveOut;
 	}
 
 }

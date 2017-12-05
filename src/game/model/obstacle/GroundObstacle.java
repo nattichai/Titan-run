@@ -12,9 +12,9 @@ import javafx.scene.image.Image;
 import scene.SceneManager;
 
 public class GroundObstacle extends Obstacle {
-	private static final Image[] images = new Image[89];
+	private static final Image[] images = new Image[20];
 	static {
-		for (int i = 0; i < 89; ++i) {
+		for (int i = 0; i < 20; ++i) {
 			images[i] = new Image("images/obstacle/ground" + i + ".png");
 		}
 	}
@@ -22,12 +22,14 @@ public class GroundObstacle extends Obstacle {
 	public GroundObstacle() {
 		super(SceneManager.SCREEN_WIDTH + 210, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
-		int rnd = new Random().nextInt(17) + 72;
+		int rnd = new Random().nextInt(20);
 		obstacle = images[rnd];
 		width = obstacle.getWidth();
 		height = obstacle.getHeight();
 
 		if (height < 200) {
+			width = 180;
+			height = 200;
 			hb = new Hitbox(40, 510, 120, 120);
 			Jelly jelly = new Jelly(1025, 400);
 			Model.getContainer().add(jelly);
@@ -40,7 +42,9 @@ public class GroundObstacle extends Obstacle {
 			jelly = new Jelly(1475, 400);
 			Model.getContainer().add(jelly);
 		} else {
-			hb = new Hitbox(40, 420, 60, 220);
+			width = 180;
+			height = 250;
+			hb = new Hitbox(40, 400, 60, 200);
 			Jelly jelly = new Jelly(1000, 390);
 			Model.getContainer().add(jelly);
 			jelly = new Jelly(1075, 290);
@@ -58,7 +62,7 @@ public class GroundObstacle extends Obstacle {
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.drawImage(obstacle, 0, Map.FLOOR_HEIGHT - height);
+		gc.drawImage(obstacle, 0, Map.FLOOR_HEIGHT - height, width, height);
 	}
 
 }

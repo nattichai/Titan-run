@@ -56,7 +56,7 @@ public class Skill extends Entity implements Movable, Animatable {
 		isOnceCollision = skill.isOnceCollision();
 		setOwner(owner);
 		audioClip = skill.getAudioClip();
-		
+
 	}
 
 	public void draw() {
@@ -186,7 +186,5 @@ public class Skill extends Entity implements Movable, Animatable {
 	public AudioClip getAudioClip() {
 		return audioClip;
 	}
-	
-	
 
 }

@@ -15,8 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import utility.DeleteEmptyInputExeption;
@@ -67,7 +65,7 @@ public class MainMenu {
 			ft.setToValue(1);
 			ft.play();
 		}
-		if (!backgroundMusic.isPlaying()){
+		if (!backgroundMusic.isPlaying()) {
 			backgroundMusic.play();
 		}
 

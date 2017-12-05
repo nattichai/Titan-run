@@ -12,9 +12,9 @@ import scene.SceneManager;
 
 public class AirObstacle extends Obstacle {
 	private static final int AIR_HEIGHT = 500;
-	private static final Image[] images = new Image[12];
+	private static final Image[] images = new Image[7];
 	static {
-		for (int i = 0; i < 12; ++i) {
+		for (int i = 0; i < 7; ++i) {
 			images[i] = new Image("images/obstacle/air" + i + ".png");
 		}
 	}

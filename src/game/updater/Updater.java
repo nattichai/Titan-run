@@ -161,6 +161,12 @@ public class Updater {
 	}
 
 	private static void showWarning() {
+		// all monster go away
+		Model.getContainer().getMonsterList().forEach(e -> {
+			e.setCanMove(true);
+			e.setCanMoveOut(true);
+		});
+
 		GUIText warning = new GUIText(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT, "WARNING",
 				Color.rgb(0xC0, 0, 0), 150);
 		GUIRectangle warningBackground = new GUIRectangle(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,

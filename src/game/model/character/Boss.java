@@ -32,7 +32,7 @@ public class Boss extends Monster {
 		isReady = false;
 		step = 0;
 		isAttack = false;
-		
+
 		double stage = 1;
 		if (Model.getContainer().getPlayer() != null) {
 			stage = Model.getContainer().getPlayer().getStage();

@@ -43,7 +43,7 @@ public class UserInterface {
 			name = new GUIText(0, 0, 200, 30, "", Color.WHITE, 15);
 			name.getCanvas().setOpacity(0.5);
 			container.add(name);
-			
+
 			stageText = new GUIText(0, 35, SceneManager.SCREEN_WIDTH, 40, "Stage " + 1, Color.WHITE, 30);
 			container.add(stageText);
 
@@ -144,7 +144,7 @@ public class UserInterface {
 		cooldownProgress[index].setProgress(progress);
 		cooldownProgress[index].draw();
 	}
-	
+
 	public void updateStage(int stage) {
 		stageText.setText("Stage " + stage);
 		stageText.draw();
