@@ -14,6 +14,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -35,15 +36,12 @@ public class MainMenu {
 		menus[6] = new GUIText(200, 425, 600, 75, "", Color.BLACK, 40);
 		menus[7] = new GUIText(200, 490, 600, 35, "", Color.BLACK, 20);
 	}
-	private static final Media backgroundMusic = new Media(
+	private static final AudioClip backgroundMusic = new AudioClip(
 			ClassLoader.getSystemResource("sounds/songs/07_Opening Stage Zero.mp3").toString());;
-	private static MediaPlayer mediaPlayer = new MediaPlayer(backgroundMusic);
-	private static final Media selectfx = new Media(
+	private static final AudioClip selectfx = new AudioClip(
 			ClassLoader.getSystemResource("sounds/otherfx/SelectButton.wav").toString());;
-	private static MediaPlayer select = new MediaPlayer(selectfx);
-	private static final Media movefx = new Media(
+	private static final AudioClip movefx = new AudioClip(
 			ClassLoader.getSystemResource("sounds/otherfx/Cursormove.wav").toString());;
-	private static MediaPlayer move = new MediaPlayer(movefx);
 
 	private static Pane mainMenuPane;
 	private static int selectedMenu;
@@ -69,9 +67,8 @@ public class MainMenu {
 			ft.setToValue(1);
 			ft.play();
 		}
-		mediaPlayer.setAutoPlay(true);
-		if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-			mediaPlayer.play();
+		if (!backgroundMusic.isPlaying()){
+			backgroundMusic.play();
 		}
 
 		selectedMenu = 0;
@@ -98,8 +95,7 @@ public class MainMenu {
 	}
 
 	public static void selectMenu() {
-		move.stop();
-		move.play();
+		movefx.play();
 		for (int i = 1; i < 4; ++i) {
 			Canvas canvas = menus[i].getCanvas();
 			GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -135,8 +131,7 @@ public class MainMenu {
 	}
 
 	private static void choose() {
-		select.stop();
-		select.play();
+		selectfx.play();
 		if (selectedMenu == 0) {
 			register();
 		} else if (selectedMenu == 1) {
