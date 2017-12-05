@@ -83,9 +83,6 @@ public class GameHandler {
 
 	public static void keyReleased(KeyEvent event) {
 		if (SceneManager.isTrasitioning()) {
-			player.getCanvas().setRotate(0);
-			player.setState(saveState);
-			player.setSpeedX(0);
 			keys.clear();
 			return;
 		}
