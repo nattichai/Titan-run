@@ -35,10 +35,11 @@ public class Player extends Characters {
 		fullCooldown[2] = SkillsData.data[2].getCooldown();
 		fullCooldown[3] = SkillsData.data[3].getCooldown();
 	}
+	protected State state;
 	protected Image imageSlide;
 	protected int jump;
 	protected double mana, maxMana;
-	protected State state;
+	protected int stage;
 	protected double score;
 	protected double[] cooldown;
 	protected double distance;
@@ -56,10 +57,11 @@ public class Player extends Characters {
 		side = Side.PLAYER;
 		direction = Direction.RIGHT;
 
+		state = State.RUNNING;
 		jump = 0;
 		mana = 100;
 		maxMana = 100;
-		state = State.RUNNING;
+		stage = 1;
 		score = 0;
 		cooldown = new double[5];
 		distance = 0;
@@ -356,6 +358,15 @@ public class Player extends Characters {
 				cooldown[i] = 0;
 			userInterface.updateCooldown(i, cooldown[i] / fullCooldown[i]);
 		}
+	}
+	
+	public int getStage() {
+		return stage;
+	}
+	
+	public void addStage(int s) {
+		stage += s;
+		userInterface.updateStage(stage);
 	}
 
 	public double getDistance() {

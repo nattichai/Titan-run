@@ -32,7 +32,12 @@ public class Boss extends Monster {
 		isReady = false;
 		step = 0;
 		isAttack = false;
-		bossSpeed = 700;
+		
+		double stage = 1;
+		if (Model.getContainer().getPlayer() != null) {
+			stage = Model.getContainer().getPlayer().getStage();
+		}
+		bossSpeed = 700 * (1 - stage / (stage + 4));
 
 		userInterface.getHpBar().setPrefSize(400, 30);
 		userInterface.getHpBar().relocate(300, 100);

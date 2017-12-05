@@ -18,6 +18,7 @@ public class UserInterface {
 	private Model container;
 
 	private GUIText name;
+	private GUIText stageText;
 	private GUIText scoreText;
 	private GUIText[] cooldownText;
 	private GUIProgress[] cooldownProgress;
@@ -42,6 +43,9 @@ public class UserInterface {
 			name = new GUIText(0, 0, 200, 30, "", Color.WHITE, 15);
 			name.getCanvas().setOpacity(0.5);
 			container.add(name);
+			
+			stageText = new GUIText(0, 40, SceneManager.SCREEN_WIDTH, 30, "Stage " + 1, Color.WHITE, 30);
+			container.add(stageText);
 
 			scoreText = new GUIText(-360, -75, 800, 200, "Score: " + 0, Color.WHITE, 30);
 			scoreText.getCanvas().getGraphicsContext2D().setTextAlign(TextAlignment.LEFT);
@@ -139,6 +143,11 @@ public class UserInterface {
 	public void updateCooldown(int index, double progress) {
 		cooldownProgress[index].setProgress(progress);
 		cooldownProgress[index].draw();
+	}
+	
+	public void updateStage(int stage) {
+		stageText.setText("Stage " + stage);
+		stageText.draw();
 	}
 
 	public void updateDistance(double progress) {
