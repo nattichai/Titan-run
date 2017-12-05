@@ -22,8 +22,10 @@ public class MainMenuHandler {
 	}
 
 	public static void mouseMoved(MouseEvent event, int idx) {
-		MainMenu.setSelectedMenu(idx - 1);
-		MainMenu.selectMenu();
+		if (MainMenu.getSelectedMenu() != idx - 1) {
+			MainMenu.setSelectedMenu(idx - 1);
+			MainMenu.selectMenu();
+		}
 	}
 
 	public static void mouseClicked(MouseEvent event) {

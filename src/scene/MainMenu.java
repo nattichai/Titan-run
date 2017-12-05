@@ -141,6 +141,10 @@ public class MainMenu {
 		}
 	}
 
+	public static int getSelectedMenu() {
+		return selectedMenu;
+	}
+
 	public static void setSelectedMenu(int menu) {
 		selectedMenu = menu;
 	}
