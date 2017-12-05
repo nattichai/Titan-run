@@ -104,10 +104,8 @@ public class GameHandler {
 			for (Skill skill : Model.getContainer().getSkillList()) {
 				if (skill.getIndex() == 4) {
 					skill.setPositionX(-1000); // delete shield
-					break;
 				}
 			}
-			;
 			Model.getContainer().getSkillList().removeIf(e -> e.isDead());
 		}
 

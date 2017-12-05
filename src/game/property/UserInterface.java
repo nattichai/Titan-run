@@ -44,7 +44,7 @@ public class UserInterface {
 			name.getCanvas().setOpacity(0.5);
 			container.add(name);
 			
-			stageText = new GUIText(0, 40, SceneManager.SCREEN_WIDTH, 30, "Stage " + 1, Color.WHITE, 30);
+			stageText = new GUIText(0, 35, SceneManager.SCREEN_WIDTH, 40, "Stage " + 1, Color.WHITE, 30);
 			container.add(stageText);
 
 			scoreText = new GUIText(-360, -75, 800, 200, "Score: " + 0, Color.WHITE, 30);

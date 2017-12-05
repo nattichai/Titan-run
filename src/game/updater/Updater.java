@@ -26,6 +26,8 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import scene.GameMain;
@@ -186,6 +188,9 @@ public class Updater {
 
 	private static void bossStage() {
 		isBossStage = true;
+		// force release spacebar
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
+				false, false, false));
 		SceneManager.setTrasitioning(true);
 
 		Boss robotek = new Boss(SceneManager.SCREEN_WIDTH + 100, 150, 7);
