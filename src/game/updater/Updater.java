@@ -254,8 +254,10 @@ public class Updater {
 		speedUp.play();
 		speedUp.setOnFinished(e -> {
 			new Updater();
-			player.addStage(1);
-			GameMain.setSpeed(10 + 10 * player.getStage() / (player.getStage() + 10));
+			if (player != null) {
+				player.addStage(1);
+				GameMain.setSpeed(10 + 10 * player.getStage() / (player.getStage() + 10));
+			}
 			SceneManager.setTrasitioning(false);
 		});
 	}
