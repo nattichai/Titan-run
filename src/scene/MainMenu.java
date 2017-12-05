@@ -36,8 +36,14 @@ public class MainMenu {
 		menus[7] = new GUIText(200, 490, 600, 35, "", Color.BLACK, 20);
 	}
 	private static final Media backgroundMusic = new Media(
-			ClassLoader.getSystemResource("sounds/background music1.mp3").toString());;
+			ClassLoader.getSystemResource("sounds/songs/07_Opening Stage Zero.mp3").toString());;
 	private static MediaPlayer mediaPlayer = new MediaPlayer(backgroundMusic);
+	private static final Media selectfx = new Media(
+			ClassLoader.getSystemResource("sounds/otherfx/SelectButton.wav").toString());;
+	private static MediaPlayer select = new MediaPlayer(selectfx);
+	private static final Media movefx = new Media(
+			ClassLoader.getSystemResource("sounds/otherfx/Cursormove.wav").toString());;
+	private static MediaPlayer move = new MediaPlayer(movefx);
 
 	private static Pane mainMenuPane;
 	private static int selectedMenu;
@@ -92,6 +98,8 @@ public class MainMenu {
 	}
 
 	public static void selectMenu() {
+		move.stop();
+		move.play();
 		for (int i = 1; i < 4; ++i) {
 			Canvas canvas = menus[i].getCanvas();
 			GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -127,6 +135,8 @@ public class MainMenu {
 	}
 
 	private static void choose() {
+		select.stop();
+		select.play();
 		if (selectedMenu == 0) {
 			register();
 		} else if (selectedMenu == 1) {

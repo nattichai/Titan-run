@@ -5,6 +5,7 @@ import java.util.Random;
 import game.model.Map;
 import game.property.Hitbox;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import scene.SceneManager;
 
 public class SkillsData {
@@ -21,6 +22,7 @@ public class SkillsData {
 	private int lastAnimation;
 	private boolean isStickToOwner;
 	private boolean isOnceCollision;
+	private Media skillfx;
 
 	// default's skill
 	public SkillsData() {
@@ -39,6 +41,7 @@ public class SkillsData {
 	public static final SkillsData[] data = new SkillsData[20];
 	static {
 		SkillsData fireball = new SkillsData();
+		
 		fireball.nImage = 10;
 		fireball.images = new Image[fireball.nImage];
 		for (int i = 0; i < fireball.nImage; ++i) {
@@ -51,6 +54,8 @@ public class SkillsData {
 		fireball.cooldown = 0.2;
 		fireball.currentAnimation = new Random().nextInt(fireball.nImage);
 		fireball.isOnceCollision = true;
+		fireball.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Fireball.wav").toString());;
 
 		SkillsData lightning = new SkillsData();
 		lightning.nImage = 12;
@@ -63,6 +68,8 @@ public class SkillsData {
 		lightning.damage = 0.65;
 		lightning.cooldown = 8;
 		lightning.lastAnimation = 11;
+		lightning.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Lightning.wav").toString());;
 
 		SkillsData thunderbolt = new SkillsData();
 		thunderbolt.nImage = 38;
@@ -77,6 +84,8 @@ public class SkillsData {
 		thunderbolt.damage = 1.5;
 		thunderbolt.cooldown = 15;
 		thunderbolt.collisionDelay = 100;
+		thunderbolt.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Thunderbolt.wav").toString());;
 
 		SkillsData slashy = new SkillsData();
 		slashy.nImage = 20;
@@ -90,6 +99,8 @@ public class SkillsData {
 		slashy.cooldown = 24;
 		slashy.collisionDelay = 60;
 		slashy.lastAnimation = 19;
+		slashy.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Slashy.wav").toString());;
 
 		SkillsData shield = new SkillsData();
 		shield.nImage = 63;
@@ -102,6 +113,8 @@ public class SkillsData {
 		shield.hb = new Hitbox(50, 0, 300, 300);
 		shield.cooldown = 0.1;
 		shield.isStickToOwner = true;
+		shield.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Shield.wav").toString());;
 
 		SkillsData meteor = new SkillsData();
 		meteor.nImage = 60;
@@ -116,6 +129,8 @@ public class SkillsData {
 		meteor.speedY = 9;
 		meteor.damage = 2.5;
 		meteor.cooldown = 25;
+		meteor.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Meteor.wav").toString());;
 
 		SkillsData darkspear = new SkillsData();
 		darkspear.nImage = 16;
@@ -129,6 +144,8 @@ public class SkillsData {
 		darkspear.speedX = 20;
 		darkspear.damage = 2;
 		darkspear.cooldown = 12;
+		darkspear.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Darkspear.wav").toString());;
 
 		SkillsData drill = new SkillsData();
 		drill.nImage = 3;
@@ -142,6 +159,8 @@ public class SkillsData {
 		drill.speedX = 15;
 		drill.damage = 0.8;
 		drill.cooldown = 6;
+		drill.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Drill.wav").toString());;
 
 		SkillsData beam = new SkillsData();
 		beam.nImage = 12;
@@ -153,6 +172,8 @@ public class SkillsData {
 		beam.height = 600;
 		beam.damage = 2;
 		beam.cooldown = 10;
+		beam.skillfx = new Media(
+				ClassLoader.getSystemResource("sounds/Skillfx/Beam.wav").toString());;
 
 		data[0] = fireball;
 		data[1] = lightning;
@@ -228,4 +249,9 @@ public class SkillsData {
 	public boolean isOnceCollision() {
 		return isOnceCollision;
 	}
+	
+	public Media getMedia(){
+		return skillfx;
+	}
+
 }

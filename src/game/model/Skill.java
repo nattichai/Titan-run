@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import scene.SceneManager;
 
@@ -53,6 +54,8 @@ public class Skill extends Entity implements Movable, Animatable {
 		isStickToOwner = skill.isStickToOwner();
 		isOnceCollision = skill.isOnceCollision();
 		setOwner(owner);
+		
+		new MediaPlayer(skill.getMedia()).play();
 	}
 
 	public void draw() {
