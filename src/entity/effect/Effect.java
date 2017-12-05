@@ -5,6 +5,7 @@ import entity.characters.Characters;
 import game.model.Model;
 import game.property.Animatable;
 import game.property.Hitbox;
+import game.storage.EffectsData;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -15,15 +16,19 @@ public class Effect extends Entity implements Animatable {
 	protected int currentRound;
 	protected int round;
 
-	public Effect(double x, double y, double w, double h) {
-		super(x, y, w, h);
+	public Effect(double x, double y, int idx, int r) {
+		super(x, y, EffectsData.data[idx].getWidth(), EffectsData.data[idx].getHeight());
 
+		EffectsData effect = EffectsData.data[idx];
+		nImage = effect.getnImage();
+		images = effect.getImages();
+		width = effect.getWidth();
+		height = effect.getHeight();
+
+		hb = new Hitbox(0, 0, 0, 0);
 		currentAnimation = 0;
 		currentRound = 0;
-		hb = new Hitbox(0, 0, 0, 0);
-	}
-
-	public Effect() {
+		round = r;
 	}
 
 	public void draw() {

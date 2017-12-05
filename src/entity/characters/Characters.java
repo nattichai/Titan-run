@@ -8,7 +8,9 @@ import game.property.Attackable;
 import game.property.Direction;
 import game.property.Movable;
 import game.property.PowerState;
+import game.property.Side;
 import game.property.UserInterface;
+import game.storage.CharactersData;
 import javafx.scene.image.Image;
 
 public abstract class Characters extends Entity implements Movable, Animatable, Attackable {
@@ -19,14 +21,35 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	protected int currentAnimation;
 	protected double hp, maxHp;
 	protected double atk;
+	protected int skillIndex;
 	protected Direction direction;
 	protected Direction imageDirection;
 	protected PowerState powerState;
 	protected UserInterface userInterface;
 
-	public Characters(double x, double y, double w, double h) {
-		super(x, y, w, h);
+	public Characters(double x, double y, int idx) {
+		super(x, y, CharactersData.data[idx].getWidth(), CharactersData.data[idx].getHeight());
+		
+		CharactersData character= CharactersData.data[idx];
+		nImage = character.getnImage();
+		images = character.getImages();
+		width = character.getWidth();
+		height = character.getHeight();
+		hb = character.getHb();
+		speedX = character.getSpeedX();
+		speedY = character.getSpeedY();
+		accelX = character.getAccelX();
+		accelY = character.getAccelY();
 		currentAnimation = 0;
+		hp = character.getHp();
+		maxHp = character.getMaxHp();
+		atk = character.getAtk();
+		skillIndex = character.getSkillIndex();
+		side = Side.MONSTER;
+		direction = Direction.LEFT;
+		imageDirection = character.getImageDirection();
+		powerState = character.getPowerState();
+		userInterface = new UserInterface(this);
 	}
 
 	public abstract void draw();
@@ -44,6 +67,16 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	}
 
 	public abstract void changeImage();
+	
+	public void increaseHp(double d) {
+		hp += d;
+		if (hp >= maxHp) {
+			hp = maxHp;
+		}
+		userInterface.updateHp(hp / maxHp);
+		GUIDamage damageUI = new GUIDamage(positionX + width / 2, positionY, "" + (int) d, 2);
+		Model.getContainer().add(damageUI);
+	}
 
 	public void decreaseHp(double d) {
 		if (hp <= 0.00001 || powerState == PowerState.IMMORTAL) {
@@ -56,7 +89,11 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 		}
 		userInterface.updateHp(hp / maxHp);
 		if (d > 1) {
-			GUIDamage damageUI = new GUIDamage(positionX + width / 2, positionY, "" + (int) d);
+			int type = 0; // MONSTER GET DAMAGED
+			if (this instanceof Player) { // PLAYER GET DAMAGED
+				type = 1;
+			}
+			GUIDamage damageUI = new GUIDamage(positionX + width / 2, positionY, "" + (int) d, type);
 			Model.getContainer().add(damageUI);
 			injured();
 		}

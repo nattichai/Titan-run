@@ -3,17 +3,18 @@ package input;
 import java.util.HashSet;
 
 import entity.characters.Player;
-import game.GameMain;
-import game.animations.Animations;
+import entity.skill.Skill;
 import game.model.Model;
 import game.property.Direction;
 import game.property.PowerState;
 import game.property.State;
+import game.updater.Animations;
 import game.updater.Updater;
 import javafx.animation.Animation.Status;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import window.SceneManager;
+import scene.GameMain;
+import scene.SceneManager;
 
 public class GameHandler {
 	private static HashSet<KeyCode> keys = new HashSet<>();
@@ -54,7 +55,7 @@ public class GameHandler {
 
 		// H = HEAL
 		else if (event.getCode() == KeyCode.H) {
-			player.setHp(player.getMaxHp());
+			player.increaseHp(124356789);
 		}
 
 		// W = LIGHTNING
@@ -74,7 +75,7 @@ public class GameHandler {
 
 		// S = SUICIDE
 		else if (event.getCode() == KeyCode.S) {
-			player.die();
+			player.decreaseHp(987654321);
 		}
 
 		keys.add(event.getCode());
@@ -100,6 +101,13 @@ public class GameHandler {
 		// NORMAL STATE
 		else if (event.getCode() == KeyCode.SPACE) {
 			player.setPowerState(PowerState.NORMAL);
+			for (Skill skill : Model.getContainer().getSkillList()) {
+				if (skill.getIndex() == 4) {
+					skill.setPositionX(-1000);	//delete shield
+					break;
+				}
+			};
+			Model.getContainer().getSkillList().removeIf(e -> e.isDead());
 		}
 
 		keys.remove(event.getCode());

@@ -1,23 +1,16 @@
-package window;
+package scene;
 
-import entity.effect.Charge;
 import entity.item.HealthPotion;
 import entity.item.Jelly;
 import entity.map.Map;
 import entity.obstacle.AirObstacle;
 import entity.obstacle.GroundObstacle;
 import entity.obstacle.HoleObstacle;
-import entity.skill.Beam;
-import entity.skill.Darkspear;
-import entity.skill.Drill;
-import entity.skill.Fireball;
-import entity.skill.Lightning;
-import entity.skill.Meteor;
-import entity.skill.Shield;
-import entity.skill.Slashy;
-import entity.skill.Thunderbolt;
 import game.model.Model;
-import game.storage.Storage;
+import game.storage.CharactersData;
+import game.storage.EffectsData;
+import game.storage.SkillsData;
+import game.updater.Updater;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -62,33 +55,30 @@ public class LoadingScreen {
 	}
 
 	public static void runProgress() {
-		timer = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+		timer = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
 			bar.setProgress(bar.getProgress() + 0.004);
 		}));
 		timer.setCycleCount(250);
 		timer.play();
+		
 	}
 
 	public static void loadResource() {
+		// create container
 		Model.initialize();
-		new Storage();
+		// load storage data
+		new CharactersData();
+		new SkillsData();
+		new EffectsData();
+		// load assets
 		new HealthPotion();
 		new Jelly();
 		new Map();
 		new AirObstacle();
 		new GroundObstacle();
 		new HoleObstacle();
-		new Darkspear();
-		new Fireball();
-		new Lightning();
-		new Meteor();
-		new Shield();
-		new Slashy();
-		new Thunderbolt();
-		new Drill();
-		new Charge();
-		new Beam();
-
+		
+		bar.setProgress(1);
 		timer.stop();
 		timer.setCycleCount(1);
 		timer.play();

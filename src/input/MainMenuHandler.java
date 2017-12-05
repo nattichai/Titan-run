@@ -3,9 +3,9 @@ package input;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import menu.MainMenu;
+import scene.MainMenu;
+import scene.SceneManager;
 import utility.InvalidInputException;
-import window.SceneManager;
 
 public class MainMenuHandler {
 

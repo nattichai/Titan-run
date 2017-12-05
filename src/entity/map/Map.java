@@ -1,13 +1,11 @@
 package entity.map;
 
-import java.util.Random;
-
 import entity.Entity;
 import entity.characters.Characters;
 import game.property.Movable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import window.SceneManager;
+import scene.SceneManager;
 
 public class Map extends Entity implements Movable {
 	public static final double FLOOR_HEIGHT = 600;
@@ -35,13 +33,11 @@ public class Map extends Entity implements Movable {
 	}
 
 	public Map() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		int rnd = new Random().nextInt(1) + 1;
-		Image image = images[rnd];
+		Image image = images[1];
 		width = SceneManager.SCREEN_WIDTH;
 
 		gc.drawImage(image, 0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);

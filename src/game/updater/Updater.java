@@ -18,14 +18,7 @@ import entity.obstacle.AirObstacle;
 import entity.obstacle.GroundObstacle;
 import entity.obstacle.HoleObstacle;
 import entity.obstacle.Obstacle;
-import entity.skill.Beam;
-import entity.skill.Darkspear;
-import entity.skill.Drill;
-import entity.skill.Meteor;
-import entity.skill.Shield;
 import entity.skill.Skill;
-import entity.skill.Thunderbolt;
-import game.GameMain;
 import game.model.Model;
 import game.property.State;
 import input.GameHandler;
@@ -35,7 +28,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import window.SceneManager;
+import scene.GameMain;
+import scene.SceneManager;
 
 public class Updater {
 	public static final double FPS = 60;
@@ -50,7 +44,7 @@ public class Updater {
 			checkAllCollision();
 			removeAllDead();
 			updatePlayer();
-			// drawHitbox();
+//			 drawHitbox();
 		}));
 		timerUpdate.setCycleCount(Animation.INDEFINITE);
 	}
@@ -76,11 +70,7 @@ public class Updater {
 	}
 
 	public void startGame() {
-		new Thread(new Runnable() {
-			public void run() {
-				timerUpdate.play();
-			}
-		}).start();
+		timerUpdate.play();
 	}
 
 	public void pauseGame() {
@@ -107,7 +97,7 @@ public class Updater {
 			showWarning();
 		}
 		if (!isBossStage) {
-			distance += GameMain.SPEED;
+			distance += GameMain.getSpeed();
 			normalStage();
 		}
 	}
@@ -222,9 +212,9 @@ public class Updater {
 			map.getCanvas().setScaleY(1);
 		});
 
-		double damp = GameMain.SPEED / (FPS * 3);
+		double damp = GameMain.getSpeed() / (FPS * 3);
 		Timeline slowDown = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
-			GameMain.setSpeed(GameMain.SPEED - damp);
+			GameMain.setSpeed(GameMain.getSpeed() - damp);
 		}));
 		slowDown.setCycleCount((int) (FPS * 3));
 		slowDown.play();
@@ -248,7 +238,7 @@ public class Updater {
 
 		double accel = 10 / (FPS * 3);
 		Timeline speedUp = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
-			GameMain.setSpeed(GameMain.SPEED + accel);
+			GameMain.setSpeed(GameMain.getSpeed() + accel);
 			if (player != null) {
 				if (player.getPositionX() < 90) {
 					player.backToRunningPosition();
@@ -309,32 +299,14 @@ public class Updater {
 		checkPairCollision(playerList, itemList);
 		checkPairCollision(playerList, skillList);
 		checkPairCollision(monsterList, skillList);
-		checkPairCollision(skillList, skillList);
+		// checkPairCollision(skillList, skillList);
 	}
 
 	private static void checkPairCollision(ArrayList<? extends Entity> first, ArrayList<? extends Entity> second) {
-		if (player == null) {
-			return;
-		}
 		for (Entity firstEntity : first) {
 			for (Entity secondEntity : second) {
-
-				if (firstEntity instanceof Characters) {
-					if (secondEntity.isCollision(firstEntity)) {
-						secondEntity.affectTo((Characters) firstEntity);
-					}
-				}
-
-				else if (firstEntity instanceof Skill) {
-					if (firstEntity instanceof Shield && !(secondEntity instanceof Darkspear)
-							&& !(secondEntity instanceof Meteor) && !(secondEntity instanceof Thunderbolt)
-							&& !(secondEntity instanceof Drill) && !(secondEntity instanceof Beam)) {
-						if (secondEntity.isCollision(firstEntity)) {
-							((Shield) firstEntity).affectTo((Skill) secondEntity);
-						}
-					} else {
-						break;
-					}
+				if (secondEntity.isCollision(firstEntity)) {
+					secondEntity.affectTo((Characters) firstEntity);
 				}
 			}
 		}
@@ -356,7 +328,7 @@ public class Updater {
 		player.addMana(Map.PASSIVE_MANA_REGEN);
 		player.addScore(Map.PASSIVE_SCORE);
 		if (!isBossStage) {
-			player.addDistance(GameMain.SPEED);
+			player.addDistance(GameMain.getSpeed());
 			player.decreaseHp(Map.PASSIVE_DAMAGE);
 		}
 	}

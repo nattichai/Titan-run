@@ -2,7 +2,7 @@ package application;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import window.LoadingScreen;
+import scene.LoadingScreen;
 
 public class Main extends Application {
 

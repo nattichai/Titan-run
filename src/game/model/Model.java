@@ -57,7 +57,7 @@ public class Model {
 	public static void initialize() {
 		container = new Model();
 		container.add(map);
-		container.add(new Player(90, Map.FLOOR_HEIGHT - 200, 120, 200));
+		container.add(new Player(90, Map.FLOOR_HEIGHT - 200, 1));
 		GameHandler.setPlayer();
 	}
 
@@ -66,6 +66,7 @@ public class Model {
 		if (object instanceof Entity) {
 			canvas = ((Entity) object).getCanvas();
 		}
+
 		if (object instanceof Obstacle) {
 			obstacleList.add((Obstacle) object);
 			obstaclePane.getChildren().add(canvas);

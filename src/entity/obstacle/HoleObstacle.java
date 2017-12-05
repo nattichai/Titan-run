@@ -10,7 +10,7 @@ import game.property.Hitbox;
 import game.property.State;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import window.SceneManager;
+import scene.SceneManager;
 
 public class HoleObstacle extends Obstacle {
 	private static final double HOLE_WIDTH = 300;

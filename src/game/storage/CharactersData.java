@@ -1,34 +1,27 @@
 package game.storage;
 
 import entity.map.Map;
-import entity.skill.Darkspear;
-import entity.skill.Fireball;
-import entity.skill.Meteor;
-import entity.skill.Skill;
-import entity.skill.Thunderbolt;
 import game.property.Direction;
 import game.property.Hitbox;
 import game.property.PowerState;
 import javafx.scene.image.Image;
 
-public class Storage {
-	public int nImage; // number of images
-	public Image[] images; // image array
-	public double width, height; // character size
-	public Hitbox hb; // hitbox area
-	public double speedX, speedY; // initial speed
-	public double accelX, accelY; // initial accel
-	public double stayPositionX; // character will stay at this position
-	public double waitTime; // stay time then move out
-	public double hp, maxHp; // hit point
-	public double atk; // attack
-	public Skill skill; // skill
-	public Direction imageDirection; // IMAGE DIRECTION
-	public PowerState powerState; // power state
+public class CharactersData {
+	private int nImage;
+	private Image[] images;
+	private double width, height;
+	private Hitbox hb;
+	private double speedX, speedY;
+	private double accelX, accelY;
+	private double hp, maxHp;
+	private double atk;
+	private int skillIndex;
+	private Direction imageDirection;
+	private PowerState powerState;
 
-	public static final Storage[] characters = new Storage[20];
+	public static final CharactersData[] data = new CharactersData[20];
 	static {
-		Storage player = new Storage();
+		CharactersData player = new CharactersData();
 		player.nImage = 10;
 		player.images = new Image[player.nImage];
 		for (int i = 0; i < player.nImage; ++i) {
@@ -44,10 +37,11 @@ public class Storage {
 		player.hp = 100;
 		player.maxHp = 100;
 		player.atk = 10;
+		player.skillIndex = 4;
 		player.imageDirection = Direction.RIGHT;
 		player.powerState = PowerState.NORMAL;
 
-		Storage pikachu = new Storage();
+		CharactersData pikachu = new CharactersData();
 		pikachu.nImage = 8;
 		pikachu.images = new Image[pikachu.nImage];
 		for (int i = 0; i < pikachu.nImage; ++i) {
@@ -63,11 +57,11 @@ public class Storage {
 		pikachu.hp = 96;
 		pikachu.maxHp = 96;
 		pikachu.atk = 12;
-		pikachu.skill = new Thunderbolt();
+		pikachu.skillIndex = 2;
 		pikachu.imageDirection = Direction.LEFT;
 		pikachu.powerState = PowerState.NORMAL;
 
-		Storage spearman = new Storage();
+		CharactersData spearman = new CharactersData();
 		spearman.nImage = 12;
 		spearman.images = new Image[spearman.nImage];
 		for (int i = 0; i < spearman.nImage; ++i) {
@@ -83,11 +77,11 @@ public class Storage {
 		spearman.hp = 122;
 		spearman.maxHp = 122;
 		spearman.atk = 8;
-		spearman.skill = new Darkspear();
+		spearman.skillIndex = 6;
 		spearman.imageDirection = Direction.LEFT;
 		spearman.powerState = PowerState.NORMAL;
 
-		Storage sorcerer = new Storage();
+		CharactersData sorcerer = new CharactersData();
 		sorcerer.nImage = 23;
 		sorcerer.images = new Image[sorcerer.nImage];
 		for (int i = 0; i < sorcerer.nImage; ++i) {
@@ -103,11 +97,11 @@ public class Storage {
 		sorcerer.hp = 76;
 		sorcerer.maxHp = 76;
 		sorcerer.atk = 17;
-		sorcerer.skill = new Meteor();
+		sorcerer.skillIndex = 5;
 		sorcerer.imageDirection = Direction.LEFT;
 		sorcerer.powerState = PowerState.NORMAL;
 
-		Storage shaman = new Storage();
+		CharactersData shaman = new CharactersData();
 		shaman.nImage = 47;
 		shaman.images = new Image[shaman.nImage];
 		for (int i = 0; i < shaman.nImage; ++i) {
@@ -123,11 +117,11 @@ public class Storage {
 		shaman.hp = 104;
 		shaman.maxHp = 104;
 		shaman.atk = 68;
-		shaman.skill = new Fireball();
+		shaman.skillIndex = 0;
 		shaman.imageDirection = Direction.LEFT;
 		shaman.powerState = PowerState.NORMAL;
 
-		Storage slime = new Storage();
+		CharactersData slime = new CharactersData();
 		slime.nImage = 6;
 		slime.images = new Image[slime.nImage];
 		for (int i = 0; i < slime.nImage; ++i) {
@@ -143,11 +137,11 @@ public class Storage {
 		slime.hp = 199;
 		slime.maxHp = 199;
 		slime.atk = 8;
-		slime.skill = new Fireball();
+		slime.skillIndex = 0;
 		slime.imageDirection = Direction.LEFT;
 		slime.powerState = PowerState.NORMAL;
 
-		Storage robotek = new Storage();
+		CharactersData robotek = new CharactersData();
 		robotek.nImage = 96;
 		robotek.images = new Image[robotek.nImage];
 		for (int i = 0; i < robotek.nImage; ++i) {
@@ -163,16 +157,76 @@ public class Storage {
 		robotek.hp = 1000;
 		robotek.maxHp = 1000;
 		robotek.atk = 24;
-		robotek.skill = new Fireball();
+		robotek.skillIndex = 0;
 		robotek.imageDirection = Direction.LEFT;
 		robotek.powerState = PowerState.NORMAL;
 
-		characters[1] = player;
-		characters[2] = pikachu;
-		characters[3] = spearman;
-		characters[4] = sorcerer;
-		characters[5] = shaman;
-		characters[6] = slime;
-		characters[7] = robotek;
+		data[1] = player;
+		data[2] = pikachu;
+		data[3] = spearman;
+		data[4] = sorcerer;
+		data[5] = shaman;
+		data[6] = slime;
+		data[7] = robotek;
+	}
+
+	public int getnImage() {
+		return nImage;
+	}
+
+	public Image[] getImages() {
+		return images;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public Hitbox getHb() {
+		return hb;
+	}
+
+	public double getSpeedX() {
+		return speedX;
+	}
+
+	public double getSpeedY() {
+		return speedY;
+	}
+
+	public double getAccelX() {
+		return accelX;
+	}
+
+	public double getAccelY() {
+		return accelY;
+	}
+
+	public double getHp() {
+		return hp;
+	}
+
+	public double getMaxHp() {
+		return maxHp;
+	}
+
+	public double getAtk() {
+		return atk;
+	}
+
+	public int getSkillIndex() {
+		return skillIndex;
+	}
+
+	public Direction getImageDirection() {
+		return imageDirection;
+	}
+
+	public PowerState getPowerState() {
+		return powerState;
 	}
 }

@@ -2,10 +2,10 @@ package entity.obstacle;
 
 import entity.Entity;
 import entity.characters.Characters;
-import game.GameMain;
 import game.model.Model;
 import game.property.Movable;
 import javafx.scene.image.Image;
+import scene.GameMain;
 
 public abstract class Obstacle extends Entity implements Movable {
 	protected static final int OBSTACLE_WIDTH = 200;
@@ -18,7 +18,7 @@ public abstract class Obstacle extends Entity implements Movable {
 	public Obstacle(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = -GameMain.SPEED;
+		speedX = -GameMain.getSpeed();
 		speedY = 0;
 	}
 

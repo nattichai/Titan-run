@@ -1,4 +1,4 @@
-package menu;
+package scene;
 
 import entity.gui.GUI;
 import entity.gui.GUIImage;
@@ -18,7 +18,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import utility.InvalidInputException;
-import window.SceneManager;
 
 public class MainMenu {
 	private static final GUI[] menus = new GUI[10];

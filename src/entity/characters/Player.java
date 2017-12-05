@@ -1,21 +1,14 @@
 package entity.characters;
 
 import entity.map.Map;
-import entity.skill.Fireball;
-import entity.skill.Lightning;
-import entity.skill.Shield;
-import entity.skill.Slashy;
-import entity.skill.Thunderbolt;
-import game.GameMain;
+import entity.skill.Skill;
 import game.model.Model;
 import game.property.Direction;
 import game.property.Hitbox;
 import game.property.PowerState;
 import game.property.Side;
-import game.property.Slidable;
 import game.property.State;
-import game.property.UserInterface;
-import game.storage.Storage;
+import game.storage.SkillsData;
 import game.updater.Updater;
 import input.GameHandler;
 import javafx.animation.KeyFrame;
@@ -25,20 +18,21 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
-import menu.MainMenu;
-import window.SceneManager;
+import scene.GameMain;
+import scene.MainMenu;
+import scene.SceneManager;
 
-public class Player extends Characters implements Slidable {
+public class Player extends Characters {
 	public static final double LIMIT_NORMAL_ATTACK = 10;
 	public static final double MOVEDOWN_SPEED = 1.5;
 	public static final int MAX_JUMP = 2;
 
 	protected static final double[] fullCooldown = new double[5];
 	static {
-		fullCooldown[0] = Fireball.SKILL_COOLDOWN;
-		fullCooldown[1] = Lightning.SKILL_COOLDOWN;
-		fullCooldown[2] = Thunderbolt.SKILL_COOLDOWN;
-		fullCooldown[3] = Slashy.SKILL_COOLDOWN;
+		fullCooldown[0] = SkillsData.data[0].getCooldown();
+		fullCooldown[1] = SkillsData.data[1].getCooldown();
+		fullCooldown[2] = SkillsData.data[2].getCooldown();
+		fullCooldown[3] = SkillsData.data[3].getCooldown();
 	}
 	protected Image imageSlide;
 	protected int jump;
@@ -48,12 +42,9 @@ public class Player extends Characters implements Slidable {
 	protected double[] cooldown;
 	protected double distance;
 
-	public Player(double x, double y, double w, double h) {
-		super(x, y, w, h);
+	public Player(double x, double y, int idx) {
+		super(x, y, idx);
 
-		Storage player = Storage.characters[1];
-		nImage = player.nImage;
-		images = player.images;
 		width = 120;
 		height = 200;
 		hb = new Hitbox(20, 20, 100, 180);
@@ -61,13 +52,8 @@ public class Player extends Characters implements Slidable {
 		speedY = 0;
 		accelX = 0;
 		accelY = Map.GRAVITY;
-		hp = player.hp;
-		maxHp = player.maxHp;
-		atk = player.atk;
 		side = Side.PLAYER;
 		direction = Direction.RIGHT;
-		imageDirection = player.imageDirection;
-		powerState = player.powerState;
 
 		jump = 0;
 		mana = 100;
@@ -76,8 +62,6 @@ public class Player extends Characters implements Slidable {
 		score = 0;
 		cooldown = new double[5];
 		distance = 0;
-
-		userInterface = new UserInterface(this);
 
 		userInterface.setName(MainMenu.getRegisterName().getText());
 		userInterface.getHpBar().setPrefSize(200, 15);
@@ -124,7 +108,7 @@ public class Player extends Characters implements Slidable {
 		} else if (positionY >= Map.FLOOR_HEIGHT - height) {
 			positionY = Map.FLOOR_HEIGHT - height;
 			speedY = 0;
-			if (GameMain.SPEED != 0 || speedX != 0) {
+			if (GameMain.getSpeed() != 0 || speedX != 0) {
 				state = State.RUNNING;
 			} else {
 				state = State.STILL;
@@ -179,8 +163,7 @@ public class Player extends Characters implements Slidable {
 
 	public void makeShield() {
 		if (mana >= 0.5) {
-			Shield shield = new Shield(positionX - 150, positionY - 50, Shield.SKILL_WIDTH, Shield.SKILL_HEIGHT);
-			shield.setOwner(this);
+			Skill shield = new Skill(positionX - 150, positionY - 50, 4, this);
 			Model.getContainer().add(shield);
 		}
 	}
@@ -198,9 +181,7 @@ public class Player extends Characters implements Slidable {
 	public void useFireball() {
 		if (state != State.SLIDING && cooldown[0] <= 0) {
 			resetCooldown(0);
-			Fireball fireball = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH,
-					Fireball.SKILL_HEIGHT);
-			fireball.setOwner(this);
+			Skill fireball = new Skill(positionX, positionY + height / 2, 0, this);
 			if (direction != imageDirection) {
 				fireball.getCanvas().setScaleX(-1);
 				fireball.setSpeedX(-fireball.getSpeedX());
@@ -213,16 +194,14 @@ public class Player extends Characters implements Slidable {
 		if (state != State.SLIDING && cooldown[1] <= 0) {
 			resetCooldown(1);
 			Timeline timerLightning = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				Lightning lightning = new Lightning(nearestMonsterPosition(), 0, Lightning.SKILL_WIDTH,
-						Lightning.SKILL_HEIGHT);
-				lightning.setOwner(this);
+				Skill lightning = new Skill(nearestMonsterPosition(), 0, 1, this);
 				if (direction != imageDirection) {
 					lightning.getCanvas().setScaleX(-1);
 					lightning.setSpeedX(-lightning.getSpeedX());
 				}
 				Model.getContainer().add(lightning);
 			}));
-			timerLightning.setCycleCount(10);
+			timerLightning.setCycleCount(6);
 			timerLightning.play();
 		}
 	}
@@ -246,8 +225,7 @@ public class Player extends Characters implements Slidable {
 	public void useThunderbolt() {
 		if (state != State.SLIDING && cooldown[2] <= 0) {
 			resetCooldown(2);
-			Thunderbolt thunderbolt = new Thunderbolt(positionX, 0, Thunderbolt.SKILL_WIDTH, Thunderbolt.SKILL_HEIGHT);
-			thunderbolt.setOwner(this);
+			Skill thunderbolt = new Skill(positionX, 0, 2, this);
 			if (direction != imageDirection) {
 				thunderbolt.getCanvas().setScaleX(-1);
 				thunderbolt.setSpeedX(-thunderbolt.getSpeedX());
@@ -259,8 +237,7 @@ public class Player extends Characters implements Slidable {
 	public void useSlashy() {
 		if (state != State.SLIDING && cooldown[3] <= 0) {
 			resetCooldown(3);
-			Slashy slashy = new Slashy(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
-			slashy.setOwner(this);
+			Skill slashy = new Skill(0, 0, 3, this);
 			Model.getContainer().add(slashy);
 		}
 	}

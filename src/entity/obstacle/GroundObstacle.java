@@ -8,7 +8,7 @@ import game.model.Model;
 import game.property.Hitbox;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import window.SceneManager;
+import scene.SceneManager;
 
 public class GroundObstacle extends Obstacle {
 	private static final Image[] images = new Image[89];

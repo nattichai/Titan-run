@@ -1,7 +1,6 @@
-package window;
+package scene;
 
 import entity.map.Map;
-import game.GameMain;
 import game.updater.Updater;
 import input.GameHandler;
 import input.MainMenuHandler;
@@ -11,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import menu.MainMenu;
 
 public class SceneManager {
 	public static final int SCREEN_WIDTH = 1000;
@@ -52,8 +50,8 @@ public class SceneManager {
 	}
 
 	public static void gotoSceneOf(Pane pane, double speed) {
-		double accel = (speed - GameMain.SPEED) / (2 * Updater.FPS * 3);
-		double distance = (speed + GameMain.SPEED) / 2 * (2 * Updater.FPS * 3);
+		double accel = (speed - GameMain.getSpeed()) / (2 * Updater.FPS * 3);
+		double distance = (speed + GameMain.getSpeed()) / 2 * (2 * Updater.FPS * 3);
 
 		pane.setTranslateX(distance);
 
@@ -63,9 +61,9 @@ public class SceneManager {
 
 		isTrasitioning = true;
 		Timeline transition = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME / 3), e -> {
-			GameMain.setSpeed(GameMain.SPEED + accel);
-			oldPane.setTranslateX(oldPane.getTranslateX() - GameMain.SPEED);
-			pane.setTranslateX(pane.getTranslateX() - GameMain.SPEED);
+			GameMain.setSpeed(GameMain.getSpeed() + accel);
+			oldPane.setTranslateX(oldPane.getTranslateX() - GameMain.getSpeed());
+			pane.setTranslateX(pane.getTranslateX() - GameMain.getSpeed());
 		}));
 		transition.setCycleCount((int) (Updater.FPS * 2) * 3);
 		transition.play();

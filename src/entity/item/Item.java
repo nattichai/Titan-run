@@ -1,10 +1,10 @@
 package entity.item;
 
 import entity.Entity;
-import game.GameMain;
 import game.model.Model;
 import game.property.Animatable;
 import game.property.Movable;
+import scene.GameMain;
 
 public abstract class Item extends Entity implements Movable, Animatable {
 	protected double speedX, speedY;
@@ -14,7 +14,7 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	public Item(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
-		speedX = -GameMain.SPEED;
+		speedX = -GameMain.getSpeed();
 		speedY = 0;
 	}
 

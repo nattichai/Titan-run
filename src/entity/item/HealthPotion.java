@@ -38,8 +38,8 @@ public class HealthPotion extends Item {
 	}
 
 	public void affectTo(Characters player) {
-		// increase hp by 15
-		player.setHp(player.getHp() + 15);
+		// increase hp by 5
+		player.increaseHp(5);
 		// add score by 500
 		Model.getContainer().getPlayer().addScore(500);
 	}

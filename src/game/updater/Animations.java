@@ -1,4 +1,4 @@
-package game.animations;
+package game.updater;
 
 import entity.characters.Monster;
 import entity.characters.Player;
@@ -30,11 +30,7 @@ public class Animations {
 	}
 
 	public void startAnimation() {
-		new Thread(new Runnable() {
-			public void run() {
-				timerAnimation.play();
-			}
-		}).start();
+		timerAnimation.play();
 	}
 
 	public void pauseAnimation() {

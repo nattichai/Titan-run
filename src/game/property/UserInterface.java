@@ -12,7 +12,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import window.SceneManager;
+import scene.SceneManager;
 
 public class UserInterface {
 	private Model container;
@@ -30,13 +30,16 @@ public class UserInterface {
 	private GUIImage youAreDead;
 
 	public UserInterface(Characters character) {
+		// Load container
 		container = Model.getContainer();
-
+		
+		// Player & Monster
 		hpBar = new ProgressBar(1);
 		hpBar.setOpacity(0.8);
 
+		// Player only
 		if (character instanceof Player) {
-			name = new GUIText(0, 0, 200, 30, "Po", Color.WHITE, 15);
+			name = new GUIText(0, 0, 200, 30, "", Color.WHITE, 15);
 			name.getCanvas().setOpacity(0.5);
 			container.add(name);
 
@@ -45,7 +48,7 @@ public class UserInterface {
 			scoreText.getCanvas().getGraphicsContext2D().setTextBaseline(VPos.TOP);
 			container.add(scoreText);
 
-			cooldownArea = new GUIRectangle(365, 640, 265, 90, Color.BLACK, 0.2);
+			cooldownArea = new GUIRectangle(365, 640, 265, 90, Color.BLACK, 0.15);
 			container.add(cooldownArea);
 
 			cooldownIcon = new GUIImage[5];

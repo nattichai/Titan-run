@@ -2,58 +2,29 @@ package entity.characters;
 
 import entity.Entity;
 import entity.map.Map;
-import entity.skill.Darkspear;
-import entity.skill.Fireball;
-import entity.skill.Lightning;
-import entity.skill.Meteor;
 import entity.skill.Skill;
-import entity.skill.Slashy;
-import entity.skill.Thunderbolt;
 import game.model.Model;
-import game.property.Direction;
 import game.property.Hitbox;
 import game.property.Side;
-import game.property.UserInterface;
-import game.storage.Storage;
+import game.storage.SkillsData;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Duration;
-import window.SceneManager;
+import scene.SceneManager;
 
 public class Monster extends Characters {
 
 	protected boolean canMove, canMoveOut;
-	protected Skill skill;
 
 	private Timeline timer;
 
 	public Monster(double x, double y, int idx) {
-		super(x, y, Storage.characters[idx].width, Storage.characters[idx].height);
+		super(x, y, idx);
 
-		Storage monster = Storage.characters[idx];
-		nImage = monster.nImage;
-		images = monster.images;
-		width = monster.width;
-		height = monster.height;
-		hb = monster.hb;
-		speedX = monster.speedX;
-		speedY = monster.speedY;
-		accelX = monster.accelX;
-		accelY = monster.accelY;
-		hp = monster.hp;
-		maxHp = monster.maxHp;
-		atk = monster.atk;
-		skill = monster.skill;
-		side = Side.MONSTER;
-		direction = Direction.LEFT;
-		imageDirection = monster.imageDirection;
-		powerState = monster.powerState;
 		canMove = true;
 		canMoveOut = false;
-
-		userInterface = new UserInterface(this);
 
 		userInterface.getHpBar().setPrefSize(100, 15);
 	}
@@ -110,79 +81,72 @@ public class Monster extends Characters {
 		if (isDead()) {
 			return;
 		}
-		if (skill instanceof Fireball) {
+		if (skillIndex == 0) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				Fireball skill = new Fireball(positionX, positionY + height / 2, Fireball.SKILL_WIDTH * 5,
-						Fireball.SKILL_HEIGHT * 5);
-				skill.setOwner(this);
-				skill.setHb(new Hitbox(40, 40, 170, 70));
-				skill.getCanvas().setScaleX(-1);
-				skill.setSpeedX(-skill.getSpeedX() * 0.6);
-				Model.getContainer().add(skill);
+				Skill fireball = new Skill(positionX, positionY + height / 2, 0, this);
+				fireball.setHb(new Hitbox(40, 40, 170, 70));
+				fireball.getCanvas().setScaleX(-5);
+				fireball.getCanvas().setScaleY(5);
+				fireball.setSpeedX(-fireball.getSpeedX() * 0.6);
+				Model.getContainer().add(fireball);
 			}));
 			timer.setCycleCount(1);
 			timer.play();
 		}
 
-		else if (skill instanceof Lightning) {
+		else if (skillIndex == 1) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				Lightning skill = new Lightning(140, 0, Lightning.SKILL_WIDTH, Lightning.SKILL_HEIGHT);
-				skill.setOwner(this);
-				skill.getCanvas().setScaleX(-1);
-				skill.setSpeedX(-skill.getSpeedX());
-				Model.getContainer().add(skill);
+				Skill lightning = new Skill(140, 0, 1, this);
+				lightning.getCanvas().setScaleX(-1);
+				lightning.setSpeedX(-lightning.getSpeedX());
+				Model.getContainer().add(lightning);
 			}));
 			timer.setCycleCount(6);
 			timer.play();
 		}
 
-		else if (skill instanceof Thunderbolt) {
+		else if (skillIndex == 2) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				skill = new Thunderbolt(SceneManager.SCREEN_WIDTH - Thunderbolt.SKILL_WIDTH, 0, Thunderbolt.SKILL_WIDTH,
-						Thunderbolt.SKILL_HEIGHT);
-				skill.setOwner(this);
-				skill.getCanvas().setScaleX(-1);
-				skill.setSpeedX(-skill.getSpeedX());
-				Model.getContainer().add(skill);
+				Skill thunderbolt = new Skill(SceneManager.SCREEN_WIDTH - SkillsData.data[2].getWidth(), 0, 2, this);
+				thunderbolt.getCanvas().setScaleX(-1);
+				thunderbolt.setSpeedX(-thunderbolt.getSpeedX());
+				Model.getContainer().add(thunderbolt);
 			}));
 			timer.setCycleCount(1);
 			timer.play();
 		}
 
-		else if (skill instanceof Meteor) {
+		else if (skillIndex == 3) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				skill = new Meteor(SceneManager.SCREEN_WIDTH - 100, -500, Meteor.SKILL_WIDTH, Meteor.SKILL_HEIGHT);
-				skill.setOwner(this);
-				skill.getCanvas().setRotate(127);
-				skill.setPositionX(skill.getCanvas().getTranslateX());
-				skill.setPositionY(skill.getCanvas().getTranslateY());
-				skill.setSpeedX(-skill.getSpeedX());
-				Model.getContainer().add(skill);
+				Skill slashy = new Skill(0, 0, 3, this);
+				slashy.getCanvas().setScaleX(-1);
+				slashy.setSpeedX(-slashy.getSpeedX());
+				Model.getContainer().add(slashy);
 			}));
 			timer.setCycleCount(1);
 			timer.play();
 		}
 
-		else if (skill instanceof Slashy) {
+		else if (skillIndex == 5) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				skill = new Slashy(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
-				skill.setOwner(this);
-				skill.getCanvas().setScaleX(-1);
-				skill.setSpeedX(-skill.getSpeedX());
-				Model.getContainer().add(skill);
+				Skill meteor = new Skill(SceneManager.SCREEN_WIDTH - 100, -500, 5, this);
+				meteor.getCanvas().setRotate(127);
+				meteor.setPositionX(meteor.getCanvas().getTranslateX());
+				meteor.setPositionY(meteor.getCanvas().getTranslateY());
+				meteor.setSpeedX(-meteor.getSpeedX());
+				Model.getContainer().add(meteor);
 			}));
 			timer.setCycleCount(1);
 			timer.play();
 		}
 
-		else if (skill instanceof Darkspear) {
+		else if (skillIndex == 6) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-				skill = new Darkspear(SceneManager.SCREEN_WIDTH - Darkspear.SKILL_WIDTH,
-						Map.FLOOR_HEIGHT - height / 2 - Darkspear.SKILL_HEIGHT / 2, Darkspear.SKILL_WIDTH,
-						Darkspear.SKILL_HEIGHT);
-				skill.setOwner(this);
-				skill.setSpeedX(-skill.getSpeedX());
-				Model.getContainer().add(skill);
+				Skill skillIndex = new Skill(SceneManager.SCREEN_WIDTH - SkillsData.data[6].getWidth(),
+						Map.FLOOR_HEIGHT - (height + SkillsData.data[6].getHeight()) / 2, 6, this);
+				skillIndex.setOwner(this);
+				skillIndex.setSpeedX(-skillIndex.getSpeedX());
+				Model.getContainer().add(skillIndex);
 			}));
 			timer.setCycleCount(1);
 			timer.play();
