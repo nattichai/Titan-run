@@ -54,6 +54,7 @@ public class Updater {
 
 	private static Map map;
 	private static Player player;
+	private static Boss robotek;
 	private static double spaceObstacle;
 	private static double spaceItem;
 	private static double spaceMonster;
@@ -79,11 +80,17 @@ public class Updater {
 		if (timerUpdate != null) {
 			timerUpdate.pause();
 		}
+		if (robotek != null) {
+			robotek.pauseAllTimeline();
+		}
 	}
 
 	public void continueGame() {
 		if (timerUpdate != null) {
 			timerUpdate.play();
+		}
+		if (robotek != null) {
+			robotek.continueAllTimeline();
 		}
 	}
 
@@ -91,16 +98,22 @@ public class Updater {
 		if (timerUpdate != null) {
 			timerUpdate.stop();
 		}
+		if (robotek != null) {
+			robotek.stopAllTimeline();
+		}
 	}
 
 	private static void generateMap() {
 		if (distance >= GameMain.STAGE_DISTANCE) {
 			distance = 0;
+			isBossStage = true;
 			showWarning();
 		}
 		if (!isBossStage && player != null) {
 			distance += GameMain.getSpeed();
-			normalStage();
+			if (distance + 1000 < GameMain.STAGE_DISTANCE) {
+				normalStage();
+			}
 		}
 	}
 
@@ -167,6 +180,12 @@ public class Updater {
 			e.setCanMoveOut(true);
 		});
 
+		SceneManager.setTrasitioning(true);
+
+		// force release spacebar
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
+				false, false, false));
+
 		GUIText warning = new GUIText(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT, "WARNING",
 				Color.rgb(0xC0, 0, 0), 150);
 		GUIRectangle warningBackground = new GUIRectangle(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
@@ -196,13 +215,7 @@ public class Updater {
 	}
 
 	private static void bossStage() {
-		isBossStage = true;
-		// force release spacebar
-		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
-				false, false, false));
-		SceneManager.setTrasitioning(true);
-
-		Boss robotek = new Boss(SceneManager.SCREEN_WIDTH + 100, 150, 7);
+		robotek = new Boss(SceneManager.SCREEN_WIDTH + 100, 150, 7);
 		robotek.moveTo(600, 150, 3000);
 		Model.getContainer().add(robotek);
 
@@ -244,8 +257,6 @@ public class Updater {
 	}
 
 	public static void victory() {
-		SceneManager.setTrasitioning(true);
-
 		if (player != null) {
 			player.setSpeedX((90 - player.getPositionX()) / FPS);
 		}
@@ -361,7 +372,22 @@ public class Updater {
 		}
 		Model.getContainer().getSkillList().forEach(e -> e.drawHb());
 	}
-	
+
+	public static boolean isBossReady() {
+		if (robotek == null) {
+			return false;
+		}
+		return robotek.isReady();
+	}
+
+	public static Timeline getTimerUpdate() {
+		return timerUpdate;
+	}
+
+	public static void setDistance(double distance) {
+		Updater.distance = distance;
+	}
+
 	public static void setPlayer() {
 		player = Model.getContainer().getPlayer();
 	}

@@ -28,7 +28,7 @@ public class GameMain {
 		gamePane.getChildren().add(container.getSkillPane());
 		gamePane.getChildren().add(container.getEffectPane());
 		gamePane.getChildren().add(container.getGuiPane());
-		
+
 		Updater.setPlayer();
 	}
 

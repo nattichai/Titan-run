@@ -54,11 +54,6 @@ public class GameHandler {
 			player.makeShield();
 		}
 
-		// H = HEAL
-		else if (event.getCode() == KeyCode.H) {
-			player.increaseHp(124356789);
-		}
-
 		// W = LIGHTNING
 		else if (event.getCode() == KeyCode.W && Animations.getTimerAnimation().getStatus() != Status.PAUSED) {
 			player.useLightning();
@@ -74,9 +69,35 @@ public class GameHandler {
 			player.useSlashy();
 		}
 
+		/* BELOW KEY IS A CHEAT FOR DEBUGING */
+		// H = HEAL
+		else if (event.getCode() == KeyCode.H) {
+			player.increaseHp(123456789);
+		}
+
 		// S = SUICIDE
 		else if (event.getCode() == KeyCode.S) {
 			player.decreaseHp(987654321);
+		}
+
+		// B = BUFF ATK
+		else if (event.getCode() == KeyCode.B) {
+			if (player.getAtk() < 100) {
+				player.setAtk(1234);
+			} else {
+				player.setAtk(10);
+			}
+		}
+
+		// N = NO COOLDOWN
+		else if (event.getCode() == KeyCode.N) {
+			player.decreaseCooldown(100);
+		}
+
+		// G = GOTO BOSS
+		else if (event.getCode() == KeyCode.G) {
+			player.addDistance(50000);
+			Updater.setDistance(50000);
 		}
 
 		keys.add(event.getCode());
@@ -101,7 +122,9 @@ public class GameHandler {
 
 		// NORMAL STATE
 		else if (event.getCode() == KeyCode.SPACE) {
-			player.setPowerState(PowerState.NORMAL);
+			if (!player.isInjuring()) {
+				player.setPowerState(PowerState.NORMAL);
+			}
 			for (Skill skill : Model.getContainer().getSkillList()) {
 				if (skill.getIndex() == 4) {
 					skill.setPositionX(-1000); // delete shield
@@ -124,13 +147,13 @@ public class GameHandler {
 		}
 
 		// RIGHT ARROW = RIGHT WALK
-		if (keys.contains(KeyCode.RIGHT) && Updater.isBossStage()) {
+		if (keys.contains(KeyCode.RIGHT) && Updater.isBossReady()) {
 			player.setDirection(Direction.RIGHT);
 			player.setSpeedX(10);
 		}
 
 		// LEFT ARROW = LEFT WALK
-		if (keys.contains(KeyCode.LEFT) && Updater.isBossStage()) {
+		if (keys.contains(KeyCode.LEFT) && Updater.isBossReady()) {
 			player.setDirection(Direction.LEFT);
 			player.setSpeedX(-10);
 		}

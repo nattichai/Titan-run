@@ -1,6 +1,5 @@
 package game.model;
 
-import game.updater.Updater;
 import javafx.scene.media.AudioClip;
 
 public class BackgroundMusic {
@@ -20,7 +19,7 @@ public class BackgroundMusic {
 	public static AudioClip getBossStageBGM() {
 		return bossStageBGM;
 	}
-	
+
 	public static AudioClip getWarningSiren() {
 		return warningSiren;
 	}
@@ -29,39 +28,39 @@ public class BackgroundMusic {
 		return mainMenuBGM;
 	}
 
-	public static void playNormalStageBGM(){
+	public static void playNormalStageBGM() {
 		normalStageBGM.setCycleCount(AudioClip.INDEFINITE);
 		normalStageBGM.play();
 	}
-	
-	public static void stopNormalStageBGM(){
+
+	public static void stopNormalStageBGM() {
 		normalStageBGM.stop();
 	}
-	
-	public static void playBossStageBGM(){
+
+	public static void playBossStageBGM() {
 		bossStageBGM.setCycleCount(AudioClip.INDEFINITE);
 		bossStageBGM.play();
 	}
-	
-	public static void stopBossStageBGM(){
+
+	public static void stopBossStageBGM() {
 		bossStageBGM.stop();
 	}
-	
-	public static void playWarningSiren(){
+
+	public static void playWarningSiren() {
 		warningSiren.setCycleCount(3);
 		warningSiren.play();
 	}
-	
-	public static void stopWarningSiren(){
+
+	public static void stopWarningSiren() {
 		warningSiren.stop();
 	}
-	
-	public static void playMainMenuBGM(){
+
+	public static void playMainMenuBGM() {
 		mainMenuBGM.setCycleCount(AudioClip.INDEFINITE);
 		mainMenuBGM.play();
 	}
-	
-	public static void stopMainmenuBGM(){
+
+	public static void stopMain​MenuBGM() {
 		mainMenuBGM.stop();
 	}
 }

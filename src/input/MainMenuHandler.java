@@ -9,7 +9,7 @@ import scene.SceneManager;
 public class MainMenuHandler {
 
 	public static void keyPressed(KeyEvent event) {
-		if (MainMenu.isTransitioning()) {
+		if (MainMenu.isTransitioning() || SceneManager.isTrasitioning()) {
 			return;
 		}
 		if (event.getCode() == KeyCode.ENTER) {
@@ -22,6 +22,9 @@ public class MainMenuHandler {
 	}
 
 	public static void mouseMoved(MouseEvent event, int idx) {
+		if (MainMenu.isTransitioning() || SceneManager.isTrasitioning()) {
+			return;
+		}
 		if (MainMenu.getSelectedMenu() != idx - 1) {
 			MainMenu.setSelectedMenu(idx - 1);
 			MainMenu.selectMenu();
@@ -29,14 +32,14 @@ public class MainMenuHandler {
 	}
 
 	public static void mouseClicked(MouseEvent event) {
-		if (MainMenu.isTransitioning()) {
+		if (MainMenu.isTransitioning() || SceneManager.isTrasitioning()) {
 			return;
 		}
 		MainMenu.chooseEffect();
 	}
 
 	public static void registerKeyPressed(KeyEvent event) {
-		if (SceneManager.isTrasitioning()) {
+		if (MainMenu.isTransitioning() || SceneManager.isTrasitioning()) {
 			return;
 		}
 		try {

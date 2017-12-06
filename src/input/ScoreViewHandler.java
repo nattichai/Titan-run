@@ -10,7 +10,7 @@ public class ScoreViewHandler {
 		if (SceneManager.isTrasitioning()) {
 			return;
 		}
-		
+
 		if (event.getCode() == KeyCode.ENTER) {
 			SceneManager.gotoMainMenu();
 		}

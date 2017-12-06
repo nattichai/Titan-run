@@ -9,8 +9,12 @@ import game.model.gui.GUIDamage;
 import game.property.Direction;
 import game.property.PowerState;
 import game.updater.Updater;
+import input.GameHandler;
+import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import scene.SceneManager;
 
@@ -76,7 +80,7 @@ public class Boss extends Monster {
 	}
 
 	public void update() {
-		if (!isAttack) {
+		if (!isAttack && Updater.getTimerUpdate().getStatus() == Status.RUNNING) {
 			isAttack = true;
 			if (step == 0 || step == 1 || step == 3) {
 				goAround();
@@ -165,6 +169,13 @@ public class Boss extends Monster {
 		Model.getContainer().getPlayer().addScore(20000);
 
 		stopAllTimeline(); // stop skill animation if it not stop yet
+		isReady = false;
+
+		SceneManager.setTrasitioning(true);
+
+		// force release spacebar
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
+				false, false, false));
 
 		Random rnd = new Random();
 		Timeline shake = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
@@ -175,12 +186,48 @@ public class Boss extends Monster {
 		shake.setCycleCount((int) (Updater.FPS * 3));
 		shake.play();
 		shake.setOnFinished(e -> {
-			hp = 0.00001;
+			canvas.setOpacity(0);
 			Updater.victory();
 		});
 	}
 
-	private void stopAllTimeline() {
+	public void pauseAllTimeline() {
+		if (goAroundTimeline != null)
+			if (goAroundTimeline.getStatus() == Status.RUNNING)
+				goAroundTimeline.pause();
+		if (attackTimeline != null)
+			if (attackTimeline.getStatus() == Status.RUNNING)
+				attackTimeline.pause();
+		if (moveTimeline != null)
+			if (moveTimeline.getStatus() == Status.RUNNING)
+				moveTimeline.pause();
+		if (beamTimeline != null)
+			if (beamTimeline.getStatus() == Status.RUNNING)
+				beamTimeline.pause();
+		if (moveTo != null)
+			if (moveTo.getStatus() == Status.RUNNING)
+				moveTo.pause();
+	}
+
+	public void continueAllTimeline() {
+		if (goAroundTimeline != null)
+			if (goAroundTimeline.getStatus() == Status.PAUSED)
+				goAroundTimeline.play();
+		if (attackTimeline != null)
+			if (attackTimeline.getStatus() == Status.PAUSED)
+				attackTimeline.play();
+		if (moveTimeline != null)
+			if (moveTimeline.getStatus() == Status.PAUSED)
+				moveTimeline.play();
+		if (beamTimeline != null)
+			if (beamTimeline.getStatus() == Status.PAUSED)
+				beamTimeline.play();
+		if (moveTo != null)
+			if (moveTo.getStatus() == Status.PAUSED)
+				moveTo.play();
+	}
+
+	public void stopAllTimeline() {
 		if (goAroundTimeline != null)
 			goAroundTimeline.stop();
 		if (attackTimeline != null)

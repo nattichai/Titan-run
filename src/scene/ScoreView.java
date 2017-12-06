@@ -14,7 +14,7 @@ import javafx.scene.text.TextAlignment;
 
 public class ScoreView {
 	private static final Font FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/SukhumvitSet.ttc"), 40);
-	
+
 	private static Canvas canvas;
 	private static Pane scoreViewPane;
 
@@ -27,7 +27,7 @@ public class ScoreView {
 		int rank = getRank();
 
 		canvas = new Canvas(SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
-		
+
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Color.BLACK);
 		gc.setGlobalAlpha(0.5);

@@ -45,6 +45,7 @@ public class Player extends Characters {
 	protected double score;
 	protected double[] cooldown;
 	protected double distance;
+	protected boolean isInjuring;
 
 	public Player(double x, double y, int idx) {
 		super(x, y, idx);
@@ -67,6 +68,7 @@ public class Player extends Characters {
 		score = 0;
 		cooldown = new double[5];
 		distance = 0;
+		isInjuring = false;
 
 		userInterface.setName(MainMenu.getRegisterName().getText());
 		userInterface.getHpBar().setPrefSize(200, 15);
@@ -265,6 +267,7 @@ public class Player extends Characters {
 	}
 
 	public void injured() {
+		isInjuring = true;
 		powerState = PowerState.IMMORTAL;
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
 			if (canvas.getOpacity() == 1)
@@ -275,6 +278,7 @@ public class Player extends Characters {
 		timeline.setCycleCount(16);
 		timeline.play();
 		timeline.setOnFinished(e -> {
+			isInjuring = false;
 			powerState = PowerState.NORMAL;
 			isCollided = false;
 		});
@@ -283,6 +287,7 @@ public class Player extends Characters {
 
 	public void die() {
 		hp = 0.00001;
+		ScoreView.setPlayer(userInterface.getName().getText(), score);
 		Updater.playerDead();
 		GameMain.pauseGame();
 		GameMain.setSpeed(2);
@@ -294,7 +299,6 @@ public class Player extends Characters {
 		timeline.setCycleCount((int) Updater.FPS / 2);
 		timeline.play();
 		timeline.setOnFinished(e -> {
-			ScoreView.setPlayer(userInterface.getName().getText(), score);
 			GameMain.continueGame();
 			userInterface.dead();
 			Model.getContainer().remove(this);
@@ -390,6 +394,13 @@ public class Player extends Characters {
 
 	public void addDistance(double d) {
 		distance += d;
+		if (distance > GameMain.STAGE_DISTANCE) {
+			distance = GameMain.STAGE_DISTANCE;
+		}
 		userInterface.updateDistance(distance / GameMain.STAGE_DISTANCE);
+	}
+
+	public boolean isInjuring() {
+		return isInjuring;
 	}
 }

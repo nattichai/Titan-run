@@ -64,9 +64,12 @@ public class MainMenu {
 			ft.setToValue(1);
 			ft.play();
 		}
-		BackgroundMusic.stopBossStageBGM();
-		BackgroundMusic.stopNormalStageBGM();
-		BackgroundMusic.playMainMenuBGM();
+
+		if (!BackgroundMusic.getMainMenuBGM().isPlaying()) {
+			BackgroundMusic.stopBossStageBGM();
+			BackgroundMusic.stopNormalStageBGM();
+			BackgroundMusic.playMainMenuBGM();
+		}
 
 		selectedMenu = 0;
 		selectMenu();
@@ -132,7 +135,7 @@ public class MainMenu {
 		if (selectedMenu == 0) {
 			register();
 		} else if (selectedMenu == 1) {
-			SceneManager.gotoGame();
+			SceneManager.gotoRankings();
 		} else if (selectedMenu == 2) {
 			Platform.exit();
 		}
@@ -169,8 +172,8 @@ public class MainMenu {
 		for (int i = 4; i < 8; ++i) {
 			ft = new FadeTransition(Duration.millis(1000), menus[i].getCanvas());
 			ft.setFromValue(0);
-			if (i == 6) {
-				ft.setToValue(0.8);
+			if (i == 5 || i == 6) {
+				ft.setToValue(0.9);
 			} else {
 				ft.setToValue(0.5);
 			}

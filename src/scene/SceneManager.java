@@ -49,8 +49,16 @@ public class SceneManager {
 		newPane.setOnKeyPressed(event -> GameHandler.keyPressed(event));
 		newPane.setOnKeyReleased(event -> GameHandler.keyReleased(event));
 		gotoSceneOf(newPane, 10);
-		BackgroundMusic.stopMainmenuBGM();
+		BackgroundMusic.stopMain​MenuBGM();
 		BackgroundMusic.playNormalStageBGM();
+	}
+
+	public static void gotoRankings() {
+		Rankings.initialize();
+		newPane = Rankings.getRankingsPane();
+		newPane.setFocusTraversable(true);
+		newPane.setOnKeyPressed(event -> ScoreViewHandler.keyPressed(event));
+		gotoSceneOf(newPane, 5);
 	}
 
 	public static void gotoScoreView() {

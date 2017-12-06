@@ -204,8 +204,7 @@ public class Monster extends Characters {
 	}
 
 	public boolean isDead() {
-		if (canvas.getOpacity() == 0 || hp == 0.00001 || positionX <= -150
-				|| positionX >= SceneManager.SCREEN_WIDTH + 150) {
+		if (canvas.getOpacity() == 0 || positionX <= -150 || positionX >= SceneManager.SCREEN_WIDTH + 150) {
 			Model.getContainer().getMonsterPane().getChildren().removeAll(canvas, userInterface.getHpBar());
 			return true;
 		}
