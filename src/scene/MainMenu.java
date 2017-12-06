@@ -1,5 +1,6 @@
 package scene;
 
+import game.model.BackgroundMusic;
 import game.model.GUI;
 import game.model.gui.GUIImage;
 import game.model.gui.GUIRectangle;
@@ -34,8 +35,6 @@ public class MainMenu {
 		menus[6] = new GUIText(200, 425, 600, 75, "", Color.BLACK, 40);
 		menus[7] = new GUIText(200, 490, 600, 35, "", Color.BLACK, 20);
 	}
-	private static final AudioClip backgroundMusic = new AudioClip(
-			ClassLoader.getSystemResource("sounds/songs/07_Opening Stage Zero.mp3").toString());;
 	private static final AudioClip selectfx = new AudioClip(
 			ClassLoader.getSystemResource("sounds/otherfx/SelectButton.wav").toString());;
 	private static final AudioClip movefx = new AudioClip(
@@ -65,9 +64,9 @@ public class MainMenu {
 			ft.setToValue(1);
 			ft.play();
 		}
-		if (!backgroundMusic.isPlaying()) {
-			backgroundMusic.play();
-		}
+		BackgroundMusic.stopBossStageBGM();
+		BackgroundMusic.stopNormalStageBGM();
+		BackgroundMusic.playMainMenuBGM();
 
 		selectedMenu = 0;
 		selectMenu();

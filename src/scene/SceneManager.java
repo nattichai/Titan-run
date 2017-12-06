@@ -1,5 +1,6 @@
 package scene;
 
+import game.model.BackgroundMusic;
 import game.model.Map;
 import game.updater.Updater;
 import input.GameHandler;
@@ -48,6 +49,8 @@ public class SceneManager {
 		newPane.setOnKeyPressed(event -> GameHandler.keyPressed(event));
 		newPane.setOnKeyReleased(event -> GameHandler.keyReleased(event));
 		gotoSceneOf(newPane, 10);
+		BackgroundMusic.stopMainmenuBGM();
+		BackgroundMusic.playNormalStageBGM();
 	}
 
 	public static void gotoScoreView() {

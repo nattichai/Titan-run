@@ -3,6 +3,7 @@ package game.updater;
 import java.util.ArrayList;
 import java.util.Random;
 
+import game.model.BackgroundMusic;
 import game.model.Characters;
 import game.model.Entity;
 import game.model.Item;
@@ -190,6 +191,9 @@ public class Updater {
 			Model.getContainer().remove(warningBackground);
 			bossStage();
 		});
+		BackgroundMusic.stopNormalStageBGM();
+		BackgroundMusic.playWarningSiren();
+		BackgroundMusic.playBossStageBGM();
 	}
 
 	private static void bossStage() {
@@ -266,6 +270,8 @@ public class Updater {
 			}
 			SceneManager.setTrasitioning(false);
 		});
+		BackgroundMusic.stopBossStageBGM();
+		BackgroundMusic.playNormalStageBGM();
 	}
 
 	private static void moveAll() {
