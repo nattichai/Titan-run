@@ -55,7 +55,7 @@ public class SceneManager {
 		newPane = ScoreView.getScoreViewPane();
 		newPane.setFocusTraversable(true);
 		newPane.setOnKeyPressed(event -> ScoreViewHandler.keyPressed(event));
-		gotoSceneOf(newPane, 1);
+		gotoSceneOf(newPane, 5);
 	}
 
 	public static void gotoSceneOf(Pane pane, double speed) {

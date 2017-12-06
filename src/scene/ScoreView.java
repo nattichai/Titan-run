@@ -14,19 +14,20 @@ import javafx.scene.text.TextAlignment;
 
 public class ScoreView {
 	private static final Font FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/SukhumvitSet.ttc"), 40);
+	
+	private static Canvas canvas;
+	private static Pane scoreViewPane;
 
 	private static List<Score> data;
 
 	private static String playerName;
 	private static double playerScore;
 
-	private static final Canvas canvas = new Canvas(SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
-
-	private static Pane scoreViewPane;
-
 	public static void initialize() {
 		int rank = getRank();
 
+		canvas = new Canvas(SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Color.BLACK);
 		gc.setGlobalAlpha(0.5);
@@ -56,7 +57,9 @@ public class ScoreView {
 		gc.fillText("enter to continue", 500, 557);
 
 		gc.setFont(new Font(FONT.getName(), 30));
-		gc.fillText("Top runner", 655, 280);
+		gc.fillText("Top runner", 655, 270);
+		gc.setLineWidth(1);
+		gc.strokeText("Top runner", 655, 270);
 		if (rank > 5) {
 			gc.fillText("unranked", 337, 445);
 		} else {
