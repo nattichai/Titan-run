@@ -2,7 +2,7 @@ package scene;
 
 import java.util.List;
 
-import game.storage.Score;
+import game.model.Score;
 import game.storage.ScoreData;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;

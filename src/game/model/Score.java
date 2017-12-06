@@ -1,4 +1,4 @@
-package game.storage;
+package game.model;
 
 import java.io.Serializable;
 

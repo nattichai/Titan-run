@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.model.Score;
+import utility.ResourceManager;
+
 public class ScoreData implements Serializable {
 
 	private static final long serialVersionUID = -7497087449864406759L;
