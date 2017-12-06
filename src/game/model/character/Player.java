@@ -23,6 +23,7 @@ import javafx.util.Duration;
 import scene.GameMain;
 import scene.MainMenu;
 import scene.SceneManager;
+import scene.ScoreView;
 
 public class Player extends Characters {
 	public static final double LIMIT_NORMAL_ATTACK = 10;
@@ -293,6 +294,7 @@ public class Player extends Characters {
 		timeline.setCycleCount((int) Updater.FPS / 2);
 		timeline.play();
 		timeline.setOnFinished(e -> {
+			ScoreView.setPlayer(userInterface.getName().getText(), score);
 			GameMain.continueGame();
 			userInterface.dead();
 			Model.getContainer().remove(this);

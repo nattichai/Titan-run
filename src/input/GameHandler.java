@@ -36,10 +36,11 @@ public class GameHandler {
 		}
 
 		// ENTER = RESTART
-		else if (event.getCode() == KeyCode.ENTER && Model.getContainer().getPlayerPane().getChildren().isEmpty()) {
+		else if (event.getCode() == KeyCode.ENTER && player.isDead()) {
 			Model.getContainer().clearAllData();
 			GameMain.stopGame();
-			SceneManager.gotoMainMenu();
+
+			SceneManager.gotoScoreView();
 		}
 
 		// UP ARROW = JUMP

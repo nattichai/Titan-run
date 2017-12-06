@@ -4,6 +4,7 @@ import game.model.Map;
 import game.updater.Updater;
 import input.GameHandler;
 import input.MainMenuHandler;
+import input.ScoreViewHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -47,6 +48,14 @@ public class SceneManager {
 		newPane.setOnKeyPressed(event -> GameHandler.keyPressed(event));
 		newPane.setOnKeyReleased(event -> GameHandler.keyReleased(event));
 		gotoSceneOf(newPane, 10);
+	}
+
+	public static void gotoScoreView() {
+		ScoreView.initialize();
+		newPane = ScoreView.getScoreViewPane();
+		newPane.setFocusTraversable(true);
+		newPane.setOnKeyPressed(event -> ScoreViewHandler.keyPressed(event));
+		gotoSceneOf(newPane, 1);
 	}
 
 	public static void gotoSceneOf(Pane pane, double speed) {

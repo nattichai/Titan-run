@@ -102,6 +102,10 @@ public class UserInterface {
 		}
 	}
 
+	public GUIText getName() {
+		return name;
+	}
+
 	public void setName(String s) {
 		name.setText(s);
 		name.draw();
