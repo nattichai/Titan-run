@@ -63,7 +63,6 @@ public class Updater {
 
 	public Updater() {
 		map = SceneManager.getMap();
-		player = Model.getContainer().getPlayer();
 		spaceObstacle = GameMain.OBSTACLE_SPACE;
 		spaceItem = GameMain.ITEM_SPACE;
 		spaceMonster = GameMain.MONSTER_SPACE;
@@ -99,7 +98,7 @@ public class Updater {
 			distance = 0;
 			showWarning();
 		}
-		if (!isBossStage) {
+		if (!isBossStage && player != null) {
 			distance += GameMain.getSpeed();
 			normalStage();
 		}
@@ -361,6 +360,10 @@ public class Updater {
 			player.drawHb();
 		}
 		Model.getContainer().getSkillList().forEach(e -> e.drawHb());
+	}
+	
+	public static void setPlayer() {
+		player = Model.getContainer().getPlayer();
 	}
 
 	public static void playerDead() {

@@ -285,7 +285,7 @@ public class Player extends Characters {
 		hp = 0.00001;
 		Updater.playerDead();
 		GameMain.pauseGame();
-		// GameMain.setSpeed(2);
+		GameMain.setSpeed(2);
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
 			positionY += 10;
 			canvas.setTranslateY(positionY);
