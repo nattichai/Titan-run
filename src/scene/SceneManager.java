@@ -70,8 +70,8 @@ public class SceneManager {
 	}
 
 	public static void gotoSceneOf(Pane pane, double speed) {
-		double accel = (speed - GameMain.getSpeed()) / (2 * Updater.FPS * 3);
-		double distance = (speed + GameMain.getSpeed()) / 2 * (2 * Updater.FPS * 3);
+		double accel = (speed - GameMain.getSpeed()) / (1.5 * Updater.FPS * 6);
+		double distance = (speed + GameMain.getSpeed()) / 2 * (1.5 * Updater.FPS * 6);
 
 		pane.setTranslateX(distance);
 
@@ -80,12 +80,12 @@ public class SceneManager {
 		}
 
 		isTrasitioning = true;
-		Timeline transition = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME / 3), e -> {
+		Timeline transition = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME / 6), e -> {
 			GameMain.setSpeed(GameMain.getSpeed() + accel);
 			oldPane.setTranslateX(oldPane.getTranslateX() - GameMain.getSpeed());
 			pane.setTranslateX(pane.getTranslateX() - GameMain.getSpeed());
 		}));
-		transition.setCycleCount((int) (Updater.FPS * 2) * 3);
+		transition.setCycleCount((int) (1.5 * Updater.FPS * 6));
 		transition.play();
 		transition.setOnFinished(e -> {
 			isTrasitioning = false;

@@ -149,7 +149,7 @@ public class CharactersData {
 		}
 		robotek.width = 400;
 		robotek.height = 164;
-		robotek.hb = new Hitbox(160, 32, 80, 100);
+		robotek.hb = new Hitbox(75, 32, 250, 100);
 		robotek.speedX = 0;
 		robotek.speedY = 0;
 		robotek.accelX = 0;

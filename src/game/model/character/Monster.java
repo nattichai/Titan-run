@@ -86,7 +86,7 @@ public class Monster extends Characters {
 		if (skillIndex == 0) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill fireball = new Skill(positionX, positionY + height / 2, 0, this);
-				fireball.setHb(new Hitbox(40, 40, 170, 70));
+				fireball.setHb(new Hitbox(0, 0, 250, 150));
 				fireball.getCanvas().setScaleX(-5);
 				fireball.getCanvas().setScaleY(5);
 				fireball.setSpeedX(-fireball.getSpeedX() * 0.6);
@@ -110,6 +110,7 @@ public class Monster extends Characters {
 		else if (skillIndex == 2) {
 			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill thunderbolt = new Skill(SceneManager.SCREEN_WIDTH - SkillsData.data[2].getWidth(), 0, 2, this);
+				thunderbolt.setHb(new Hitbox(200, 0, 120, SceneManager.SCREEN_HEIGHT));
 				thunderbolt.getCanvas().setScaleX(-1);
 				thunderbolt.setSpeedX(-thunderbolt.getSpeedX());
 				Model.getContainer().add(thunderbolt);
