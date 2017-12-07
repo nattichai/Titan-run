@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import game.model.character.Monster;
 import game.model.character.Player;
 import input.GameHandler;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 
@@ -101,10 +102,18 @@ public class Model {
 			effectList.add((Effect) object);
 			effectPane.getChildren().add(canvas);
 		}
+		
+		else if (object instanceof Canvas) {
+			guiPane.getChildren().add((Canvas) object);
+		}
 	}
 
 	public void remove(Object object) {
-		Canvas canvas = ((Entity) object).getCanvas();
+		Canvas canvas = null;
+		if (object instanceof Entity) {
+			canvas = ((Entity) object).getCanvas();
+		}
+		
 		if (object instanceof Obstacle) {
 			obstacleList.remove((Obstacle) object);
 			obstaclePane.getChildren().remove(canvas);
@@ -143,6 +152,10 @@ public class Model {
 		else if (object instanceof Effect) {
 			effectList.remove((Effect) object);
 			effectPane.getChildren().remove(canvas);
+		}
+		
+		else if (object instanceof Canvas) {
+			guiPane.getChildren().remove((Canvas) object);
 		}
 	}
 

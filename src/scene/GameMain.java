@@ -1,8 +1,11 @@
 package scene;
 
+import game.model.BackgroundMusic;
 import game.model.Model;
+import game.property.UserInterface;
 import game.updater.Animations;
 import game.updater.Updater;
+import javafx.animation.Animation.Status;
 import javafx.scene.layout.Pane;
 
 public class GameMain {
@@ -41,6 +44,18 @@ public class GameMain {
 		animations = new Animations();
 		updater.startGame();
 		animations.startAnimation();
+	}
+	
+	public static void pauseOrResumeGame() {
+		if (Animations.getTimerAnimation().getStatus() == Status.PAUSED) {
+			continueGame();
+			UserInterface.closePauseArea();
+			BackgroundMusic.continueMusic();
+		} else {
+			pauseGame();
+			UserInterface.showPauseArea();
+			BackgroundMusic.pauseMusic();
+		}
 	}
 
 	public static void pauseGame() {

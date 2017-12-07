@@ -80,7 +80,7 @@ public class SceneManager {
 			root.getChildren().add(pane);
 		}
 
-		isTrasitioning = true;
+		setTrasitioning(true);
 		Timeline transition = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME / 6), e -> {
 			GameMain.setSpeed(GameMain.getSpeed() + accel);
 			oldPane.setTranslateX(oldPane.getTranslateX() - GameMain.getSpeed());
@@ -89,6 +89,7 @@ public class SceneManager {
 		transition.setCycleCount((int) (1.5 * Updater.FPS * 6));
 		transition.play();
 		transition.setOnFinished(e -> {
+			pane.setTranslateX(0);
 			isTrasitioning = false;
 			root.getChildren().remove(oldPane);
 			oldPane = pane;
@@ -118,6 +119,8 @@ public class SceneManager {
 		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "LEFT", KeyCode.LEFT, false,
 				false, false, false));
 		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "RIGHT", KeyCode.RIGHT, false,
+				false, false, false));
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "Q", KeyCode.Q, false,
 				false, false, false));
 
 		SceneManager.isTrasitioning = isTrasitioning;

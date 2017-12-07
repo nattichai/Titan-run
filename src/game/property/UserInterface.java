@@ -1,5 +1,6 @@
 package game.property;
 
+import game.model.BackgroundMusic;
 import game.model.Characters;
 import game.model.Model;
 import game.model.character.Player;
@@ -7,15 +8,21 @@ import game.model.gui.GUIImage;
 import game.model.gui.GUIProgress;
 import game.model.gui.GUIRectangle;
 import game.model.gui.GUIText;
+import game.updater.Animations;
+import javafx.animation.Animation.Status;
 import javafx.geometry.VPos;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import scene.GameMain;
 import scene.SceneManager;
 
 public class UserInterface {
-	private Model container;
+	private static Model container;
 
 	private GUIText name;
 	private GUIText stageText;
@@ -28,6 +35,8 @@ public class UserInterface {
 	private ProgressBar hpBar;
 	private ProgressBar manaBar;
 	private GUIImage playerIcon;
+	private GUIImage pauseButton;
+	private static Canvas pauseArea;
 	private GUIImage youAreDead;
 
 	public UserInterface(Characters character) {
@@ -96,6 +105,15 @@ public class UserInterface {
 
 			playerIcon = new GUIImage(160, 80, 50, 50, new Image("images/cutscene/player icon.png"), 50, 50);
 			container.add(playerIcon);
+
+			pauseButton = new GUIImage(850, 50, 100, 100, new Image("images/cutscene/pause button.png"), 80, 80);
+			GraphicsContext gc = pauseButton.getCanvas().getGraphicsContext2D();
+			gc.setGlobalAlpha(0.5);
+			gc.fillOval(10, 10, 80, 80);
+			gc.setGlobalAlpha(1);
+			pauseButton.draw();
+			pauseButton.getCanvas().setOnMouseClicked(e -> GameMain.pauseOrResumeGame());
+			container.add(pauseButton);
 
 			youAreDead = new GUIImage(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
 					new Image("images/cutscene/you died.png"));
@@ -200,6 +218,34 @@ public class UserInterface {
 
 	public ProgressBar getDistanceBar() {
 		return distanceBar;
+	}
+
+	private static void initializePauseArea() {
+		pauseArea = new Canvas(SceneManager.SCREEN_WIDTH , SceneManager.SCREEN_HEIGHT);
+		GraphicsContext gc = pauseArea.getGraphicsContext2D();
+		gc.setGlobalAlpha(0.5);
+		gc.fillRect(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
+		
+		gc.setGlobalAlpha(1);
+		gc.setFont(new Font(80));
+		gc.setFill(Color.WHITE);
+		gc.setTextAlign(TextAlignment.CENTER);
+		gc.setTextBaseline(VPos.CENTER);
+		gc.fillText("Paused", SceneManager.SCREEN_WIDTH / 2, 325);
+		
+		gc.setFont(new Font(30));
+		gc.fillText("Press P to continue", SceneManager.SCREEN_WIDTH / 2, 425);
+	}
+
+	public static void showPauseArea() {
+		if (pauseArea == null) {
+			initializePauseArea();
+		}
+		container.add(pauseArea);
+	}
+
+	public static void closePauseArea() {
+		container.remove(pauseArea);
 	}
 
 	public void dead() {

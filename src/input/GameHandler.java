@@ -29,13 +29,7 @@ public class GameHandler {
 
 		// P = PAUSE & UNPAUSE
 		if (event.getCode() == KeyCode.P) {
-			if (Animations.getTimerAnimation().getStatus() == Status.PAUSED) {
-				GameMain.continueGame();
-				BackgroundMusic.continueMusic();
-			} else {
-				GameMain.pauseGame();
-				BackgroundMusic.pauseMusic();
-			}
+			GameMain.pauseOrResumeGame();
 		}
 
 		// ENTER = RESTART
@@ -151,13 +145,13 @@ public class GameHandler {
 		}
 
 		// RIGHT ARROW = RIGHT WALK
-		if (keys.contains(KeyCode.RIGHT) && Updater.isBossReady()) {
+		if (keys.contains(KeyCode.RIGHT) && Updater.isBossReady() && Updater.isBossStage()) {
 			player.setDirection(Direction.RIGHT);
 			player.setSpeedX(10);
 		}
 
 		// LEFT ARROW = LEFT WALK
-		if (keys.contains(KeyCode.LEFT) && Updater.isBossReady()) {
+		if (keys.contains(KeyCode.LEFT) && Updater.isBossReady() && Updater.isBossStage()) {
 			player.setDirection(Direction.LEFT);
 			player.setSpeedX(-10);
 		}
