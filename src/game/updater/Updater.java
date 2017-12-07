@@ -27,8 +27,6 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import scene.GameMain;
@@ -47,7 +45,7 @@ public class Updater {
 			checkAllCollision();
 			removeAllDead();
 			updatePlayer();
-			 drawHitbox();
+			// drawHitbox();
 		}));
 		timerUpdate.setCycleCount(Animation.INDEFINITE);
 	}
@@ -80,27 +78,30 @@ public class Updater {
 		if (timerUpdate != null) {
 			timerUpdate.pause();
 		}
-		if (robotek != null) {
-			robotek.pauseAllTimeline();
+		if (player != null) {
+			player.pauseAllTimeline();
 		}
+		Model.getContainer().getMonsterList().forEach(e -> e.pauseAllTimeline());
 	}
 
 	public void continueGame() {
 		if (timerUpdate != null) {
 			timerUpdate.play();
 		}
-		if (robotek != null) {
-			robotek.continueAllTimeline();
+		if (player != null) {
+			player.continueAllTimeline();
 		}
+		Model.getContainer().getMonsterList().forEach(e -> e.continueAllTimeline());
 	}
 
 	public void stopGame() {
 		if (timerUpdate != null) {
 			timerUpdate.stop();
 		}
-		if (robotek != null) {
-			robotek.stopAllTimeline();
+		if (player != null) {
+			player.stopAllTimeline();
 		}
+		Model.getContainer().getMonsterList().forEach(e -> e.stopAllTimeline());
 	}
 
 	private static void generateMap() {
@@ -182,10 +183,6 @@ public class Updater {
 
 		SceneManager.setTrasitioning(true);
 
-		// force release spacebar
-		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
-				false, false, false));
-
 		GUIText warning = new GUIText(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT, "WARNING",
 				Color.rgb(0xC0, 0, 0), 150);
 		GUIRectangle warningBackground = new GUIRectangle(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
@@ -209,7 +206,6 @@ public class Updater {
 			Model.getContainer().remove(warningBackground);
 			bossStage();
 		});
-		BackgroundMusic.stopNormalStageBGM();
 		BackgroundMusic.playWarningSiren();
 		BackgroundMusic.playBossStageBGM();
 	}
@@ -280,7 +276,6 @@ public class Updater {
 			}
 			SceneManager.setTrasitioning(false);
 		});
-		BackgroundMusic.stopBossStageBGM();
 		BackgroundMusic.playNormalStageBGM();
 	}
 

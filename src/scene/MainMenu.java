@@ -36,9 +36,9 @@ public class MainMenu {
 		menus[7] = new GUIText(200, 490, 600, 35, "", Color.BLACK, 20);
 	}
 	private static final AudioClip selectfx = new AudioClip(
-			ClassLoader.getSystemResource("sounds/otherfx/SelectButton.wav").toString());;
+			ClassLoader.getSystemResource("sounds/otherfx/SelectButton.wav").toString());
 	private static final AudioClip movefx = new AudioClip(
-			ClassLoader.getSystemResource("sounds/otherfx/Cursormove.wav").toString());;
+			ClassLoader.getSystemResource("sounds/otherfx/Cursormove.wav").toString());
 
 	private static Pane mainMenuPane;
 	private static int selectedMenu;
@@ -65,9 +65,7 @@ public class MainMenu {
 			ft.play();
 		}
 
-		if (!BackgroundMusic.getMainMenuBGM().isPlaying()) {
-			BackgroundMusic.stopBossStageBGM();
-			BackgroundMusic.stopNormalStageBGM();
+		if (!BackgroundMusic.isMainMenuBGMPlaying()) {
 			BackgroundMusic.playMainMenuBGM();
 		}
 

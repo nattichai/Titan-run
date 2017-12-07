@@ -63,15 +63,15 @@ public class Rankings {
 					gc.setGlobalAlpha(0.5);
 					gc.fillRect(230, 280 + i * 34, 540, 30);
 				}
-	
+
 				gc.setFill(Color.WHITE);
 				gc.setGlobalAlpha(1);
 				gc.setTextAlign(TextAlignment.CENTER);
 				gc.fillText(i + 1 + "", 295, 280 + i * 34);
-	
+
 				gc.setTextAlign(TextAlignment.LEFT);
 				gc.fillText(data.get(i).name, 400, 280 + i * 34);
-	
+
 				gc.setTextAlign(TextAlignment.RIGHT);
 				gc.fillText("" + (int) data.get(i).score, 730, 280 + i * 34);
 			}

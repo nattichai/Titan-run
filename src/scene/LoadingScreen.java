@@ -11,21 +11,13 @@ import game.storage.CharactersData;
 import game.storage.EffectsData;
 import game.storage.SkillsData;
 import game.updater.Updater;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class LoadingScreen {
 	private static Thread progressThread;
@@ -39,7 +31,7 @@ public class LoadingScreen {
 
 		scene = new Scene(pane, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
 		scene.getStylesheets().add(ClassLoader.getSystemResource("utility/style.css").toExternalForm());
-		
+
 		window = stage;
 		window.setScene(scene);
 		window.show();
@@ -59,7 +51,7 @@ public class LoadingScreen {
 				try {
 					for (int i = 0; i < 250; ++i) {
 						bar.setProgress(bar.getProgress() + 0.004);
-						
+
 						Thread.sleep((long) Updater.LOOP_TIME);
 					}
 					while (!Thread.interrupted()) {
@@ -67,7 +59,7 @@ public class LoadingScreen {
 					}
 				} catch (InterruptedException e) {
 					bar.setProgress(1);
-					
+
 					Platform.runLater(() -> {
 						SceneManager.initialize(window);
 						SceneManager.gotoMainMenu();
@@ -94,7 +86,7 @@ public class LoadingScreen {
 				new AirObstacle();
 				new GroundObstacle();
 				new HoleObstacle();
-				
+
 				progressThread.interrupt();
 			}
 		});

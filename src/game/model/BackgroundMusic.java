@@ -1,66 +1,56 @@
 package game.model;
 
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class BackgroundMusic {
-	private static AudioClip normalStageBGM = new AudioClip(
-			ClassLoader.getSystemResource("sounds/songs/07_Opening Stage Zero.mp3").toString());;;
-	private static AudioClip bossStageBGM = new AudioClip(
-			ClassLoader.getSystemResource("sounds/songs/26_Boss.mp3").toString());;
-	private static AudioClip warningSiren = new AudioClip(
-			ClassLoader.getSystemResource("sounds/otherfx/Warning.wav").toString());;
-	private static AudioClip mainMenuBGM = new AudioClip(
-			ClassLoader.getSystemResource("sounds/songs/05_Stage Select.mp3").toString());;
-
-	public static AudioClip getNormalStageBGM() {
-		return normalStageBGM;
-	}
-
-	public static AudioClip getBossStageBGM() {
-		return bossStageBGM;
-	}
-
-	public static AudioClip getWarningSiren() {
-		return warningSiren;
-	}
-
-	public static AudioClip getMainMenuBGM() {
-		return mainMenuBGM;
+	private static final Media mainMenuBGM = new Media(
+			ClassLoader.getSystemResource("sounds/songs/05_Stage Select.mp3").toString());
+	private static final Media normalStageBGM = new Media(
+			ClassLoader.getSystemResource("sounds/songs/07_Opening Stage Zero.mp3").toString());
+	private static final Media bossStageBGM = new Media(
+			ClassLoader.getSystemResource("sounds/songs/26_Boss.mp3").toString());
+	private static final AudioClip warningSiren = new AudioClip(
+			ClassLoader.getSystemResource("sounds/otherfx/Warning.wav").toString());
+	private static MediaPlayer mediaPlayer = new MediaPlayer(normalStageBGM);
+	
+	public static void playMainMenuBGM() {
+		startMusic(mainMenuBGM);
 	}
 
 	public static void playNormalStageBGM() {
-		normalStageBGM.setCycleCount(AudioClip.INDEFINITE);
-		normalStageBGM.play();
-	}
-
-	public static void stopNormalStageBGM() {
-		normalStageBGM.stop();
+		startMusic(normalStageBGM);
 	}
 
 	public static void playBossStageBGM() {
-		bossStageBGM.setCycleCount(AudioClip.INDEFINITE);
-		bossStageBGM.play();
-	}
-
-	public static void stopBossStageBGM() {
-		bossStageBGM.stop();
+		startMusic(bossStageBGM);
 	}
 
 	public static void playWarningSiren() {
 		warningSiren.setCycleCount(3);
 		warningSiren.play();
 	}
-
-	public static void stopWarningSiren() {
-		warningSiren.stop();
+	
+	public static void startMusic(Media media) {
+		mediaPlayer.stop();
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setCycleCount(Integer.MAX_VALUE);
+		mediaPlayer.play();
+	}
+	
+	public static void pauseMusic() {
+		mediaPlayer.pause();
 	}
 
-	public static void playMainMenuBGM() {
-		mainMenuBGM.setCycleCount(AudioClip.INDEFINITE);
-		mainMenuBGM.play();
+	public static void continueMusic() {
+		mediaPlayer.play();
 	}
 
-	public static void stopMain​MenuBGM() {
-		mainMenuBGM.stop();
+	public static boolean isMainMenuBGMPlaying() {
+		if (mediaPlayer == null) {
+			return false;
+		}
+		return mediaPlayer.getMedia().equals(mainMenuBGM);
 	}
 }

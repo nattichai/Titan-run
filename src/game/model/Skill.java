@@ -124,7 +124,7 @@ public class Skill extends Entity implements Movable, Animatable {
 	public boolean isDead() {
 		if (owner.isDead() || positionX < -width - 500 || positionX > SceneManager.SCREEN_WIDTH + 500
 				|| positionY < -height - 500 || positionY > SceneManager.SCREEN_HEIGHT + 500
-				|| currentAnimation >= lastAnimation || (isOnceCollision && isCollided)) {
+				|| currentAnimation >= lastAnimation || (isOnceCollision && isCollided) || canvas.getOpacity() == 0) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}

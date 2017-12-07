@@ -9,6 +9,8 @@ import input.ScoreViewHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -49,7 +51,6 @@ public class SceneManager {
 		newPane.setOnKeyPressed(event -> GameHandler.keyPressed(event));
 		newPane.setOnKeyReleased(event -> GameHandler.keyReleased(event));
 		gotoSceneOf(newPane, 10);
-		BackgroundMusic.stopMain​MenuBGM();
 		BackgroundMusic.playNormalStageBGM();
 	}
 
@@ -109,6 +110,16 @@ public class SceneManager {
 	}
 
 	public static void setTrasitioning(boolean isTrasitioning) {
+		// force keys releasing
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
+				false, false, false));
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "DOWN", KeyCode.DOWN, false,
+				false, false, false));
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "LEFT", KeyCode.LEFT, false,
+				false, false, false));
+		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "RIGHT", KeyCode.RIGHT, false,
+				false, false, false));
+
 		SceneManager.isTrasitioning = isTrasitioning;
 	}
 }

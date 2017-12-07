@@ -2,6 +2,7 @@ package input;
 
 import java.util.HashSet;
 
+import game.model.BackgroundMusic;
 import game.model.Model;
 import game.model.Skill;
 import game.model.character.Player;
@@ -30,8 +31,10 @@ public class GameHandler {
 		if (event.getCode() == KeyCode.P) {
 			if (Animations.getTimerAnimation().getStatus() == Status.PAUSED) {
 				GameMain.continueGame();
+				BackgroundMusic.continueMusic();
 			} else {
 				GameMain.pauseGame();
+				BackgroundMusic.pauseMusic();
 			}
 		}
 
@@ -44,13 +47,13 @@ public class GameHandler {
 		}
 
 		// UP ARROW = JUMP
-		else if (event.getCode() == KeyCode.UP) {
+		else if (event.getCode() == KeyCode.UP && Animations.getTimerAnimation().getStatus() != Status.PAUSED) {
 			saveState = State.JUMPING;
 			player.jump();
 		}
 
 		// SPACE = SHIELD
-		else if (event.getCode() == KeyCode.SPACE) {
+		else if (event.getCode() == KeyCode.SPACE && Animations.getTimerAnimation().getStatus() != Status.PAUSED) {
 			player.makeShield();
 		}
 
@@ -105,12 +108,11 @@ public class GameHandler {
 
 	public static void keyReleased(KeyEvent event) {
 		if (SceneManager.isTrasitioning()) {
-			keys.clear();
 			return;
 		}
 
 		// NORMAL WALKING
-		if (event.getCode() == KeyCode.DOWN) {
+		if (event.getCode() == KeyCode.DOWN && Animations.getTimerAnimation().getStatus() != Status.PAUSED) {
 			player.getCanvas().setRotate(0);
 			player.setState(saveState);
 		}
@@ -121,16 +123,15 @@ public class GameHandler {
 		}
 
 		// NORMAL STATE
-		else if (event.getCode() == KeyCode.SPACE) {
+		else if (event.getCode() == KeyCode.SPACE && Animations.getTimerAnimation().getStatus() != Status.PAUSED) {
 			if (!player.isInjuring()) {
 				player.setPowerState(PowerState.NORMAL);
 			}
 			for (Skill skill : Model.getContainer().getSkillList()) {
 				if (skill.getIndex() == 4) {
-					skill.setPositionX(-1000); // delete shield
+					skill.getCanvas().setOpacity(0);
 				}
 			}
-			Model.getContainer().getSkillList().removeIf(e -> e.isDead());
 		}
 
 		keys.remove(event.getCode());
@@ -144,6 +145,9 @@ public class GameHandler {
 		// DOWN ARROW = SLIDE & FAST FALL
 		if (keys.contains(KeyCode.DOWN)) {
 			player.goDown();
+		} else {
+			GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "DOWN", KeyCode.DOWN, false,
+					false, false, false));
 		}
 
 		// RIGHT ARROW = RIGHT WALK
@@ -161,6 +165,9 @@ public class GameHandler {
 		// USE SHIELD = SPEND MANA & GET IMMORTAL
 		if (keys.contains(KeyCode.SPACE)) {
 			player.useShield();
+		} else {
+			GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
+					false, false, false));
 		}
 
 		// Q = FIREBALL (NORMAL ATTACK)

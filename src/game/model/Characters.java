@@ -10,6 +10,8 @@ import game.property.PowerState;
 import game.property.Side;
 import game.property.UserInterface;
 import game.storage.CharactersData;
+import javafx.animation.Animation.Status;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 
 public abstract class Characters extends Entity implements Movable, Animatable, Attackable {
@@ -25,6 +27,8 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	protected Direction imageDirection;
 	protected PowerState powerState;
 	protected UserInterface userInterface;
+	protected Timeline timer;
+	protected Timeline blink;
 
 	public Characters(double x, double y, int idx) {
 		super(x, y, CharactersData.data[idx].getWidth(), CharactersData.data[idx].getHeight());
@@ -103,6 +107,33 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	public abstract void die();
 
 	public abstract boolean isDead();
+
+	public void pauseAllTimeline() {
+		if (timer != null && timer.getStatus() == Status.RUNNING) {
+			timer.pause();
+		}
+		if (blink != null && blink.getStatus() == Status.RUNNING) {
+			blink.pause();
+		}
+	}
+
+	public void continueAllTimeline() {
+		if (timer != null && timer.getStatus() == Status.PAUSED) {
+			timer.play();
+		}
+		if (blink != null && blink.getStatus() == Status.PAUSED) {
+			blink.play();
+		}
+	}
+
+	public void stopAllTimeline() {
+		if (timer != null) {
+			timer.stop();
+		}
+		if (blink != null) {
+			blink.stop();
+		}
+	}
 
 	public double getSpeedX() {
 		return speedX;

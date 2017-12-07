@@ -19,8 +19,6 @@ public class Monster extends Characters {
 
 	protected boolean canMove, canMoveOut;
 
-	private Timeline timer;
-
 	public Monster(double x, double y, int idx) {
 		super(x, y, idx);
 
@@ -179,14 +177,14 @@ public class Monster extends Characters {
 	}
 
 	public void injured() {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
+		blink = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
 			if (canvas.getOpacity() == 1)
 				canvas.setOpacity(0.5);
 			else if (canvas.getOpacity() == 0.5)
 				canvas.setOpacity(1);
 		}));
-		timeline.setCycleCount(8);
-		timeline.play();
+		blink.setCycleCount(8);
+		blink.play();
 	}
 
 	public void die() {

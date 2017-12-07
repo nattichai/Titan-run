@@ -9,12 +9,9 @@ import game.model.gui.GUIDamage;
 import game.property.Direction;
 import game.property.PowerState;
 import game.updater.Updater;
-import input.GameHandler;
 import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import scene.SceneManager;
 
@@ -173,10 +170,6 @@ public class Boss extends Monster {
 
 		SceneManager.setTrasitioning(true);
 
-		// force release spacebar
-		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "SPACE", KeyCode.SPACE, false,
-				false, false, false));
-
 		Random rnd = new Random();
 		Timeline shake = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
 			canvas.setTranslateX(positionX + rnd.nextInt(101) - 50);
@@ -192,39 +185,39 @@ public class Boss extends Monster {
 	}
 
 	public void pauseAllTimeline() {
-		if (goAroundTimeline != null)
-			if (goAroundTimeline.getStatus() == Status.RUNNING)
-				goAroundTimeline.pause();
-		if (attackTimeline != null)
-			if (attackTimeline.getStatus() == Status.RUNNING)
-				attackTimeline.pause();
-		if (moveTimeline != null)
-			if (moveTimeline.getStatus() == Status.RUNNING)
-				moveTimeline.pause();
-		if (beamTimeline != null)
-			if (beamTimeline.getStatus() == Status.RUNNING)
-				beamTimeline.pause();
-		if (moveTo != null)
-			if (moveTo.getStatus() == Status.RUNNING)
-				moveTo.pause();
+		if (goAroundTimeline != null && goAroundTimeline.getStatus() == Status.RUNNING) {
+			goAroundTimeline.pause();
+		}
+		if (attackTimeline != null && attackTimeline.getStatus() == Status.RUNNING) {
+			attackTimeline.pause();
+		}
+		if (moveTimeline != null && moveTimeline.getStatus() == Status.RUNNING) {
+			moveTimeline.pause();
+		}
+		if (beamTimeline != null && beamTimeline.getStatus() == Status.RUNNING) {
+			beamTimeline.pause();
+		}
+		if (moveTo != null && moveTo.getStatus() == Status.RUNNING) {
+			moveTo.pause();
+		}
 	}
 
 	public void continueAllTimeline() {
-		if (goAroundTimeline != null)
-			if (goAroundTimeline.getStatus() == Status.PAUSED)
-				goAroundTimeline.play();
-		if (attackTimeline != null)
-			if (attackTimeline.getStatus() == Status.PAUSED)
-				attackTimeline.play();
-		if (moveTimeline != null)
-			if (moveTimeline.getStatus() == Status.PAUSED)
-				moveTimeline.play();
-		if (beamTimeline != null)
-			if (beamTimeline.getStatus() == Status.PAUSED)
-				beamTimeline.play();
-		if (moveTo != null)
-			if (moveTo.getStatus() == Status.PAUSED)
-				moveTo.play();
+		if (goAroundTimeline != null && goAroundTimeline.getStatus() == Status.PAUSED) {
+			goAroundTimeline.play();
+		}
+		if (attackTimeline != null && attackTimeline.getStatus() == Status.PAUSED) {
+			attackTimeline.play();
+		}
+		if (moveTimeline != null && moveTimeline.getStatus() == Status.PAUSED) {
+			moveTimeline.play();
+		}
+		if (beamTimeline != null && beamTimeline.getStatus() == Status.PAUSED) {
+			beamTimeline.play();
+		}
+		if (moveTo != null && moveTo.getStatus() == Status.PAUSED) {
+			moveTo.play();
+		}
 	}
 
 	public void stopAllTimeline() {

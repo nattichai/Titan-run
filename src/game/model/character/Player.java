@@ -206,7 +206,7 @@ public class Player extends Characters {
 	public void useLightning() {
 		if (state != State.SLIDING && cooldown[1] <= 0) {
 			resetCooldown(1);
-			Timeline timerLightning = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill lightning = new Skill(nearestMonsterPosition(), 0, 1, this);
 				if (direction != imageDirection) {
 					lightning.getCanvas().setScaleX(-1);
@@ -214,8 +214,8 @@ public class Player extends Characters {
 				}
 				Model.getContainer().add(lightning);
 			}));
-			timerLightning.setCycleCount(6);
-			timerLightning.play();
+			timer.setCycleCount(6);
+			timer.play();
 		}
 	}
 
@@ -269,15 +269,15 @@ public class Player extends Characters {
 	public void injured() {
 		isInjuring = true;
 		powerState = PowerState.IMMORTAL;
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
+		blink = new Timeline(new KeyFrame(Duration.millis(1000 / 10), e -> {
 			if (canvas.getOpacity() == 1)
 				canvas.setOpacity(0.5);
 			else
 				canvas.setOpacity(1);
 		}));
-		timeline.setCycleCount(16);
-		timeline.play();
-		timeline.setOnFinished(e -> {
+		blink.setCycleCount(16);
+		blink.play();
+		blink.setOnFinished(e -> {
 			isInjuring = false;
 			powerState = PowerState.NORMAL;
 			isCollided = false;
@@ -291,14 +291,14 @@ public class Player extends Characters {
 		Updater.playerDead();
 		GameMain.pauseGame();
 		GameMain.setSpeed(2);
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
+		timer = new Timeline(new KeyFrame(Duration.millis(Updater.LOOP_TIME), e -> {
 			positionY += 10;
 			canvas.setTranslateY(positionY);
 			canvas.setRotate(canvas.getRotate() + 15);
 		}));
-		timeline.setCycleCount((int) Updater.FPS / 2);
-		timeline.play();
-		timeline.setOnFinished(e -> {
+		timer.setCycleCount((int) Updater.FPS / 2);
+		timer.play();
+		timer.setOnFinished(e -> {
 			GameMain.continueGame();
 			userInterface.dead();
 			Model.getContainer().remove(this);
