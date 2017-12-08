@@ -20,6 +20,8 @@ public abstract class Entity {
 		canvas.setTranslateY(y);
 		positionX = x;
 		positionY = y;
+		width = w;
+		height = h;
 		hb = new Hitbox(0, 0, w, h);
 		isCollided = false;
 	}

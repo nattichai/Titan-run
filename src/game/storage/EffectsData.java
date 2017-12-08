@@ -17,8 +17,18 @@ public class EffectsData {
 		}
 		charge.width = 240;
 		charge.height = 180;
+		
+		EffectsData levelUp = new EffectsData();
+		levelUp.nImage = 19;
+		levelUp.images = new Image[levelUp.nImage];
+		for (int i = 0; i < levelUp.nImage; ++i) {
+			levelUp.images[i] = new Image("images/effects/level up" + i + ".png");
+		}
+		levelUp.width = 577;
+		levelUp.height = 495;
 
 		data[0] = charge;
+		data[1] = levelUp;
 	}
 
 	public int getnImage() {

@@ -73,8 +73,7 @@ public class Model {
 
 		else if (object instanceof Player) {
 			player = (Player) object;
-			playerPane.getChildren().addAll(canvas, ((Player) object).getUserInterface().getHpBar(),
-					((Player) object).getUserInterface().getManaBar());
+			playerPane.getChildren().add(canvas);
 		}
 
 		else if (object instanceof Skill) {
@@ -95,7 +94,7 @@ public class Model {
 
 		else if (object instanceof Monster) {
 			monsterList.add((Monster) object);
-			monsterPane.getChildren().addAll(canvas, ((Monster) object).getUserInterface().getHpBar());
+			monsterPane.getChildren().add(canvas);
 		}
 
 		else if (object instanceof Effect) {
@@ -124,8 +123,7 @@ public class Model {
 		}
 
 		else if (object instanceof Player) {
-			playerPane.getChildren().removeAll(canvas, ((Player) object).getUserInterface().getHpBar(),
-					((Player) object).getUserInterface().getManaBar());
+			playerPane.getChildren().remove(canvas);
 			player = null;
 		}
 
@@ -146,7 +144,7 @@ public class Model {
 
 		else if (object instanceof Monster) {
 			monsterList.remove((Monster) object);
-			monsterPane.getChildren().removeAll(canvas, ((Monster) object).getUserInterface().getHpBar());
+			monsterPane.getChildren().remove(canvas);
 		}
 
 		else if (object instanceof Effect) {

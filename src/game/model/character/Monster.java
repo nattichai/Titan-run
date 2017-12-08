@@ -5,6 +5,8 @@ import game.model.Entity;
 import game.model.Map;
 import game.model.Model;
 import game.model.Skill;
+import game.model.gui.GUIDamage;
+import game.property.Direction;
 import game.property.Hitbox;
 import game.property.Side;
 import game.storage.SkillsData;
@@ -22,10 +24,14 @@ public class Monster extends Characters {
 	public Monster(double x, double y, int idx) {
 		super(x, y, idx);
 
+		side = Side.MONSTER;
+		direction = Direction.LEFT;
+		
 		canMove = true;
 		canMoveOut = false;
 
-		userInterface.getHpBar().setPrefSize(100, 15);
+		userInterface.updateName(name);
+		userInterface.updateLevel(level);
 	}
 
 	public void draw() {
@@ -60,8 +66,9 @@ public class Monster extends Characters {
 			speedY = 0;
 		}
 
-		userInterface.updateHp(positionX + hb.x, positionY + hb.y - 50);
-
+		userInterface.updateNamePos(positionX + hb.x, positionY + hb.y - 80);
+		userInterface.updateLevelPos(positionX + hb.x + 91, positionY + hb.y - 80);
+		userInterface.updateHpPos(positionX + hb.x, positionY + hb.y - 50);
 		updatePosition();
 	}
 
@@ -82,7 +89,7 @@ public class Monster extends Characters {
 			return;
 		}
 		if (skillIndex == 0) {
-			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			skillTimer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill fireball = new Skill(positionX, positionY + height / 2, 0, this);
 				fireball.setHb(new Hitbox(0, 0, 250, 150));
 				fireball.getCanvas().setScaleX(-5);
@@ -90,46 +97,46 @@ public class Monster extends Characters {
 				fireball.setSpeedX(-fireball.getSpeedX() * 0.6);
 				Model.getContainer().add(fireball);
 			}));
-			timer.setCycleCount(1);
-			timer.play();
+			skillTimer.setCycleCount(1);
+			skillTimer.play();
 		}
 
 		else if (skillIndex == 1) {
-			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			skillTimer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill lightning = new Skill(140, 0, 1, this);
 				lightning.getCanvas().setScaleX(-1);
 				lightning.setSpeedX(-lightning.getSpeedX());
 				Model.getContainer().add(lightning);
 			}));
-			timer.setCycleCount(6);
-			timer.play();
+			skillTimer.setCycleCount(6);
+			skillTimer.play();
 		}
 
 		else if (skillIndex == 2) {
-			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			skillTimer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill thunderbolt = new Skill(SceneManager.SCREEN_WIDTH - SkillsData.data[2].getWidth(), 0, 2, this);
 				thunderbolt.setHb(new Hitbox(200, 0, 120, SceneManager.SCREEN_HEIGHT));
 				thunderbolt.getCanvas().setScaleX(-1);
 				thunderbolt.setSpeedX(-thunderbolt.getSpeedX());
 				Model.getContainer().add(thunderbolt);
 			}));
-			timer.setCycleCount(1);
-			timer.play();
+			skillTimer.setCycleCount(1);
+			skillTimer.play();
 		}
 
 		else if (skillIndex == 3) {
-			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			skillTimer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill slashy = new Skill(0, 0, 3, this);
 				slashy.getCanvas().setScaleX(-1);
 				slashy.setSpeedX(-slashy.getSpeedX());
 				Model.getContainer().add(slashy);
 			}));
-			timer.setCycleCount(1);
-			timer.play();
+			skillTimer.setCycleCount(1);
+			skillTimer.play();
 		}
 
 		else if (skillIndex == 5) {
-			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			skillTimer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill meteor = new Skill(SceneManager.SCREEN_WIDTH - 100, -500, 5, this);
 				meteor.getCanvas().setRotate(127);
 				meteor.setPositionX(meteor.getCanvas().getTranslateX());
@@ -137,20 +144,20 @@ public class Monster extends Characters {
 				meteor.setSpeedX(-meteor.getSpeedX());
 				Model.getContainer().add(meteor);
 			}));
-			timer.setCycleCount(1);
-			timer.play();
+			skillTimer.setCycleCount(1);
+			skillTimer.play();
 		}
 
 		else if (skillIndex == 6) {
-			timer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+			skillTimer = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 				Skill skillIndex = new Skill(SceneManager.SCREEN_WIDTH - SkillsData.data[6].getWidth(),
 						Map.FLOOR_HEIGHT - (height + SkillsData.data[6].getHeight()) / 2, 6, this);
 				skillIndex.setOwner(this);
 				skillIndex.setSpeedX(-skillIndex.getSpeedX());
 				Model.getContainer().add(skillIndex);
 			}));
-			timer.setCycleCount(1);
-			timer.play();
+			skillTimer.setCycleCount(1);
+			skillTimer.play();
 		}
 	}
 
@@ -189,8 +196,13 @@ public class Monster extends Characters {
 
 	public void die() {
 		hp = 0.00001;
-		// kill monster = get 2000 scores;
-		Model.getContainer().getPlayer().addScore(2000);
+		// kill monster = get scores & exps;
+		double multi = Math.pow(level, 1.5);
+		Model.getContainer().getPlayer().addScore(1000 * multi);
+		Model.getContainer().getPlayer().addExp(40 * multi);
+		GUIDamage expPlus = new GUIDamage(positionX, positionY + 100, "EXP + " + (int) (40 * multi), 3);
+		Model.getContainer().add(expPlus);
+		
 		// fade away
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), canvas);
 		ft.setFromValue(1.0);
@@ -200,11 +212,15 @@ public class Monster extends Characters {
 		if (timer != null) {
 			timer.stop();
 		}
+		if (skillTimer != null) {
+			skillTimer.stop();
+		}
 	}
 
 	public boolean isDead() {
 		if (canvas.getOpacity() == 0 || positionX <= -150 || positionX >= SceneManager.SCREEN_WIDTH + 150) {
-			Model.getContainer().getMonsterPane().getChildren().removeAll(canvas, userInterface.getHpBar());
+			userInterface.dead(this);
+			Model.getContainer().getMonsterPane().getChildren().remove(canvas);
 			return true;
 		}
 		return false;

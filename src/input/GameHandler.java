@@ -76,6 +76,11 @@ public class GameHandler {
 		else if (event.getCode() == KeyCode.S) {
 			player.decreaseHp(987654321);
 		}
+		
+		// L = LEVEL UP
+		else if (event.getCode() == KeyCode.L) {
+			player.addLevel(1);
+		}
 
 		// B = BUFF ATK
 		else if (event.getCode() == KeyCode.B) {

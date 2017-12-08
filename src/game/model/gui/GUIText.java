@@ -39,7 +39,7 @@ public class GUIText extends GUI {
 
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.clearRect(0, 0, width, height);
 		gc.setFill(paint);
 		gc.setFont(font);
 		gc.fillText(text, canvas.getWidth() / 2, canvas.getHeight() / 2);

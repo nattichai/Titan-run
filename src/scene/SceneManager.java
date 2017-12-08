@@ -2,6 +2,8 @@ package scene;
 
 import game.model.BackgroundMusic;
 import game.model.Map;
+import game.model.Model;
+import game.property.PowerState;
 import game.updater.Updater;
 import input.GameHandler;
 import input.MainMenuHandler;
@@ -122,6 +124,14 @@ public class SceneManager {
 				false, false, false));
 		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "Q", KeyCode.Q, false,
 				false, false, false));
+		
+		if (Model.getContainer().getPlayer() != null) {
+			if (isTrasitioning) {
+				Model.getContainer().getPlayer().setPowerState(PowerState.IMMORTAL);
+			} else {
+				Model.getContainer().getPlayer().setPowerState(PowerState.NORMAL);
+			}
+		}
 
 		SceneManager.isTrasitioning = isTrasitioning;
 	}

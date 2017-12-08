@@ -95,7 +95,7 @@ public class SkillsData {
 		}
 		slashy.width = SceneManager.SCREEN_WIDTH;
 		slashy.height = SceneManager.SCREEN_HEIGHT;
-		slashy.damage = 3;
+		slashy.damage = 2.4;
 		slashy.cooldown = 24;
 		slashy.collisionDelay = 60;
 		slashy.lastAnimation = 19;

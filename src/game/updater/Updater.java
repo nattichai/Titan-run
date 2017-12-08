@@ -14,7 +14,7 @@ import game.model.Skill;
 import game.model.character.Boss;
 import game.model.character.Monster;
 import game.model.character.Player;
-import game.model.gui.GUIRectangle;
+import game.model.gui.GUIShape;
 import game.model.gui.GUIText;
 import game.model.item.HealthPotion;
 import game.model.item.Jelly;
@@ -185,7 +185,7 @@ public class Updater {
 
 		GUIText warning = new GUIText(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT, "WARNING",
 				Color.rgb(0xC0, 0, 0), 150);
-		GUIRectangle warningBackground = new GUIRectangle(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
+		GUIShape warningBackground = new GUIShape(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
 				Color.BLACK, 0.5);
 		Model.getContainer().add(warningBackground);
 		Model.getContainer().add(warning);
@@ -223,6 +223,7 @@ public class Updater {
 			}
 		}
 
+		map.getCanvas().setScaleX(1.03);
 		map.getCanvas().setScaleY(1.04);
 		Random rnd = new Random();
 		Timeline shake = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
@@ -232,6 +233,7 @@ public class Updater {
 		shake.setCycleCount((int) (FPS * 3));
 		shake.play();
 		shake.setOnFinished(e -> {
+			map.getCanvas().setScaleX(1);
 			map.getCanvas().setScaleY(1);
 		});
 
@@ -261,7 +263,7 @@ public class Updater {
 		Timeline speedUp = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
 			GameMain.setSpeed(GameMain.getSpeed() + accel);
 			if (player != null) {
-				if (player.getPositionX() < 90) {
+				if ((player.getSpeedX() <= 0 && player.getPositionX() < 90) || (player.getSpeedX() >= 0 && player.getPositionX() > 90)) {
 					player.backToRunningPosition();
 				}
 			}
@@ -272,7 +274,7 @@ public class Updater {
 			new Updater();
 			if (player != null) {
 				player.addStage(1);
-				GameMain.setSpeed(10 + 10 * player.getStage() / (player.getStage() + 10));
+				GameMain.setSpeed(10 + 5 * player.getStage() / (player.getStage() + 5));
 			}
 			SceneManager.setTrasitioning(false);
 		});
@@ -351,10 +353,10 @@ public class Updater {
 		}
 		player.decreaseCooldown(1 / Updater.FPS);
 		player.addMana(Map.PASSIVE_MANA_REGEN);
-		player.addScore(Map.PASSIVE_SCORE);
+//		player.addScore(Map.PASSIVE_SCORE);
 		if (!isBossStage) {
 			player.addDistance(GameMain.getSpeed());
-			player.decreaseHp(Map.PASSIVE_DAMAGE);
+//			player.decreaseHp(Map.PASSIVE_DAMAGE);
 		}
 	}
 

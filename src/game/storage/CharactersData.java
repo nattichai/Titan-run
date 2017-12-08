@@ -7,6 +7,7 @@ import game.property.PowerState;
 import javafx.scene.image.Image;
 
 public class CharactersData {
+	private String name;
 	private int nImage;
 	private Image[] images;
 	private double width, height;
@@ -22,6 +23,7 @@ public class CharactersData {
 	public static final CharactersData[] data = new CharactersData[20];
 	static {
 		CharactersData player = new CharactersData();
+		player.name = "Player";
 		player.nImage = 10;
 		player.images = new Image[player.nImage];
 		for (int i = 0; i < player.nImage; ++i) {
@@ -34,14 +36,15 @@ public class CharactersData {
 		player.speedY = 0;
 		player.accelX = 0.15;
 		player.accelY = Map.GRAVITY;
-		player.hp = 100;
-		player.maxHp = 100;
-		player.atk = 10;
+		player.hp = 200;
+		player.maxHp = 200;
+		player.atk = 20;
 		player.skillIndex = 4;
 		player.imageDirection = Direction.RIGHT;
 		player.powerState = PowerState.NORMAL;
 
 		CharactersData pikachu = new CharactersData();
+		pikachu.name = "Pikachu";
 		pikachu.nImage = 8;
 		pikachu.images = new Image[pikachu.nImage];
 		for (int i = 0; i < pikachu.nImage; ++i) {
@@ -62,6 +65,7 @@ public class CharactersData {
 		pikachu.powerState = PowerState.NORMAL;
 
 		CharactersData spearman = new CharactersData();
+		spearman.name = "Spearman";
 		spearman.nImage = 12;
 		spearman.images = new Image[spearman.nImage];
 		for (int i = 0; i < spearman.nImage; ++i) {
@@ -82,6 +86,7 @@ public class CharactersData {
 		spearman.powerState = PowerState.NORMAL;
 
 		CharactersData sorcerer = new CharactersData();
+		sorcerer.name = "Sorcerer";
 		sorcerer.nImage = 23;
 		sorcerer.images = new Image[sorcerer.nImage];
 		for (int i = 0; i < sorcerer.nImage; ++i) {
@@ -102,6 +107,7 @@ public class CharactersData {
 		sorcerer.powerState = PowerState.NORMAL;
 
 		CharactersData shaman = new CharactersData();
+		shaman.name = "Shaman";
 		shaman.nImage = 47;
 		shaman.images = new Image[shaman.nImage];
 		for (int i = 0; i < shaman.nImage; ++i) {
@@ -122,6 +128,7 @@ public class CharactersData {
 		shaman.powerState = PowerState.NORMAL;
 
 		CharactersData slime = new CharactersData();
+		slime.name = "Slime";
 		slime.nImage = 6;
 		slime.images = new Image[slime.nImage];
 		for (int i = 0; i < slime.nImage; ++i) {
@@ -142,6 +149,7 @@ public class CharactersData {
 		slime.powerState = PowerState.NORMAL;
 
 		CharactersData robotek = new CharactersData();
+		robotek.name = "Robotek";
 		robotek.nImage = 96;
 		robotek.images = new Image[robotek.nImage];
 		for (int i = 0; i < robotek.nImage; ++i) {
@@ -154,8 +162,8 @@ public class CharactersData {
 		robotek.speedY = 0;
 		robotek.accelX = 0;
 		robotek.accelY = 0;
-		robotek.hp = 1000;
-		robotek.maxHp = 1000;
+		robotek.hp = 700;
+		robotek.maxHp = 700;
 		robotek.atk = 24;
 		robotek.skillIndex = 0;
 		robotek.imageDirection = Direction.LEFT;
@@ -168,6 +176,10 @@ public class CharactersData {
 		data[5] = shaman;
 		data[6] = slime;
 		data[7] = robotek;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public int getnImage() {

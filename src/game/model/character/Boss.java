@@ -38,16 +38,16 @@ public class Boss extends Monster {
 		if (Model.getContainer().getPlayer() != null) {
 			stage = Model.getContainer().getPlayer().getStage();
 		}
-		bossSpeed = 700 * (1 - stage / (stage + 4));
-
-		userInterface.getHpBar().setPrefSize(400, 30);
-		userInterface.getHpBar().relocate(300, 100);
+		bossSpeed = 700 - 200 * stage / (stage + 5);
 	}
 
 	public void move() {
 		changeSpeed(accelX, accelY);
 		positionX += speedX;
 		positionY += speedY;
+		
+		userInterface.updateNamePos(positionX + hb.x + (hb.w - 243) / 2, positionY + hb.y - 80);
+		userInterface.updateLevelPos(positionX + hb.x + (hb.w - 243) / 2 + 191, positionY + hb.y - 80);
 		updatePosition();
 	}
 
@@ -163,7 +163,12 @@ public class Boss extends Monster {
 	}
 
 	public void die() {
-		Model.getContainer().getPlayer().addScore(20000);
+		// kill monster = get scores & exps;
+		double multi = Math.pow(level, 1.5);
+		Model.getContainer().getPlayer().addScore(20000 * multi);
+		Model.getContainer().getPlayer().addExp(80 * multi);
+		GUIDamage expPlus = new GUIDamage(positionX, positionY + 100, "EXP + " + (int) (80 * multi), 3);
+		Model.getContainer().add(expPlus);
 
 		stopAllTimeline(); // stop skill animation if it not stop yet
 		isReady = false;

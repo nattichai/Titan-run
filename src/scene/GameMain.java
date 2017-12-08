@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 public class GameMain {
 	public static final int OBSTACLE_SPACE = 1200;
 	public static final int ITEM_SPACE = 100;
-	public static final int MONSTER_SPACE = 3000;
+	public static final int MONSTER_SPACE = 2000;
 	public static final double STAGE_DISTANCE = 25000;
 
 	private static Pane gamePane;
@@ -49,11 +49,15 @@ public class GameMain {
 	public static void pauseOrResumeGame() {
 		if (Animations.getTimerAnimation().getStatus() == Status.PAUSED) {
 			continueGame();
-			UserInterface.closePauseArea();
+			if (Model.getContainer().getPlayer() != null) {
+				Model.getContainer().getPlayer().getUserInterface().closePauseArea();
+			}
 			BackgroundMusic.continueMusic();
 		} else {
 			pauseGame();
-			UserInterface.showPauseArea();
+			if (Model.getContainer().getPlayer() != null) {
+				Model.getContainer().getPlayer().getUserInterface().showPauseArea();
+			}
 			BackgroundMusic.pauseMusic();
 		}
 	}

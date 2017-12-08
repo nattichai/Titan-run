@@ -2,6 +2,7 @@ package game.model;
 
 import game.model.obstacle.HoleObstacle;
 import game.property.Movable;
+import game.property.PowerState;
 import javafx.scene.image.Image;
 import scene.GameMain;
 
@@ -45,7 +46,7 @@ public abstract class Obstacle extends Entity implements Movable {
 		if (this instanceof HoleObstacle) // FALL IN A HOLE
 			player.die();
 		else
-			player.decreaseHp(Obstacle.OBSTACLE_DAMAGE); // DAMAGED BY HITTING
+			player.decreaseHp(Obstacle.OBSTACLE_DAMAGE / 100 * player.maxHp); // DAMAGED BY HITTING
 	}
 
 	public boolean isDead() {

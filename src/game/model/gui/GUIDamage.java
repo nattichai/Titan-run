@@ -13,8 +13,8 @@ import javafx.util.Duration;
 
 public class GUIDamage extends GUIText {
 	private static final Font FONT = Font
-			.loadFont(ClassLoader.getSystemResourceAsStream("fonts/friz quadrata bold.otf"), 60);
-	private static final Stop[][] stops = new Stop[3][3];
+			.loadFont(ClassLoader.getSystemResourceAsStream("fonts/friz quadrata bold.otf"), 50);
+	private static final Stop[][] stops = new Stop[4][3];
 	static {
 		// ORANGE
 		stops[0] = new Stop[] { new Stop(0, Color.rgb(0xf4, 0xd8, 0x00)), new Stop(1, Color.rgb(0xe5, 0x34, 0x29)) };
@@ -22,9 +22,11 @@ public class GUIDamage extends GUIText {
 		stops[1] = new Stop[] { new Stop(0, Color.rgb(0x69, 0x35, 0xc6)), new Stop(1, Color.rgb(0xe4, 0x24, 0xd2)) };
 		// GREEN
 		stops[2] = new Stop[] { new Stop(0, Color.rgb(0x41, 0x8a, 0x48)), new Stop(1, Color.rgb(0x50, 0xd2, 0x31)) };
+		// YELLOW
+		stops[3] = new Stop[] { new Stop(0, Color.GOLD), new Stop(1, Color.GOLDENROD) };
 	}
 
-	private static final LinearGradient[] FONT_COLOR = new LinearGradient[3];
+	private static final LinearGradient[] FONT_COLOR = new LinearGradient[4];
 	static {
 		// MONSTER GET DAMAGED
 		FONT_COLOR[0] = new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE, stops[0]);
@@ -32,6 +34,8 @@ public class GUIDamage extends GUIText {
 		FONT_COLOR[1] = new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE, stops[1]);
 		// HEAL
 		FONT_COLOR[2] = new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE, stops[2]);
+		// EXP PLUS
+		FONT_COLOR[3] = new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE, stops[3]);
 	}
 
 	public GUIDamage(double x, double y, String s, int i) {

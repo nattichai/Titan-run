@@ -1,9 +1,11 @@
 package game.model.character;
 
 import game.model.Characters;
+import game.model.Effect;
 import game.model.Map;
 import game.model.Model;
 import game.model.Skill;
+import game.model.gui.GUIDamage;
 import game.property.Direction;
 import game.property.Hitbox;
 import game.property.PowerState;
@@ -40,12 +42,15 @@ public class Player extends Characters {
 	protected State state;
 	protected Image imageSlide;
 	protected int jump;
-	protected double mana, maxMana;
-	protected int stage;
-	protected double score;
-	protected double[] cooldown;
-	protected double distance;
 	protected boolean isInjuring;
+	
+	protected int stage;
+	protected double distance;
+	protected double score;
+	
+	protected double exp, maxExp;
+	protected double mana, maxMana;
+	protected double[] cooldown;
 
 	public Player(double x, double y, int idx) {
 		super(x, y, idx);
@@ -53,25 +58,31 @@ public class Player extends Characters {
 		width = 120;
 		height = 200;
 		hb = new Hitbox(20, 20, 100, 180);
+		
 		speedX = 0;
 		speedY = 0;
 		accelX = 0;
 		accelY = Map.GRAVITY;
+		
 		side = Side.PLAYER;
 		direction = Direction.RIGHT;
 
 		state = State.RUNNING;
 		jump = 0;
+		isInjuring = false;
+		
+		stage = 1;
+		distance = 0;
+		score = 0;
+		
+		exp = 0;
+		maxExp = 50;
 		mana = 100;
 		maxMana = 100;
-		stage = 1;
-		score = 0;
 		cooldown = new double[5];
-		distance = 0;
-		isInjuring = false;
 
-		userInterface.setName(MainMenu.getRegisterName().getText());
-		userInterface.getHpBar().setPrefSize(200, 15);
+		setName(MainMenu.getRegisterName().getText());
+		userInterface.updateLevel(level);
 	}
 
 	public void draw() {
@@ -122,9 +133,10 @@ public class Player extends Characters {
 			}
 		}
 
-		userInterface.updateHp(positionX - 25, positionY - 50);
-		userInterface.updateMana(positionX - 25, positionY - 32);
 		userInterface.updateNamePos(positionX - 25, positionY - 80);
+		userInterface.updateLevelPos(positionX + 166, positionY - 80);
+		userInterface.updateHpPos(positionX - 25, positionY - 50);
+		userInterface.updateManaPos(positionX - 25, positionY - 32);
 		updatePosition();
 	}
 
@@ -287,7 +299,7 @@ public class Player extends Characters {
 
 	public void die() {
 		hp = 0.00001;
-		ScoreView.setPlayer(userInterface.getName().getText(), score);
+		ScoreView.setPlayer(name, score);
 		Updater.playerDead();
 		GameMain.pauseGame();
 		GameMain.setSpeed(2);
@@ -300,7 +312,7 @@ public class Player extends Characters {
 		timer.play();
 		timer.setOnFinished(e -> {
 			GameMain.continueGame();
-			userInterface.dead();
+			userInterface.dead(this);
 			Model.getContainer().remove(this);
 		});
 	}
@@ -308,23 +320,40 @@ public class Player extends Characters {
 	public boolean isDead() {
 		return hp == 0.00001 || canvas.getOpacity() == 0;
 	}
-
-	public int getJump() {
-		return jump;
+	
+	public void setName(String s) {
+		name = s;
+		userInterface.updateName(s);
 	}
-
-	public void addJump(int jump) {
-		this.jump += jump;
+	
+	public void addExp(double e) {
+		exp += e;
+		while(exp > maxExp) {
+			exp -= maxExp;
+			addLevel(1);
+		}
+		userInterface.updateExp(exp / maxExp);
 	}
-
-	public State getState() {
-		return state;
+	
+	public void addLevel(int lvl) {
+		Effect levelUp = new Effect(positionX - 230, positionY - 350, 1, 1);
+		levelUp.getCanvas().setOpacity(0.8);
+		Model.getContainer().add(levelUp);
+		
+		GUIDamage levelUpText = new GUIDamage(positionX - 50, positionY - 100, "LEVEL UP", 2);
+		Model.getContainer().add(levelUpText);
+		
+		new AudioClip(ClassLoader.getSystemResource("sounds/otherfx/level up.mp3").toString()).play();
+		
+		level += lvl;
+		double multi = 1 + 0.2 * Math.pow(level, 1.5);
+		hp = (hp / maxHp) * 200 * multi;
+		maxHp = 200 * multi;
+		atk = 20 * multi;
+		maxExp = 50 * Math.pow(level, 2);
+		userInterface.updateLevel(level);
 	}
-
-	public void setState(State state) {
-		this.state = state;
-	}
-
+	
 	public double getMana() {
 		return mana;
 	}
@@ -332,7 +361,7 @@ public class Player extends Characters {
 	public void setMana(double mana) {
 		this.mana = mana;
 	}
-
+	
 	public void addMana(double mana) {
 		this.mana += mana;
 		if (this.mana < 0) {
@@ -342,9 +371,13 @@ public class Player extends Characters {
 		}
 		userInterface.updateMana(this.mana / maxMana);
 	}
-
+	
 	public void setJump(int j) {
 		jump = j;
+	}
+	
+	public void addJump(int jump) {
+		this.jump += jump;
 	}
 
 	public double getScore() {
@@ -398,6 +431,14 @@ public class Player extends Characters {
 			distance = GameMain.STAGE_DISTANCE;
 		}
 		userInterface.updateDistance(distance / GameMain.STAGE_DISTANCE);
+	}
+	
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	public boolean isInjuring() {

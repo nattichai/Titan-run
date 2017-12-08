@@ -3,7 +3,7 @@ package scene;
 import game.model.BackgroundMusic;
 import game.model.GUI;
 import game.model.gui.GUIImage;
-import game.model.gui.GUIRectangle;
+import game.model.gui.GUIShape;
 import game.model.gui.GUIText;
 import input.MainMenuHandler;
 import javafx.animation.FadeTransition;
@@ -26,11 +26,11 @@ import utility.WrongInputException;
 public class MainMenu {
 	private static final GUI[] menus = new GUI[10];
 	static {
-		menus[0] = new GUIImage(180, 100, 640, 325, new Image("images/cutscene/titan run logo.png"));
-		menus[1] = new GUIImage(200, 400, 600, 75, new Image("images/cutscene/start.png"));
-		menus[2] = new GUIImage(200, 475, 600, 75, new Image("images/cutscene/ranking.png"));
-		menus[3] = new GUIImage(200, 550, 600, 75, new Image("images/cutscene/exit.png"));
-		menus[4] = new GUIRectangle(200, 425, 600, 100, Color.WHITE, 0.3);
+		menus[0] = new GUIImage(180, 100, 640, 325, new Image("images/gui/titan run logo.png"));
+		menus[1] = new GUIImage(200, 400, 600, 75, new Image("images/gui/start.png"));
+		menus[2] = new GUIImage(200, 475, 600, 75, new Image("images/gui/ranking.png"));
+		menus[3] = new GUIImage(200, 550, 600, 75, new Image("images/gui/exit.png"));
+		menus[4] = new GUIShape(200, 425, 600, 100, Color.WHITE, 0.3);
 		menus[5] = new GUIText(200, 375, 600, 50, "Enter your name", Color.WHITE, 30);
 		menus[6] = new GUIText(200, 425, 600, 75, "", Color.BLACK, 40);
 		menus[7] = new GUIText(200, 490, 600, 35, "", Color.BLACK, 20);

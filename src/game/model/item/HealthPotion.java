@@ -39,8 +39,8 @@ public class HealthPotion extends Item {
 	}
 
 	public void affectTo(Characters player) {
-		// increase hp by 5
-		player.increaseHp(5);
+		// increase hp by 5 % of maxHP
+		player.increaseHp(0.05 * player.getMaxHp());
 		// add score by 500
 		Model.getContainer().getPlayer().addScore(500);
 	}

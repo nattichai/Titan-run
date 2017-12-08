@@ -103,18 +103,20 @@ public class Skill extends Entity implements Movable, Animatable {
 	}
 
 	public boolean isCollision(Entity e) {
-		if ((isCollided && e.isCollided()) || side == e.getSide()
+		if (isCollided || side == e.getSide()
 				|| (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
 			return false;
-		if (positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w
+		if (!e.isCollided() && positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w
 				&& positionX + hb.x + hb.w > e.getPositionX() + e.getHb().x
 				&& positionY + hb.y < e.getPositionY() + e.getHb().y + e.getHb().h
 				&& positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y) {
-			isCollided = true;
-			e.setCollided(true);
+			
 			// collision delay
 			if (collisionDelay > 0) {
-				new Timeline(new KeyFrame(Duration.millis(collisionDelay), f -> isCollided = false)).play();
+				e.isCollided = true;
+				new Timeline(new KeyFrame(Duration.millis(collisionDelay), f -> e.isCollided = false)).play();
+			} else {
+				isCollided = true;
 			}
 			return true;
 		}
@@ -124,7 +126,8 @@ public class Skill extends Entity implements Movable, Animatable {
 	public boolean isDead() {
 		if (owner.isDead() || positionX < -width - 500 || positionX > SceneManager.SCREEN_WIDTH + 500
 				|| positionY < -height - 500 || positionY > SceneManager.SCREEN_HEIGHT + 500
-				|| currentAnimation >= lastAnimation || (isOnceCollision && isCollided) || canvas.getOpacity() == 0) {
+				|| currentAnimation >= lastAnimation || (isOnceCollision && isCollided) || canvas.getOpacity() == 0
+				|| (owner instanceof Boss && !((Boss) owner).isReady())) {
 			Model.getContainer().getSkillPane().getChildren().remove(canvas);
 			return true;
 		}
