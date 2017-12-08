@@ -224,7 +224,7 @@ public class MainMenu {
 	}
 
 	public static void setValidMessage() {
-		((GUIText) menus[7]).setText("press enter to confirm");
+		((GUIText) menus[7]).setText("Press [ Enter ] to confirm");
 		menus[7].draw();
 	}
 

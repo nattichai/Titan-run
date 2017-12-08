@@ -5,7 +5,7 @@ import game.model.Effect;
 import game.model.Map;
 import game.model.Model;
 import game.model.Skill;
-import game.model.gui.GUIDamage;
+import game.model.gui.GUIGradientText;
 import game.property.Direction;
 import game.property.Hitbox;
 import game.property.PowerState;
@@ -340,7 +340,7 @@ public class Player extends Characters {
 		levelUp.getCanvas().setOpacity(0.8);
 		Model.getContainer().add(levelUp);
 		
-		GUIDamage levelUpText = new GUIDamage(positionX - 50, positionY - 100, "LEVEL UP", 2);
+		GUIGradientText levelUpText = new GUIGradientText(positionX - 50, positionY - 100, "LEVEL UP", 2);
 		Model.getContainer().add(levelUpText);
 		
 		new AudioClip(ClassLoader.getSystemResource("sounds/otherfx/level up.mp3").toString()).play();

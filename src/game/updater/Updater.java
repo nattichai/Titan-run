@@ -149,7 +149,7 @@ public class Updater {
 		}
 		if (distance >= spaceMonster) {
 			spaceMonster += GameMain.MONSTER_SPACE;
-			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(4) + 2);
+			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(5) + 2);
 			Model.getContainer().add(monster);
 		}
 	}

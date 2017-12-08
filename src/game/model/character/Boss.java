@@ -5,7 +5,7 @@ import java.util.Random;
 import game.model.Effect;
 import game.model.Model;
 import game.model.Skill;
-import game.model.gui.GUIDamage;
+import game.model.gui.GUIGradientText;
 import game.property.Direction;
 import game.property.PowerState;
 import game.updater.Updater;
@@ -130,6 +130,7 @@ public class Boss extends Monster {
 				pos = Model.getContainer().getPlayer().getPositionX();
 			}
 			charge.getCanvas().relocate(pos - (charge.getWidth() - 120) / 2, positionY);
+			beam.setCollided(false);
 			beam.setPositionX(pos - (150 - 120) / 2);
 			beam.setPositionY(positionY + 25);
 			beam.updatePosition();
@@ -156,7 +157,7 @@ public class Boss extends Monster {
 		}
 		userInterface.updateHp(hp / maxHp);
 		if (d > 1) {
-			GUIDamage damageUI = new GUIDamage(positionX + width / 2, positionY, "" + (int) d, 0);
+			GUIGradientText damageUI = new GUIGradientText(positionX + width / 2, positionY, "" + (int) d, 0);
 			Model.getContainer().add(damageUI);
 			injured();
 		}
@@ -167,7 +168,7 @@ public class Boss extends Monster {
 		double multi = Math.pow(level, 1.5);
 		Model.getContainer().getPlayer().addScore(20000 * multi);
 		Model.getContainer().getPlayer().addExp(80 * multi);
-		GUIDamage expPlus = new GUIDamage(positionX, positionY + 100, "EXP + " + (int) (80 * multi), 3);
+		GUIGradientText expPlus = new GUIGradientText(positionX, positionY + 100, "EXP + " + (int) (80 * multi), 3);
 		Model.getContainer().add(expPlus);
 
 		stopAllTimeline(); // stop skill animation if it not stop yet

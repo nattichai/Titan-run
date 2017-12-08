@@ -52,7 +52,7 @@ public class Rankings {
 		gc.strokeText("Score", 700, 215);
 
 		gc.setFont(new Font(FONT.getName(), 20));
-		gc.fillText("enter to go back", 500, 620);
+		gc.fillText("Enter to go back", 500, 620);
 		if (data != null) {
 			for (int i = 0; i < 10 && i < data.size(); ++i) {
 				if (i % 2 == 0) {

@@ -2,7 +2,6 @@ package scene;
 
 import game.model.BackgroundMusic;
 import game.model.Model;
-import game.property.UserInterface;
 import game.updater.Animations;
 import game.updater.Updater;
 import javafx.animation.Animation.Status;

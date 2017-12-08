@@ -5,7 +5,7 @@ import game.model.Entity;
 import game.model.Map;
 import game.model.Model;
 import game.model.Skill;
-import game.model.gui.GUIDamage;
+import game.model.gui.GUIGradientText;
 import game.property.Direction;
 import game.property.Hitbox;
 import game.property.Side;
@@ -200,7 +200,7 @@ public class Monster extends Characters {
 		double multi = Math.pow(level, 1.5);
 		Model.getContainer().getPlayer().addScore(1000 * multi);
 		Model.getContainer().getPlayer().addExp(40 * multi);
-		GUIDamage expPlus = new GUIDamage(positionX, positionY + 100, "EXP + " + (int) (40 * multi), 3);
+		GUIGradientText expPlus = new GUIGradientText(positionX, positionY + 100, "EXP + " + (int) (40 * multi), 3);
 		Model.getContainer().add(expPlus);
 		
 		// fade away

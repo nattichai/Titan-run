@@ -2,7 +2,6 @@ package game.model;
 
 import game.model.obstacle.HoleObstacle;
 import game.property.Movable;
-import game.property.PowerState;
 import javafx.scene.image.Image;
 import scene.GameMain;
 

@@ -2,7 +2,6 @@ package input;
 
 import java.util.HashSet;
 
-import game.model.BackgroundMusic;
 import game.model.Model;
 import game.model.Skill;
 import game.model.character.Player;
@@ -84,10 +83,10 @@ public class GameHandler {
 
 		// B = BUFF ATK
 		else if (event.getCode() == KeyCode.B) {
-			if (player.getAtk() < 100) {
-				player.setAtk(1234);
+			if (player.getAtk() < 123456789) {
+				player.setAtk(123456789);
 			} else {
-				player.setAtk(10);
+				player.setAtk(20 * (1 + 0.2 * Math.pow(player.getLevel(), 1.5)));
 			}
 		}
 

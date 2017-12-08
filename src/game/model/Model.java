@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import game.model.character.Monster;
 import game.model.character.Player;
 import input.GameHandler;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 

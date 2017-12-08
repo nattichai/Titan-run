@@ -54,7 +54,7 @@ public class ScoreView {
 
 		gc.setFont(new Font(FONT.getName(), 25));
 		gc.fillText("Score", 337, 334);
-		gc.fillText("enter to continue", 500, 557);
+		gc.fillText("Enter to continue", 500, 557);
 
 		gc.setFont(new Font(FONT.getName(), 30));
 		gc.fillText("Top runner", 655, 270);

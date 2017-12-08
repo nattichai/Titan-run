@@ -1,6 +1,5 @@
 package game.property;
 
-import game.model.BackgroundMusic;
 import game.model.Characters;
 import game.model.Model;
 import game.model.character.Boss;
@@ -10,8 +9,6 @@ import game.model.gui.GUIImage;
 import game.model.gui.GUIProgress;
 import game.model.gui.GUIShape;
 import game.model.gui.GUIText;
-import game.updater.Animations;
-import javafx.animation.Animation.Status;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -183,6 +180,7 @@ public class UserInterface {
 		scoreText = new GUIText(-360, -75, 800, 200, "Score: 0", Color.WHITE, 30);
 		scoreText.getCanvas().getGraphicsContext2D().setTextAlign(TextAlignment.LEFT);
 		scoreText.getCanvas().getGraphicsContext2D().setTextBaseline(VPos.TOP);
+		scoreText.draw();
 		container.add(scoreText);
 	}
 
@@ -295,7 +293,7 @@ public class UserInterface {
 		gc.fillText("Paused", SceneManager.SCREEN_WIDTH / 2, 325);
 
 		gc.setFont(new Font(30));
-		gc.fillText("Press P to continue", SceneManager.SCREEN_WIDTH / 2, 425);
+		gc.fillText("Press [ P ] to continue", SceneManager.SCREEN_WIDTH / 2, 425);
 	}
 
 	public void showPauseArea() {

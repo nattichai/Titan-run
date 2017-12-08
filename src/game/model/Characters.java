@@ -4,13 +4,12 @@ import java.util.Random;
 
 import game.model.character.Boss;
 import game.model.character.Player;
-import game.model.gui.GUIDamage;
+import game.model.gui.GUIGradientText;
 import game.property.Animatable;
 import game.property.Attackable;
 import game.property.Direction;
 import game.property.Movable;
 import game.property.PowerState;
-import game.property.Side;
 import game.property.UserInterface;
 import game.storage.CharactersData;
 import javafx.animation.Animation.Status;
@@ -109,7 +108,7 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 			hp = maxHp;
 		}
 		userInterface.updateHp(hp / maxHp);
-		GUIDamage damageUI = new GUIDamage(positionX + width / 2, positionY, "" + (int) d, 2);
+		GUIGradientText damageUI = new GUIGradientText(positionX + width / 2, positionY, "" + (int) d, 2);
 		Model.getContainer().add(damageUI);
 	}
 
@@ -128,7 +127,7 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 			if (this instanceof Player) { // PLAYER GET DAMAGED
 				type = 1;
 			}
-			GUIDamage damageUI = new GUIDamage(positionX + width / 2, positionY, "" + (int) d, type);
+			GUIGradientText damageUI = new GUIGradientText(positionX + width / 2, positionY, "" + (int) d, type);
 			Model.getContainer().add(damageUI);
 			injured();
 		}
@@ -244,6 +243,10 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 
 	public UserInterface getUserInterface() {
 		return userInterface;
+	}
+
+	public int getLevel() {
+		return level;
 	}
 
 }

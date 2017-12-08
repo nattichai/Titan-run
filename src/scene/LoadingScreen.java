@@ -49,8 +49,8 @@ public class LoadingScreen {
 		progressThread = new Thread(new Runnable() {
 			public void run() {
 				try {
-					for (int i = 0; i < 250; ++i) {
-						bar.setProgress(bar.getProgress() + 0.004);
+					for (int i = 1; i <= 250; ++i) {
+						bar.setProgress(0.004 * i);
 
 						Thread.sleep((long) Updater.LOOP_TIME);
 					}
@@ -58,7 +58,15 @@ public class LoadingScreen {
 						Thread.sleep(1000);
 					}
 				} catch (InterruptedException e) {
-					bar.setProgress(1);
+					double progress = bar.getProgress();
+					double speed = (1 - progress) / 30;
+					for (int i = 1; i <= 30; ++i) {
+						bar.setProgress(progress + speed * i);
+
+						try {
+							Thread.sleep((long) Updater.LOOP_TIME);
+						} catch (InterruptedException e1) {}
+					}
 
 					Platform.runLater(() -> {
 						SceneManager.initialize(window);
