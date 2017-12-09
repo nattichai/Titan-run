@@ -20,7 +20,7 @@ public class GroundObstacle extends Obstacle {
 	}
 
 	public GroundObstacle() {
-		super(SceneManager.SCREEN_WIDTH + 210, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
+		super(SceneManager.SCREEN_WIDTH + 410, 0, OBSTACLE_WIDTH, SceneManager.SCREEN_HEIGHT);
 
 		int rnd = new Random().nextInt(20);
 		obstacle = images[rnd];
@@ -31,29 +31,29 @@ public class GroundObstacle extends Obstacle {
 			width = 180;
 			height = 200;
 			hb = new Hitbox(40, 510, 120, 120);
-			Jelly jelly = new Jelly(1025, 400);
+			Jelly jelly = new Jelly(1225, 370);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1100, 350);
+			jelly = new Jelly(1300, 300);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1250, 300);
+			jelly = new Jelly(1450, 230);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1400, 350);
+			jelly = new Jelly(1600, 300);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1475, 400);
+			jelly = new Jelly(1675, 370);
 			Model.getContainer().add(jelly);
 		} else {
 			width = 180;
 			height = 250;
 			hb = new Hitbox(40, 400, 60, 200);
-			Jelly jelly = new Jelly(1000, 390);
+			Jelly jelly = new Jelly(1200, 390);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1075, 290);
+			jelly = new Jelly(1275, 290);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1250, 190);
+			jelly = new Jelly(1450, 190);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1425, 290);
+			jelly = new Jelly(1625, 290);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1500, 390);
+			jelly = new Jelly(1700, 390);
 			Model.getContainer().add(jelly);
 		}
 

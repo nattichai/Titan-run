@@ -32,15 +32,15 @@ public class HoleObstacle extends Obstacle {
 
 		hb = new Hitbox(150, Map.FLOOR_HEIGHT - 1, 40, 20);
 
-		Jelly jelly = new Jelly(1100, 450);
+		Jelly jelly = new Jelly(1100, 390);
 		Model.getContainer().add(jelly);
-		jelly = new Jelly(1175, 400);
+		jelly = new Jelly(1175, 340);
 		Model.getContainer().add(jelly);
-		jelly = new Jelly(1300, 350);
+		jelly = new Jelly(1300, 290);
 		Model.getContainer().add(jelly);
-		jelly = new Jelly(1425, 400);
+		jelly = new Jelly(1425, 340);
 		Model.getContainer().add(jelly);
-		jelly = new Jelly(1500, 450);
+		jelly = new Jelly(1500, 390);
 		Model.getContainer().add(jelly);
 
 		draw();

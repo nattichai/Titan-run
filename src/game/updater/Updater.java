@@ -56,7 +56,6 @@ public class Updater {
 	private static double spaceObstacle;
 	private static double spaceItem;
 	private static double spaceMonster;
-	private static double height; // item's spawn height
 	private static double distance;
 	private static boolean isBossStage;
 
@@ -65,7 +64,6 @@ public class Updater {
 		spaceObstacle = GameMain.OBSTACLE_SPACE;
 		spaceItem = GameMain.ITEM_SPACE;
 		spaceMonster = GameMain.MONSTER_SPACE;
-		height = 500;
 		distance = 0;
 		isBossStage = false;
 	}
@@ -125,13 +123,10 @@ public class Updater {
 			int r = new Random().nextInt(3);
 			if (r == 0) {
 				obstacle = new GroundObstacle();
-				height = 500;
 			} else if (r == 1) {
 				obstacle = new AirObstacle();
-				height = 440;
 			} else {
 				obstacle = new HoleObstacle();
-				height = 500;
 			}
 			Model.getContainer().add(obstacle);
 		}
@@ -139,10 +134,10 @@ public class Updater {
 			if (isEmpty()) {
 				spaceItem = distance + GameMain.ITEM_SPACE;
 				if (new Random().nextInt(20) >= 1) {
-					Jelly jelly = new Jelly(SceneManager.SCREEN_WIDTH + 100, height);
+					Jelly jelly = new Jelly(SceneManager.SCREEN_WIDTH + 100, 440);
 					Model.getContainer().add(jelly);
 				} else {
-					HealthPotion healthPotion = new HealthPotion(SceneManager.SCREEN_WIDTH + 100, height);
+					HealthPotion healthPotion = new HealthPotion(SceneManager.SCREEN_WIDTH + 100, 440);
 					Model.getContainer().add(healthPotion);
 				}
 			}
@@ -161,7 +156,7 @@ public class Updater {
 			if (obstacle instanceof AirObstacle) {
 				rangeCheck = 0;
 			} else if (obstacle instanceof GroundObstacle) {
-				rangeCheck = 350;
+				rangeCheck = 200;
 			} else if (obstacle instanceof HoleObstacle) {
 				rangeCheck = 150;
 			}

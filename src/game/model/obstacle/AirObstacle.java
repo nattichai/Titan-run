@@ -2,8 +2,10 @@ package game.model.obstacle;
 
 import java.util.Random;
 
+import game.model.Model;
 import game.model.Obstacle;
 import game.model.character.Player;
+import game.model.item.Jelly;
 import game.property.Hitbox;
 import game.property.State;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,6 +30,13 @@ public class AirObstacle extends Obstacle {
 		height = obstacle.getHeight();
 
 		hb = new Hitbox(75, 0, 50, AIR_HEIGHT + 50);
+
+		Jelly jelly = new Jelly(1160, 500);
+		Model.getContainer().add(jelly);
+		jelly = new Jelly(1260, 500);
+		Model.getContainer().add(jelly);
+		jelly = new Jelly(1360, 500);
+		Model.getContainer().add(jelly);
 
 		draw();
 	}
