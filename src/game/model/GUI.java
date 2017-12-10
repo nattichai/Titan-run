@@ -13,6 +13,10 @@ public abstract class GUI extends Entity {
 	}
 
 	public boolean isDead() {
+		if (canvas.getOpacity() == 0) {
+			Model.getContainer().getGuiPane().getChildren().remove(canvas);
+			return true;
+		}
 		return false;
 	}
 }

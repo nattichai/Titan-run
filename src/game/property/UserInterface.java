@@ -191,7 +191,11 @@ public class UserInterface {
 		gc.fillOval(10, 10, 80, 80);
 		gc.setGlobalAlpha(1);
 		pauseButton.draw();
-		pauseButton.getCanvas().setOnMouseClicked(e -> GameMain.pauseOrResumeGame());
+		pauseButton.getCanvas().setOnMouseClicked(e -> {
+			if (!SceneManager.isTrasitioning()) {
+				GameMain.pauseOrResumeGame();
+			}
+		});
 		container.add(pauseButton);
 
 		youAreDead = new GUIImage(0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT,
@@ -218,16 +222,13 @@ public class UserInterface {
 
 	public void updateName(String name) {
 		nameText.setText(name);
-		nameText.draw();
 	}
 
 	public void updateLevel(int level) {
 		levelText.setText("" + level);
-		levelText.draw();
 		
 		if (expLevel != null) {
 			expLevel.setText("" + level);
-			expLevel.draw();
 		}
 	}
 
@@ -259,7 +260,6 @@ public class UserInterface {
 
 	public void updateStage(int stage) {
 		stageText.setText("Stage " + stage);
-		stageText.draw();
 	}
 
 	public void updateDistance(double progress) {
@@ -276,7 +276,6 @@ public class UserInterface {
 
 	public void updateScore(double score) {
 		scoreText.setText("Score: " + String.format("%.0f", score));
-		scoreText.draw();
 	}
 
 	private void initializePauseArea() {
@@ -309,6 +308,8 @@ public class UserInterface {
 
 	public void dead(Characters character) {
 		if (character instanceof Monster) {
+			Model.getContainer().getGuiList().remove(nameText);
+			Model.getContainer().getGuiList().remove(levelText);
 			Model.getContainer().getGuiPane().getChildren().removeAll(nameText.getCanvas(), nameArea,
 					levelText.getCanvas(), levelArea, hpBar);
 		} else if (character instanceof Player) {

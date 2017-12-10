@@ -28,32 +28,32 @@ public class GroundObstacle extends Obstacle {
 		height = obstacle.getHeight();
 
 		if (height < 200) {
-			width = 180;
-			height = 200;
-			hb = new Hitbox(40, 510, 120, 120);
-			Jelly jelly = new Jelly(1225, 370);
+			width = 150;
+			height = 150;
+			hb = new Hitbox(40, 510, 70, 120);
+			Jelly jelly = new Jelly(1225, 380);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1300, 300);
+			jelly = new Jelly(1300, 320);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1450, 230);
+			jelly = new Jelly(1450, 260);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1600, 300);
+			jelly = new Jelly(1600, 320);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1675, 370);
+			jelly = new Jelly(1675, 380);
 			Model.getContainer().add(jelly);
 		} else {
-			width = 180;
-			height = 250;
+			width = 150;
+			height = 275;
 			hb = new Hitbox(40, 400, 60, 200);
-			Jelly jelly = new Jelly(1200, 390);
+			Jelly jelly = new Jelly(1200, 340);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1275, 290);
+			jelly = new Jelly(1275, 240);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1450, 190);
+			jelly = new Jelly(1450, 140);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1625, 290);
+			jelly = new Jelly(1625, 240);
 			Model.getContainer().add(jelly);
-			jelly = new Jelly(1700, 390);
+			jelly = new Jelly(1700, 340);
 			Model.getContainer().add(jelly);
 		}
 

@@ -124,7 +124,7 @@ public class SkillsData {
 		}
 		meteor.width = 800;
 		meteor.height = 270;
-		meteor.hb = new Hitbox(0, 250, 270, 270);
+		meteor.hb = new Hitbox(150, 235, 200, 200);
 		meteor.speedX = 12;
 		meteor.speedY = 9;
 		meteor.damage = 2.5;

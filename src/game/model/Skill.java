@@ -103,18 +103,21 @@ public class Skill extends Entity implements Movable, Animatable {
 	}
 
 	public boolean isCollision(Entity e) {
-		if (isCollided || side == e.getSide()
-				|| (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
+		if ((collisionDelay == 0 && isCollided) || side == e.getSide() || (side == Side.NEUTRAL && e.getSide() == Side.MONSTER))
 			return false;
-		if (!e.isCollided() && positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w
+		if ((!isCollided || !e.isCollided()) && positionX + hb.x < e.getPositionX() + e.getHb().x + e.getHb().w
 				&& positionX + hb.x + hb.w > e.getPositionX() + e.getHb().x
 				&& positionY + hb.y < e.getPositionY() + e.getHb().y + e.getHb().h
 				&& positionY + hb.y + hb.h > e.getPositionY() + e.getHb().y) {
-			
+
 			// collision delay
 			if (collisionDelay > 0) {
+				isCollided = true;
 				e.isCollided = true;
-				new Timeline(new KeyFrame(Duration.millis(collisionDelay), f -> e.isCollided = false)).play();
+				new Timeline(new KeyFrame(Duration.millis(collisionDelay), f -> {
+					isCollided = false;
+					e.isCollided = false;
+				})).play();
 			} else {
 				isCollided = true;
 			}

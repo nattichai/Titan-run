@@ -44,6 +44,7 @@ public class Player extends Characters {
 	protected int jump;
 	protected boolean isInjuring;
 	
+	protected double mode;
 	protected int stage;
 	protected double distance;
 	protected double score;
@@ -71,6 +72,7 @@ public class Player extends Characters {
 		jump = 0;
 		isInjuring = false;
 		
+		mode = GameMain.getDifficulty();
 		stage = 1;
 		distance = 0;
 		score = 0;
@@ -299,7 +301,7 @@ public class Player extends Characters {
 
 	public void die() {
 		hp = 0.00001;
-		ScoreView.setPlayer(name, score);
+		ScoreView.setPlayer(name, score, mode);
 		Updater.playerDead();
 		GameMain.pauseGame();
 		GameMain.setSpeed(2);
@@ -385,7 +387,7 @@ public class Player extends Characters {
 	}
 
 	public void addScore(double s) {
-		score += s;
+		score += s * Math.pow(GameMain.getDifficulty(), 1.5);
 		userInterface.updateScore(score);
 	}
 
@@ -414,6 +416,9 @@ public class Player extends Characters {
 	public void addStage(int s) {
 		stage += s;
 		userInterface.updateStage(stage);
+		
+		GameMain.setSpeed(10 + 5 * stage / (stage + 5));
+		GameMain.setDifficulty(GameMain.getDifficulty() + 0.5);
 	}
 
 	public double getDistance() {
@@ -422,15 +427,15 @@ public class Player extends Characters {
 
 	public void setDistance(double d) {
 		distance = d;
-		userInterface.updateDistance(d / GameMain.STAGE_DISTANCE);
+		userInterface.updateDistance(d / GameMain.getStageDistance());
 	}
 
 	public void addDistance(double d) {
 		distance += d;
-		if (distance > GameMain.STAGE_DISTANCE) {
-			distance = GameMain.STAGE_DISTANCE;
+		if (distance > GameMain.getStageDistance()) {
+			distance = GameMain.getStageDistance();
 		}
-		userInterface.updateDistance(distance / GameMain.STAGE_DISTANCE);
+		userInterface.updateDistance(distance / GameMain.getStageDistance());
 	}
 	
 	public State getState() {

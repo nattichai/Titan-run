@@ -8,16 +8,16 @@ import javafx.animation.Animation.Status;
 import javafx.scene.layout.Pane;
 
 public class GameMain {
-	public static final int OBSTACLE_SPACE = 1200;
-	public static final int ITEM_SPACE = 100;
-	public static final int MONSTER_SPACE = 2000;
-	public static final double STAGE_DISTANCE = 25000;
-
 	private static Pane gamePane;
 	private static Updater updater;
 	private static Animations animations;
-
+	
+	private static double difficulty;
 	private static double speed = 2;
+	private static double obstacleSpace = 1200;
+	private static double itemSpace = 100;
+	private static double monsterSpace = 2000;
+	private static double stageDistance = 25000;
 
 	public static void initialize() {
 		gamePane = new Pane();
@@ -85,5 +85,36 @@ public class GameMain {
 		SceneManager.getMap().setSpeedX(-s);
 		Model.getContainer().getItemList().forEach(e -> e.setSpeedX(-s));
 		Model.getContainer().getObstacleList().forEach(e -> e.setSpeedX(-s));
+	}
+
+	public static double getDifficulty() {
+		return difficulty;
+	}
+
+	public static void setDifficulty(double d) {
+		difficulty = d;
+		if (d > 4) {
+			d = 4;
+		}
+		obstacleSpace = 1400 - d * 200;
+		itemSpace = 100;
+		monsterSpace = 2600 - d * 200;
+		stageDistance = 25000 - d * 2000;
+	}
+
+	public static double getObstacleSpace() {
+		return obstacleSpace;
+	}
+
+	public static double getItemSpace() {
+		return itemSpace;
+	}
+
+	public static double getMonsterSpace() {
+		return monsterSpace;
+	}
+
+	public static double getStageDistance() {
+		return stageDistance;
 	}
 }

@@ -1,8 +1,11 @@
 package input;
 
+import game.model.gui.GUIImage;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import scene.GameMain;
 import scene.MainMenu;
 import scene.SceneManager;
 
@@ -53,5 +56,40 @@ public class MainMenuHandler {
 		} catch (Exception e) {
 			MainMenu.setErrorMessage(e.getMessage());
 		}
+	}
+	
+	public static void selectMode(int idx, Image image) {
+		if (MainMenu.isTransitioning() || SceneManager.isTrasitioning()) {
+			return;
+		}
+		MainMenu.playMovefx();
+		((GUIImage) MainMenu.getMenus()[idx]).setImage(image);
+	}
+	
+	public static void modeKeyPressed(KeyEvent event) {
+		if (MainMenu.isTransitioning() || SceneManager.isTrasitioning()) {
+			return;
+		}
+		if (event.getCode() == KeyCode.E) {
+			((GUIImage) MainMenu.getMenus()[8]).setImage(new Image("images/gui/easy selected.png"));
+			MainMenu.chooseModeEffect(8, 0.5);
+		} else if (event.getCode() == KeyCode.N) {
+			((GUIImage) MainMenu.getMenus()[9]).setImage(new Image("images/gui/normal selected.png"));
+			MainMenu.chooseModeEffect(9, 1.5);
+		} else if (event.getCode() == KeyCode.H) {
+			((GUIImage) MainMenu.getMenus()[10]).setImage(new Image("images/gui/hard selected.png"));
+			MainMenu.chooseModeEffect(10, 3);
+		} else if (event.getCode() == KeyCode.I) {
+			((GUIImage) MainMenu.getMenus()[11]).setImage(new Image("images/gui/insane selected.png"));
+			MainMenu.chooseModeEffect(11, 4);
+		}
+	}
+	
+	public static void chooseMode(double difficulty) {
+		if (MainMenu.isTransitioning() || SceneManager.isTrasitioning()) {
+			return;
+		}
+		GameMain.setDifficulty(difficulty);
+		SceneManager.gotoGame();
 	}
 }

@@ -7,9 +7,11 @@ public class Score implements Serializable {
 
 	public String name;
 	public double score;
+	public double mode;
 
-	public Score(String name, double score) {
+	public Score(String name, double score, double mode) {
 		this.name = name;
 		this.score = score;
+		this.mode = mode;
 	}
 }

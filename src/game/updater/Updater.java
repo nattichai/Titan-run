@@ -45,7 +45,7 @@ public class Updater {
 			checkAllCollision();
 			removeAllDead();
 			updatePlayer();
-			// drawHitbox();
+//			 drawHitbox();
 		}));
 		timerUpdate.setCycleCount(Animation.INDEFINITE);
 	}
@@ -61,9 +61,9 @@ public class Updater {
 
 	public Updater() {
 		map = SceneManager.getMap();
-		spaceObstacle = GameMain.OBSTACLE_SPACE;
-		spaceItem = GameMain.ITEM_SPACE;
-		spaceMonster = GameMain.MONSTER_SPACE;
+		spaceObstacle = GameMain.getObstacleSpace();
+		spaceItem = GameMain.getItemSpace();
+		spaceMonster = GameMain.getMonsterSpace();
 		distance = 0;
 		isBossStage = false;
 	}
@@ -103,14 +103,14 @@ public class Updater {
 	}
 
 	private static void generateMap() {
-		if (distance >= GameMain.STAGE_DISTANCE) {
+		if (distance >= GameMain.getStageDistance()) {
 			distance = 0;
 			isBossStage = true;
 			showWarning();
 		}
 		if (!isBossStage && player != null) {
 			distance += GameMain.getSpeed();
-			if (distance + 1000 < GameMain.STAGE_DISTANCE) {
+			if (distance + 1000 < GameMain.getStageDistance()) {
 				normalStage();
 			}
 		}
@@ -118,7 +118,7 @@ public class Updater {
 
 	private static void normalStage() {
 		if (distance >= spaceObstacle) {
-			spaceObstacle += GameMain.OBSTACLE_SPACE;
+			spaceObstacle += GameMain.getObstacleSpace();
 			Obstacle obstacle;
 			int r = new Random().nextInt(3);
 			if (r == 0) {
@@ -132,7 +132,7 @@ public class Updater {
 		}
 		if (distance >= spaceItem) {
 			if (isEmpty()) {
-				spaceItem = distance + GameMain.ITEM_SPACE;
+				spaceItem = distance + GameMain.getItemSpace();
 				if (new Random().nextInt(20) >= 1) {
 					Jelly jelly = new Jelly(SceneManager.SCREEN_WIDTH + 100, 440);
 					Model.getContainer().add(jelly);
@@ -143,7 +143,7 @@ public class Updater {
 			}
 		}
 		if (distance >= spaceMonster) {
-			spaceMonster += GameMain.MONSTER_SPACE;
+			spaceMonster += GameMain.getMonsterSpace();
 			Monster monster = new Monster(SceneManager.SCREEN_WIDTH + 100, 0, new Random().nextInt(5) + 2);
 			Model.getContainer().add(monster);
 		}
@@ -269,7 +269,6 @@ public class Updater {
 			new Updater();
 			if (player != null) {
 				player.addStage(1);
-				GameMain.setSpeed(10 + 5 * player.getStage() / (player.getStage() + 5));
 			}
 			SceneManager.setTrasitioning(false);
 		});
@@ -339,6 +338,7 @@ public class Updater {
 		Model.getContainer().getSkillList().removeIf(f -> f.isDead());
 		Model.getContainer().getItemList().removeIf(i -> i.isDead());
 		Model.getContainer().getMonsterList().removeIf(m -> m.isDead());
+		Model.getContainer().getGuiList().removeIf(g -> g.isDead());
 		Model.getContainer().getEffectList().removeIf(e -> e.isDead());
 	}
 

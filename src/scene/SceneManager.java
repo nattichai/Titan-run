@@ -35,7 +35,6 @@ public class SceneManager {
 		scene.getStylesheets().add(ClassLoader.getSystemResource("utility/style.css").toExternalForm());
 		primaryStage = stage;
 		primaryStage.setScene(scene);
-		primaryStage.show();
 	}
 
 	public static void gotoMainMenu() {
@@ -124,6 +123,7 @@ public class SceneManager {
 				false, false, false));
 		GameHandler.keyReleased(new KeyEvent(null, null, KeyEvent.KEY_RELEASED, null, "Q", KeyCode.Q, false,
 				false, false, false));
+		GameHandler.getKeys().clear();
 		
 		if (Model.getContainer().getPlayer() != null) {
 			if (isTrasitioning) {

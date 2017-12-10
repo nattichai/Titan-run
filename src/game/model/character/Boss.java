@@ -166,7 +166,7 @@ public class Boss extends Monster {
 	public void die() {
 		// kill monster = get scores & exps;
 		double multi = Math.pow(level, 1.5);
-		Model.getContainer().getPlayer().addScore(20000 * multi);
+		Model.getContainer().getPlayer().addScore(20000 + 500 * multi);
 		Model.getContainer().getPlayer().addExp(80 * multi);
 		GUIGradientText expPlus = new GUIGradientText(positionX, positionY + 100, "EXP + " + (int) (80 * multi), 3);
 		Model.getContainer().add(expPlus);

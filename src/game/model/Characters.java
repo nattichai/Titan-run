@@ -72,7 +72,7 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 		} else if (this instanceof Boss) {
 			level = stage * 5;
 		} else {
-			level = stage * 5 - 4 + new Random().nextInt(1 + (int) (3 * distance / GameMain.STAGE_DISTANCE));
+			level = stage * 5 - 4 + new Random().nextInt(1 + (int) (3 * distance / GameMain.getStageDistance()));
 		}
 		
 		double multi = 1 + 0.2 * Math.pow(level, 1.5);
@@ -115,6 +115,9 @@ public abstract class Characters extends Entity implements Movable, Animatable, 
 	public void decreaseHp(double d) {
 		if (hp <= 0.00001 || powerState == PowerState.IMMORTAL) {
 			return;
+		}
+		if (this instanceof Player) {
+			d *= GameMain.getDifficulty();
 		}
 		hp -= d;
 		if (hp <= 0) {

@@ -65,6 +65,7 @@ public class GUIText extends GUI {
 
 	public void setText(String string) {
 		text = string;
+		draw();
 	}
 
 	public String getText() {

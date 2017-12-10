@@ -32,4 +32,9 @@ public class GUIImage extends GUI {
 		gc.drawImage(image, (canvas.getWidth() - width) / 2, (canvas.getHeight() - height) / 2, width, height);
 	}
 
+	public void setImage(Image i) {
+		image = i;
+		draw();
+	}
+
 }

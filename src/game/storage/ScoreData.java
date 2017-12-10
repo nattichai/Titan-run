@@ -17,14 +17,14 @@ public class ScoreData implements Serializable {
 		data = new ArrayList<>();
 	}
 
-	public static void addData(String name, double score) {
+	public static void addData(String name, double score, double mode) {
 		ScoreData scoreData;
 		try {
 			scoreData = (ScoreData) ResourceManager.load("ScoreData.save");
 		} catch (Exception e) {
 			scoreData = new ScoreData();
 		}
-		scoreData.data.add(new Score(name, score));
+		scoreData.data.add(new Score(name, score, mode));
 		scoreData.data.sort((s1, s2) -> (int) (s2.score - s1.score));
 
 		try {

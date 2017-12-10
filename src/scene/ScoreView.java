@@ -7,6 +7,7 @@ import game.storage.ScoreData;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -22,6 +23,7 @@ public class ScoreView {
 
 	private static String playerName;
 	private static double playerScore;
+	private static double playerMode;
 
 	public static void initialize() {
 		int rank = getRank();
@@ -53,7 +55,7 @@ public class ScoreView {
 		gc.strokeLine(200, 235, 798, 235);
 
 		gc.setFont(new Font(FONT.getName(), 25));
-		gc.fillText("Score", 337, 334);
+		gc.fillText("Score", 337, 280);
 		gc.fillText("Enter to continue", 500, 557);
 
 		gc.setFont(new Font(FONT.getName(), 30));
@@ -61,13 +63,13 @@ public class ScoreView {
 		gc.setLineWidth(1);
 		gc.strokeText("Top runner", 655, 270);
 		if (rank > 5) {
-			gc.fillText("unranked", 337, 445);
+			gc.fillText("unranked", 337, 390);
 		} else {
-			gc.fillText("rank #" + rank, 337, 445);
+			gc.fillText("rank #" + rank, 337, 390);
 		}
 
 		gc.setFont(new Font(FONT.getName(), 75));
-		gc.fillText("" + (int) playerScore, 337, 345);
+		gc.fillText("" + (int) playerScore, 337, 290);
 
 		gc.setFont(new Font(FONT.getName(), 20));
 		for (int i = 0; i < 5 && i < data.size(); ++i) {
@@ -77,6 +79,19 @@ public class ScoreView {
 			gc.setTextAlign(TextAlignment.RIGHT);
 			gc.fillText("" + (int) data.get(i).score, 785, 325 + i * 40, 100);
 		}
+		
+		Image image = null;
+		gc.setGlobalAlpha(0.8);
+		if (playerMode == 0.5) {
+			image = new Image("images/gui/easy selected.png");
+		} else if (playerMode == 1.5) {
+			image = new Image("images/gui/normal selected.png");
+		} else if (playerMode == 3) {
+			image = new Image("images/gui/hard selected.png");
+		} else if (playerMode == 4) {
+			image = new Image("images/gui/insane selected.png");
+		}
+		gc.drawImage(image, 285, 450, 105, 70);
 
 		scoreViewPane = new Pane();
 		scoreViewPane.getChildren().addAll(canvas);
@@ -102,9 +117,10 @@ public class ScoreView {
 		return scoreViewPane;
 	}
 
-	public static void setPlayer(String name, double score) {
+	public static void setPlayer(String name, double score, double mode) {
 		playerName = name;
 		playerScore = score;
-		ScoreData.addData(name, score);
+		playerMode = mode;
+		ScoreData.addData(name, score, mode);
 	}
 }
