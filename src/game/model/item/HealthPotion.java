@@ -5,6 +5,7 @@ import game.model.Item;
 import game.model.Model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import scene.GameMain;
 
 public class HealthPotion extends Item {
 	private static final double POTION_WIDTH = 100;
@@ -23,7 +24,7 @@ public class HealthPotion extends Item {
 	}
 
 	public HealthPotion() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void draw() {
@@ -40,7 +41,7 @@ public class HealthPotion extends Item {
 
 	public void affectTo(Characters player) {
 		// increase hp by 5 % of maxHP
-		player.increaseHp(0.05 * player.getMaxHp());
+		player.increaseHp(0.05 * player.getMaxHp() * GameMain.getDifficulty());
 		// add score by 500
 		Model.getContainer().getPlayer().addScore(500);
 	}

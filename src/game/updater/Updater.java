@@ -36,7 +36,7 @@ public class Updater {
 	public static final double FPS = 60;
 	public static final double LOOP_TIME = 1000 / FPS;
 
-	private static Timeline timerUpdate;
+	private static final Timeline timerUpdate;
 	static {
 		timerUpdate = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
 			GameHandler.keyHeld();
@@ -258,7 +258,7 @@ public class Updater {
 		Timeline speedUp = new Timeline(new KeyFrame(Duration.millis(LOOP_TIME), e -> {
 			GameMain.setSpeed(GameMain.getSpeed() + accel);
 			if (player != null) {
-				if ((player.getSpeedX() <= 0 && player.getPositionX() < 90) || (player.getSpeedX() >= 0 && player.getPositionX() > 90)) {
+				if ((player.getSpeedX() <= 0 && player.getPositionX() <= 90) || (player.getSpeedX() >= 0 && player.getPositionX() >= 90)) {
 					player.backToRunningPosition();
 				}
 			}
@@ -268,6 +268,7 @@ public class Updater {
 		speedUp.setOnFinished(e -> {
 			new Updater();
 			if (player != null) {
+				player.backToRunningPosition();
 				player.addStage(1);
 			}
 			SceneManager.setTrasitioning(false);

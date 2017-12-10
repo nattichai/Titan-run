@@ -17,7 +17,7 @@ public abstract class Item extends Entity implements Movable, Animatable {
 	}
 
 	public Item() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public abstract void draw();

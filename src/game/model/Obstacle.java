@@ -21,7 +21,7 @@ public abstract class Obstacle extends Entity implements Movable {
 	}
 
 	public Obstacle() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public abstract void draw();

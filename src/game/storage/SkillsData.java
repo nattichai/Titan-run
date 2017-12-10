@@ -97,7 +97,7 @@ public class SkillsData {
 		slashy.height = SceneManager.SCREEN_HEIGHT;
 		slashy.damage = 2.4;
 		slashy.cooldown = 24;
-		slashy.collisionDelay = 60;
+		slashy.collisionDelay = 100;
 		slashy.lastAnimation = 19;
 		slashy.skillfx = new AudioClip(ClassLoader.getSystemResource("sounds/Skillfx/Slashy.wav").toString());
 		;
