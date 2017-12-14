@@ -42,14 +42,12 @@ public class Monster extends Characters {
 		}
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear canvas
-		currentAnimation %= nImage;
 		gc.drawImage(images[currentAnimation], 0, 0, width, height);
 	}
 
 	public void move() {
-		changeSpeed(accelX, accelY);
-
 		if (canMove) {
+			changeSpeed(accelX, accelY);
 			positionX += speedX;
 			positionY += speedY;
 		}
@@ -72,7 +70,7 @@ public class Monster extends Characters {
 		updatePosition();
 	}
 
-	public void stayInMap() {
+	private void stayInMap() {
 		canMove = false;
 		positionX = SceneManager.SCREEN_WIDTH - width - hb.w;
 		timer = new Timeline(new KeyFrame(Duration.millis(1000), e -> useSkill()), new KeyFrame(Duration.millis(4000)));
@@ -163,6 +161,7 @@ public class Monster extends Characters {
 
 	public void changeImage() {
 		currentAnimation++;
+		currentAnimation %= nImage;
 		draw();
 	}
 
@@ -203,18 +202,13 @@ public class Monster extends Characters {
 		GUIGradientText expPlus = new GUIGradientText(positionX, positionY + 100, "EXP + " + (int) (40 * multi), 3);
 		Model.getContainer().add(expPlus);
 		
+		stopAllTimeline();
+		
 		// fade away
 		FadeTransition ft = new FadeTransition(Duration.millis(1000), canvas);
 		ft.setFromValue(1.0);
 		ft.setToValue(0);
 		ft.play();
-		// stop skill animation if it not stop yet
-		if (timer != null) {
-			timer.stop();
-		}
-		if (skillTimer != null) {
-			skillTimer.stop();
-		}
 	}
 
 	public boolean isDead() {

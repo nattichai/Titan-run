@@ -24,7 +24,7 @@ public class Boss extends Monster {
 
 	private boolean isReady;
 	private int step;
-	private boolean isAttack;
+	private boolean isActioning;
 	private double bossSpeed;
 
 	public Boss(double x, double y, int idx) {
@@ -32,7 +32,7 @@ public class Boss extends Monster {
 
 		isReady = false;
 		step = 0;
-		isAttack = false;
+		isActioning = false;
 
 		double stage = 1;
 		if (Model.getContainer().getPlayer() != null) {
@@ -77,8 +77,8 @@ public class Boss extends Monster {
 	}
 
 	public void update() {
-		if (!isAttack && Updater.getTimerUpdate().getStatus() == Status.RUNNING) {
-			isAttack = true;
+		if (!isActioning && Updater.getTimerUpdate().getStatus() == Status.RUNNING) {
+			isActioning = true;
 			if (step == 0 || step == 1 || step == 3) {
 				goAround();
 			} else if (step == 2) {
@@ -97,7 +97,7 @@ public class Boss extends Monster {
 				new KeyFrame(Duration.millis(2 * bossSpeed), e -> moveTo(600, 450, bossSpeed)),
 				new KeyFrame(Duration.millis(3 * bossSpeed), e -> moveTo(600, 150, bossSpeed)),
 				new KeyFrame(Duration.millis(4 * bossSpeed)));
-		goAroundTimeline.setOnFinished(e -> isAttack = false);
+		goAroundTimeline.setOnFinished(e -> isActioning = false);
 		goAroundTimeline.play();
 	}
 
@@ -116,7 +116,7 @@ public class Boss extends Monster {
 				new KeyFrame(Duration.millis(bossSpeed), e -> moveTo(600, 150, bossSpeed)),
 				new KeyFrame(Duration.millis(2 * bossSpeed)));
 		moveTimeline.setCycleCount(3);
-		moveTimeline.setOnFinished(e -> isAttack = false);
+		moveTimeline.setOnFinished(e -> isActioning = false);
 		moveTimeline.play();
 	}
 
@@ -143,7 +143,7 @@ public class Boss extends Monster {
 				}));
 		beamTimeline.setCycleCount(5);
 		beamTimeline.play();
-		beamTimeline.setOnFinished(e -> isAttack = false);
+		beamTimeline.setOnFinished(e -> isActioning = false);
 	}
 
 	public void decreaseHp(double d) {

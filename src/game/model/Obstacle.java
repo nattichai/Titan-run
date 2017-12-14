@@ -11,7 +11,6 @@ public abstract class Obstacle extends Entity implements Movable {
 
 	protected Image obstacle;
 	protected double speedX, speedY;
-	protected double height;
 
 	public Obstacle(double x, double y, double w, double h) {
 		super(x, y, w, h);
@@ -70,14 +69,6 @@ public abstract class Obstacle extends Entity implements Movable {
 
 	public void setSpeedY(double speedY) {
 		this.speedY = speedY;
-	}
-
-	public double getHeight() {
-		return height;
-	}
-
-	public void setHeight(double height) {
-		this.height = height;
 	}
 
 }

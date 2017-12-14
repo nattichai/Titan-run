@@ -19,11 +19,11 @@ public class Map extends Entity implements Movable {
 	}
 
 	protected double speedX, speedY;
-	protected double width;
 
 	public Map(double x, double y, double w, double h) {
 		super(x, y, w, h);
 
+		width = SceneManager.SCREEN_WIDTH;
 		speedX = -2;
 		speedY = 0;
 
@@ -36,7 +36,6 @@ public class Map extends Entity implements Movable {
 	public void draw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		Image image = images[1];
-		width = SceneManager.SCREEN_WIDTH;
 
 		gc.drawImage(image, 0, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);
 		gc.drawImage(image, SceneManager.SCREEN_WIDTH, 0, SceneManager.SCREEN_WIDTH, SceneManager.SCREEN_HEIGHT);

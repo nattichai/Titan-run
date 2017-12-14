@@ -66,8 +66,8 @@ public class Skill extends Entity implements Movable, Animatable {
 	}
 
 	public void changeSpeed(double accelX, double accelY) {
-		this.accelX += accelX;
-		this.accelY += accelY;
+		speedX += accelX;
+		speedY += accelY;
 	}
 
 	public void move() {

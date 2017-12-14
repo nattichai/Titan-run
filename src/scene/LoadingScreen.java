@@ -1,5 +1,6 @@
 package scene;
 
+import game.model.BackgroundMusic;
 import game.model.Map;
 import game.model.Model;
 import game.model.item.HealthPotion;
@@ -94,6 +95,8 @@ public class LoadingScreen {
 				new AirObstacle();
 				new GroundObstacle();
 				new HoleObstacle();
+				// load BGMs
+				new BackgroundMusic();
 
 				progressThread.interrupt();
 			}

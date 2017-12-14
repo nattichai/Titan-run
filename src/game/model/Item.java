@@ -6,7 +6,6 @@ import scene.GameMain;
 
 public abstract class Item extends Entity implements Movable, Animatable {
 	protected double speedX, speedY;
-	protected double height;
 	protected int currentAnimation;
 
 	public Item(double x, double y, double w, double h) {
