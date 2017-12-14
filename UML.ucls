@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.0" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="false" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="application.Main" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/application/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="application.Main" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/application/Main.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="119" width="124" x="10" y="9"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="game.model.character.Monster" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/character/Monster.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="game.model.character.Monster" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/character/Monster.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1305" y="1924"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="game.model.character.Boss" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/character/Boss.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="game.model.character.Boss" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/character/Boss.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1319" y="2409"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="game.model.character.Player" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/character/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="game.model.character.Player" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/character/Player.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1833" y="2296"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="game.model.Characters" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Characters.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="game.model.Characters" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Characters.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1579" y="1886"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="game.model.gui.GUIGradientText" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/gui/GUIGradientText.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="game.model.gui.GUIGradientText" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/gui/GUIGradientText.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2416" y="1220"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,8 +55,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="game.model.gui.GUIProgress" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/gui/GUIProgress.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="game.model.gui.GUIProgress" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/gui/GUIProgress.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2641" y="531"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -64,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="game.model.gui.GUIImage" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/gui/GUIImage.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="game.model.gui.GUIImage" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/gui/GUIImage.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2207" y="407"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -73,8 +73,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="game.model.gui.GUIShape" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/gui/GUIShape.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="game.model.gui.GUIShape" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/gui/GUIShape.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2615" y="752"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -82,8 +82,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="game.model.gui.GUIText" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/gui/GUIText.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="game.model.gui.GUIText" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/gui/GUIText.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2461" y="985"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -91,8 +91,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="game.model.GUI" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/GUI.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="game.model.GUI" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/GUI.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2133" y="627"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -100,8 +100,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="game.model.item.Jelly" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/item/Jelly.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="game.model.item.Jelly" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/item/Jelly.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1334" y="211"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -109,8 +109,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="game.model.item.HealthPotion" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/item/HealthPotion.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="13" language="java" name="game.model.item.HealthPotion" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/item/HealthPotion.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1527" y="213"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -118,8 +118,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="game.model.Item" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Item.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="14" language="java" name="game.model.Item" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Item.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1440" y="545"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -127,8 +127,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="game.model.obstacle.GroundObstacle" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/obstacle/GroundObstacle.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="15" language="java" name="game.model.obstacle.GroundObstacle" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/obstacle/GroundObstacle.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1714" y="172"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -136,8 +137,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="game.model.obstacle.HoleObstacle" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/obstacle/HoleObstacle.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="16" language="java" name="game.model.obstacle.HoleObstacle" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/obstacle/HoleObstacle.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1905" y="190"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -145,8 +147,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="game.model.obstacle.AirObstacle" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/obstacle/AirObstacle.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="17" language="java" name="game.model.obstacle.AirObstacle" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/obstacle/AirObstacle.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2114" y="190"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -154,8 +156,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="game.model.Obstacle" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Obstacle.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="18" language="java" name="game.model.Obstacle" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Obstacle.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1806" y="526"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -163,8 +165,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="game.model.BackgroundMusic" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/BackgroundMusic.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="19" language="java" name="game.model.BackgroundMusic" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/BackgroundMusic.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2663" y="2016"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -172,8 +174,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="game.model.Entity" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Entity.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="20" language="java" name="game.model.Entity" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Entity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2125" y="1080"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -181,8 +183,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="game.model.Effect" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Effect.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="21" language="java" name="game.model.Effect" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Effect.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1023" y="736"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -190,8 +192,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="game.model.Map" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Map.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="22" language="java" name="game.model.Map" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Map.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2126" y="1807"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -199,8 +201,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="game.model.Model" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Model.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="23" language="java" name="game.model.Model" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Model.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="124" y="809"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -208,8 +210,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="game.model.Score" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Score.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="24" language="java" name="game.model.Score" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Score.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2394" y="2106"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -217,8 +219,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="game.model.Skill" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/model/Skill.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="25" language="java" name="game.model.Skill" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/model/Skill.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1038" y="1425"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -226,8 +228,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="26" language="java" name="game.property.Animatable" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/Animatable.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="26" language="java" name="game.property.Animatable" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/Animatable.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1350" y="1088"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -235,8 +237,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="27" language="java" name="game.property.Attackable" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/Attackable.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="27" language="java" name="game.property.Attackable" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/Attackable.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1302" y="1514"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -244,8 +246,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="28" language="java" name="game.property.Movable" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/Movable.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="28" language="java" name="game.property.Movable" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/Movable.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1652" y="1100"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -253,8 +255,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="29" language="java" name="scene.SceneManager" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/scene/SceneManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="29" language="java" name="scene.SceneManager" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/scene/SceneManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="297" y="212"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -262,8 +264,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="scene.LoadingScreen" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/scene/LoadingScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="30" language="java" name="scene.LoadingScreen" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/scene/LoadingScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="89" y="273"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -271,8 +273,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="scene.GameMain" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/scene/GameMain.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="31" language="java" name="scene.GameMain" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/scene/GameMain.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="758" y="266"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -280,8 +282,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="scene.MainMenu" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/scene/MainMenu.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="32" language="java" name="scene.MainMenu" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/scene/MainMenu.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="531" y="312"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -289,8 +291,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="scene.Rankings" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/scene/Rankings.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="33" language="java" name="scene.Rankings" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/scene/Rankings.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="505" y="737"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -298,8 +300,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="scene.ScoreView" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/scene/ScoreView.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="34" language="java" name="scene.ScoreView" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/scene/ScoreView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="775" y="686"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -307,8 +309,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="35" language="java" name="game.property.Direction" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/Direction.java" binary="false" corner="BOTTOM_RIGHT">    
+  <enumeration id="35" language="java" name="game.property.Direction" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/Direction.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2375" y="1586"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -316,8 +318,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="36" language="java" name="game.property.Hitbox" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/Hitbox.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="36" language="java" name="game.property.Hitbox" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/Hitbox.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2420" y="1933"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -325,8 +327,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="37" language="java" name="game.property.PowerState" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/PowerState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <enumeration id="37" language="java" name="game.property.PowerState" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/PowerState.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2556" y="1768"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -334,8 +336,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="38" language="java" name="game.property.State" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/State.java" binary="false" corner="BOTTOM_RIGHT">    
+  <enumeration id="38" language="java" name="game.property.State" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/State.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2376" y="1750"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -343,8 +345,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="39" language="java" name="game.property.Side" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/Side.java" binary="false" corner="BOTTOM_RIGHT">    
+  <enumeration id="39" language="java" name="game.property.Side" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/Side.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2548" y="1594"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -352,8 +354,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="40" language="java" name="game.property.UserInterface" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/property/UserInterface.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="40" language="java" name="game.property.UserInterface" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/property/UserInterface.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="124" y="1720"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -361,8 +363,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="41" language="java" name="game.storage.CharactersData" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/storage/CharactersData.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="41" language="java" name="game.storage.CharactersData" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/storage/CharactersData.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="380" y="2430"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -370,8 +372,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="42" language="java" name="game.storage.ScoreData" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/storage/ScoreData.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="42" language="java" name="game.storage.ScoreData" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/storage/ScoreData.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="619" y="2425"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -379,8 +381,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="43" language="java" name="game.storage.SkillsData" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/storage/SkillsData.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="43" language="java" name="game.storage.SkillsData" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/storage/SkillsData.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="850" y="2448"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -388,8 +390,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="44" language="java" name="game.storage.EffectsData" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/storage/EffectsData.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="44" language="java" name="game.storage.EffectsData" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/storage/EffectsData.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="581" y="2654"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -397,8 +399,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="game.updater.Animations" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/updater/Animations.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="45" language="java" name="game.updater.Animations" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/updater/Animations.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="380" y="1456"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -406,8 +408,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="46" language="java" name="game.updater.Updater" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/game/updater/Updater.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="46" language="java" name="game.updater.Updater" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/game/updater/Updater.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="680" y="1676"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -415,8 +417,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="47" language="java" name="input.MainMenuHandler" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/input/MainMenuHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="47" language="java" name="input.MainMenuHandler" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/input/MainMenuHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="396" y="995"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -424,8 +426,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="48" language="java" name="input.ScoreViewHandler" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/input/ScoreViewHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="48" language="java" name="input.ScoreViewHandler" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/input/ScoreViewHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="383" y="1173"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -433,8 +435,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="49" language="java" name="input.GameHandler" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/input/GameHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="49" language="java" name="input.GameHandler" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/input/GameHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="625" y="1008"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -442,8 +444,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="50" language="java" name="utility.LongInputException" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/utility/LongInputException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="50" language="java" name="utility.LongInputException" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/utility/LongInputException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2116" y="2343"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -451,8 +453,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="51" language="java" name="utility.WrongInputException" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/utility/WrongInputException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="51" language="java" name="utility.WrongInputException" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/utility/WrongInputException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2321" y="2341"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -460,8 +462,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="52" language="java" name="utility.ResourceManager" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/utility/ResourceManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="52" language="java" name="utility.ResourceManager" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/utility/ResourceManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="605" y="2152"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -469,8 +471,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="53" language="java" name="utility.ShortInputException" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/utility/ShortInputException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="53" language="java" name="utility.ShortInputException" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/utility/ShortInputException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2117" y="2475"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -478,8 +480,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="54" language="java" name="utility.DeleteEmptyInputExeption" project="project-2017-titan_run" 
-    file="/project-2017-titan_run/src/utility/DeleteEmptyInputExeption.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="54" language="java" name="utility.DeleteEmptyInputExeption" project="2110215_Project_2017_titan_run" 
+    file="/2110215_Project_2017_titan_run/src/utility/DeleteEmptyInputExeption.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2339" y="2475"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
